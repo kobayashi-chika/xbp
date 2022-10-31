@@ -15,9 +15,6 @@ tokutyou=int(input("特徴は？１＝食いしん坊、２＝散歩好き、３
 print(ookisa,"の",name,seibetu,"「」")
 
 import random
-sk=("ハムスター","モモンガ","フェレット")
-
-import random
 sh=("インコ","カメ","フェレット","チワワ")
 
 import random
@@ -41,8 +38,17 @@ lh=("ゾウ","キリン","カンガルー")
 import random
 lc=("サメ","ゴリラ","ライオン","チーター")
 
+import random
+sk=("ハムスター","モモンガ","フェレット")
+
 if ookisa==1 and kawaisa==1:
     print(random.choice(sk),"の")
+
+import random
+sh=("インコ","カメ","フェレット","チワワ")
+
+elif ookisa==1 and kawaisa==2:
+    print(random.choice(sh),"の")
 
 elif ookisa==1 and kawaisa==3:
     print(random.choice(sc),"の")
