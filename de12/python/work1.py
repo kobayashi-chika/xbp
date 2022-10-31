@@ -16,4 +16,4 @@ name="aaa"
 place_=3007
 doing=ff
 
-print(name, "さんは今", place, "で",doing, "していますね")
+print(name, "さんは今", place_, "で",doing, "していますね")

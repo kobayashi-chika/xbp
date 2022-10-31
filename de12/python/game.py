@@ -65,6 +65,7 @@ elif ookisa==3 and kawaisa==2:
 elif ookisa==3 and kawaisa==3:
     print(random.choice(lc),"の")
 
+
 print(name)
 
 if seibetu==1:
