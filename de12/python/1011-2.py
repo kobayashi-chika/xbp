@@ -17,26 +17,29 @@ print(random.choice(vivid))
 print(random.choice(dark))
 c=random.choice(dark)
 
-f = open('C:\\Users\\a\\mygit\\xbp\\de12\\python\\randomweb.html', 'w') #HTMLファイルを開く f=でhtmlに埋め込み
+f = open('C:\\Users\\a\\mygit\\xbp\\de12\\python\\randomweb.html', 'w') #HTMLファイルを開く f.writeでhtmlに埋め込み
+f.write('\n')
+
 f.write('<!DOCTYPE html>')
+f.write('\n')
 f.write('<html lang="jp">')
+f.write('\n')
+f.write('<head>')
+f.write('\n')
+f.write('<title>"〇〇のテストページ"</title>')
 f.write('\n')  #改行
+f.write('</head>')
+f.write('あ')
+f.write('\n')
 f.write('<body>')
+f.write('\n')
+
 f.write('\n')
 f.write('<font color="' +c+'">')  #色指定
 f.write('\n')
 f.write('<font color="' +c+'">')
 f.write('\n')
 f.write('</body>')
-
-
-# <head>
-#     <link rel="stylesheet" href="./css/style.css">   
-#     <!-- ⑥↓タイトルを変えてみよう -->
-#     <title>〇〇のテストページ</title>
-#     <!-- ⑤スタイルシートの設定をしよう -->
-#     <!-- h1.htmlからある行をコピペしてくればOK -->
-# </head>
-# <body bgcolorc:\Users\a\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\code\electron-sandbox\workbench\workbench.html="#008080" text="#ffffff"></body>
-# <body>
-f.close()
+f.write('\n')
+f.write('<html>')
+f.close
