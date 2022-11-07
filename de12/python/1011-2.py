@@ -1,4 +1,4 @@
-import random
+import  random #（）内からランダム、print(random.choice())で表示
 light=("#FFFFFF","#FFFAFA","#F0F8FF","#F5FFFA")
 #白、白桃、白青、白緑
 
@@ -11,33 +11,33 @@ dark=("#000000","","#2f4f4f","#191970")
 #黒、暗緑、暗紺
 
 print(random.choice(light))
+l=random.choice(light)
 
 print(random.choice(vivid))
+v=random.choice(vivid)
 
 print(random.choice(dark))
-c=random.choice(dark)
+d=random.choice(dark)
 
 f = open('C:\\Users\\a\\mygit\\xbp\\de12\\python\\randomweb.html', 'w') #HTMLファイルを開く f.writeでhtmlに埋め込み
 f.write('\n')
 
 f.write('<!DOCTYPE html>')
-f.write('\n')
+f.write('\n') #改行
 f.write('<html lang="jp">')
 f.write('\n')
 f.write('<head>')
 f.write('\n')
-f.write('<title>"〇〇のテストページ"</title>')
-f.write('\n')  #改行
-f.write('</head>')
-f.write('あ')
+f.write('<title>"タイトル"</title>')
 f.write('\n')
-f.write('<body>')
+f.write('</head>')
 f.write('\n')
 
+f.write('<body bgcolor="' +d+'" text="#cccccc">')
 f.write('\n')
-f.write('<font color="' +c+'">')  #色指定
+f.write('<div style="border: ' +v+' solid 1px; border-left:  ' +v+' solid 10px; padding: 20px; background:  ' +l+'; font-size: 100%;">"タイトル"</div>')
 f.write('\n')
-f.write('<font color="' +c+'">')
+f.write('本文')
 f.write('\n')
 f.write('</body>')
 f.write('\n')
