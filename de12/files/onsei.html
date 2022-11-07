@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://www.tech-teacher.jp/blog/python_voicerecognition/ -->
+<html lang="ja" class="fontawesome-i2svg-active fontawesome-i2svg-complete"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ここからOGP -->
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Python初心者でも音声認識に挑戦したい！ゼロから分かる解説｜TechTeacher Blog"> 
+<meta property="og:url" content="https://www.tech-teacher.jp/blog/python_voicerecognition/"> 
+<meta property="og:description" content="スマートスピーカーや自動翻訳で需要の高まっている音声認識。音声認識はプログラミング言語であるPythonによって可能となります。今回はPythonで音声認識をする方法を初心者の目線に立って解説します。音声認識のためにPythonを学びたいと考えている方は、ぜひ読んでみてください。"> 
+<meta property="og:image" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1.jpg">
+<meta property="og:site_name" content="TechTeacher Blog">
+<meta property="fb:admins" content="">
+<meta name="twitter:card" content="summary">
+<!-- ここまでOGP --> 
+
+<meta name="description" itemprop="description" content="スマートスピーカーや自動翻訳で需要の高まっている音声認識。音声認識はプログラミング言語であるPythonによって可能となります。今回はPythonで音声認識をする方法を初心者の目線に立って解説します。音声認識のためにPythonを学びたいと考えている方は、ぜひ読んでみてください。">
+
+<title>Python初心者でも音声認識に挑戦したい！ゼロから分かる解説 | TechTeacher Blog</title>
+
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<script type="text/javascript" async="" src="./onsei_files/js"></script><script src="./onsei_files/432404381625987" async=""></script><script async="" src="./onsei_files/fbevents.js.ダウンロード"></script><script type="text/javascript" async="" src="./onsei_files/analytics.js.ダウンロード"></script><script async="" src="./onsei_files/gtm.js.ダウンロード"></script><script data-cfasync="false" data-pagespeed-no-defer="">//<![CDATA[
+	var gtm4wp_datalayer_name = "dataLayer";
+	var dataLayer = dataLayer || [];
+//]]>
+</script>
+<!-- End Google Tag Manager for WordPress by gtm4wp.com -->
+<!-- All In One SEO Pack 3.6.2[1205,1260] -->
+<meta name="description" content="スマートスピーカーや自動翻訳で需要の高まっている音声認識。音声認識はプログラミング言語であるPythonによって可能となります。今回はPythonで音声認識をする方法を初心者の目線に立って解説します。音声認識のためにPythonを学びたいと考えている方は、ぜひ読んでみてください。">
+
+<script type="application/ld+json" class="aioseop-schema">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.tech-teacher.jp/blog/#organization","url":"https://www.tech-teacher.jp/blog/","name":"TechTeacher Blog","sameAs":[]},{"@type":"WebSite","@id":"https://www.tech-teacher.jp/blog/#website","url":"https://www.tech-teacher.jp/blog/","name":"TechTeacher Blog","publisher":{"@id":"https://www.tech-teacher.jp/blog/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://www.tech-teacher.jp/blog/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#webpage","url":"https://www.tech-teacher.jp/blog/python_voicerecognition/","inLanguage":"ja","name":"Python初心者でも音声認識に挑戦したい！ゼロから分かる解説","isPartOf":{"@id":"https://www.tech-teacher.jp/blog/#website"},"breadcrumb":{"@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#breadcrumblist"},"description":"スマートスピーカーや自動翻訳で需要の高まっている音声認識。音声認識はプログラミング言語であるPythonによって可能となります。今回はPythonで音声認識をする方法を初心者の目線に立って解説します。音声認識のためにPythonを学びたいと考えている方は、ぜひ読んでみてください。","image":{"@type":"ImageObject","@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#primaryimage","url":"https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1.jpg","width":1920,"height":1152},"primaryImageOfPage":{"@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#primaryimage"},"datePublished":"2021-12-06T22:06:40+00:00","dateModified":"2022-02-15T00:48:41+00:00"},{"@type":"Article","@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#article","isPartOf":{"@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#webpage"},"author":{"@id":"https://www.tech-teacher.jp/blog/author/omote/#author"},"headline":"Python初心者でも音声認識に挑戦したい！ゼロから分かる解説","datePublished":"2021-12-06T22:06:40+00:00","dateModified":"2022-02-15T00:48:41+00:00","commentCount":0,"mainEntityOfPage":{"@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#webpage"},"publisher":{"@id":"https://www.tech-teacher.jp/blog/#organization"},"articleSection":"Python, 活用, AI, Python開発初心者","image":{"@type":"ImageObject","@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#primaryimage","url":"https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1.jpg","width":1920,"height":1152}},{"@type":"Person","@id":"https://www.tech-teacher.jp/blog/author/omote/#author","name":"omote","sameAs":[],"image":{"@type":"ImageObject","@id":"https://www.tech-teacher.jp/blog/#personlogo","url":"https://secure.gravatar.com/avatar/44c6f3c9c6f06743d9c220f121c8db93?s=96&d=mm&r=g","width":96,"height":96,"caption":"omote"}},{"@type":"BreadcrumbList","@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/#breadcrumblist","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://www.tech-teacher.jp/blog/","url":"https://www.tech-teacher.jp/blog/","name":"TechTeacher Blog"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://www.tech-teacher.jp/blog/python_voicerecognition/","url":"https://www.tech-teacher.jp/blog/python_voicerecognition/","name":"Python初心者でも音声認識に挑戦したい！ゼロから分かる解説"}}]}]}</script>
+<style type="text/css">svg:not(:root).svg-inline--fa{overflow:visible}.svg-inline--fa{display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em}.svg-inline--fa.fa-lg{vertical-align:-.225em}.svg-inline--fa.fa-w-1{width:.0625em}.svg-inline--fa.fa-w-2{width:.125em}.svg-inline--fa.fa-w-3{width:.1875em}.svg-inline--fa.fa-w-4{width:.25em}.svg-inline--fa.fa-w-5{width:.3125em}.svg-inline--fa.fa-w-6{width:.375em}.svg-inline--fa.fa-w-7{width:.4375em}.svg-inline--fa.fa-w-8{width:.5em}.svg-inline--fa.fa-w-9{width:.5625em}.svg-inline--fa.fa-w-10{width:.625em}.svg-inline--fa.fa-w-11{width:.6875em}.svg-inline--fa.fa-w-12{width:.75em}.svg-inline--fa.fa-w-13{width:.8125em}.svg-inline--fa.fa-w-14{width:.875em}.svg-inline--fa.fa-w-15{width:.9375em}.svg-inline--fa.fa-w-16{width:1em}.svg-inline--fa.fa-w-17{width:1.0625em}.svg-inline--fa.fa-w-18{width:1.125em}.svg-inline--fa.fa-w-19{width:1.1875em}.svg-inline--fa.fa-w-20{width:1.25em}.svg-inline--fa.fa-pull-left{margin-right:.3em;width:auto}.svg-inline--fa.fa-pull-right{margin-left:.3em;width:auto}.svg-inline--fa.fa-border{height:1.5em}.svg-inline--fa.fa-li{width:2em}.svg-inline--fa.fa-fw{width:1.25em}.fa-layers svg.svg-inline--fa{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.fa-layers{display:inline-block;height:1em;position:relative;text-align:center;vertical-align:-.125em;width:1em}.fa-layers svg.svg-inline--fa{-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter,.fa-layers-text{display:inline-block;position:absolute;text-align:center}.fa-layers-text{left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter{background-color:#ff253a;border-radius:1em;-webkit-box-sizing:border-box;box-sizing:border-box;color:#fff;height:1.5em;line-height:1;max-width:5em;min-width:1.5em;overflow:hidden;padding:.25em;right:0;text-overflow:ellipsis;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-bottom-right{bottom:0;right:0;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom right;transform-origin:bottom right}.fa-layers-bottom-left{bottom:0;left:0;right:auto;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom left;transform-origin:bottom left}.fa-layers-top-right{right:0;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-top-left{left:0;right:auto;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top left;transform-origin:top left}.fa-lg{font-size:1.3333333333em;line-height:.75em;vertical-align:-.0667em}.fa-xs{font-size:.75em}.fa-sm{font-size:.875em}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:2.5em;padding-left:0}.fa-ul>li{position:relative}.fa-li{left:-2em;position:absolute;text-align:center;width:2em;line-height:inherit}.fa-border{border:solid .08em #eee;border-radius:.1em;padding:.2em .25em .15em}.fa-pull-left{float:left}.fa-pull-right{float:right}.fa.fa-pull-left,.fab.fa-pull-left,.fal.fa-pull-left,.far.fa-pull-left,.fas.fa-pull-left{margin-right:.3em}.fa.fa-pull-right,.fab.fa-pull-right,.fal.fa-pull-right,.far.fa-pull-right,.fas.fa-pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scale(-1,1);transform:scale(-1,1)}.fa-flip-vertical{-webkit-transform:scale(1,-1);transform:scale(1,-1)}.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1,-1);transform:scale(-1,-1)}:root .fa-flip-horizontal,:root .fa-flip-vertical,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-rotate-90{-webkit-filter:none;filter:none}.fa-stack{display:inline-block;height:2em;position:relative;width:2.5em}.fa-stack-1x,.fa-stack-2x{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.svg-inline--fa.fa-stack-1x{height:1em;width:1.25em}.svg-inline--fa.fa-stack-2x{height:2em;width:2.5em}.fa-inverse{color:#fff}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.sr-only-focusable:active,.sr-only-focusable:focus{clip:auto;height:auto;margin:0;overflow:visible;position:static;width:auto}</style><link rel="canonical" href="https://www.tech-teacher.jp/blog/python_voicerecognition/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python初心者でも音声認識に挑戦したい！ゼロから分かる解説 | TechTeacher Blog">
+<meta property="og:description" content="スマートスピーカーや自動翻訳で需要の高まっている音声認識。音声認識はプログラミング言語であるPythonによって可能となります。今回はPythonで音声認識をする方法を初心者の目線に立って解説します。音声認識のためにPythonを学びたいと考えている方は、ぜひ読んでみてください。">
+<meta property="og:url" content="https://www.tech-teacher.jp/blog/python_voicerecognition/">
+<meta property="og:site_name" content="TechTeacher Blog">
+<meta property="og:image" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1-1024x614.jpg">
+<meta property="article:published_time" content="2021-12-06T22:06:40Z">
+<meta property="article:modified_time" content="2022-02-15T00:48:41Z">
+<meta property="og:image:secure_url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1-1024x614.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tech_teacher_bg">
+<meta name="twitter:domain" content="tech_teacher_bg">
+<meta name="twitter:title" content="Python初心者でも音声認識に挑戦したい！ゼロから分かる解説 | TechTeacher Blog">
+<meta name="twitter:description" content="スマートスピーカーや自動翻訳で需要の高まっている音声認識。音声認識はプログラミング言語であるPythonによって可能となります。今回はPythonで音声認識をする方法を初心者の目線に立って解説します。音声認識のためにPythonを学びたいと考えている方は、ぜひ読んでみてください。">
+<meta name="twitter:image" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1-1024x614.jpg">
+<!-- All In One SEO Pack -->
+<link rel="dns-prefetch" href="https://ajax.googleapis.com/">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+<link rel="dns-prefetch" href="https://use.fontawesome.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="TechTeacher Blog » フィード" href="https://www.tech-teacher.jp/blog/feed/">
+<link rel="alternate" type="application/rss+xml" title="TechTeacher Blog » コメントフィード" href="https://www.tech-teacher.jp/blog/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="TechTeacher Blog » Python初心者でも音声認識に挑戦したい！ゼロから分かる解説 のコメントのフィード" href="https://www.tech-teacher.jp/blog/python_voicerecognition/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.tech-teacher.jp\/blog\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.4.12"}};
+			/*! This file is auto-generated */
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./onsei_files/wp-emoji-release.min.js.ダウンロード" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="rtoc_style-css" href="./onsei_files/rtoc_style.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="./onsei_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="theme-style-css" href="./onsei_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="fontawesome-style-css" href="./onsei_files/all.css" type="text/css" media="all">
+<link rel="stylesheet" id="swiper-style-css" href="./onsei_files/swiper.min.css" type="text/css" media="all">
+<script type="text/javascript" src="./onsei_files/jquery.min.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/gtm4wp-form-move-tracker.js.ダウンロード"></script>
+<link rel="https://api.w.org/" href="https://www.tech-teacher.jp/blog/wp-json/">
+<link rel="shortlink" href="https://www.tech-teacher.jp/blog/?p=3129">
+<link rel="alternate" type="application/json+oembed" href="https://www.tech-teacher.jp/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://www.tech-teacher.jp/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F&amp;format=xml">
+
+<!-- Google Tag Manager for WordPress by gtm4wp.com -->
+<script data-cfasync="false" data-pagespeed-no-defer="">//<![CDATA[
+	var dataLayer_content = {"pagePostType":"post","pagePostType2":"single-post","pageCategory":["python","utilize-python"],"pageAttributes":["ai","python%e9%96%8b%e7%99%ba%e5%88%9d%e5%bf%83%e8%80%85"],"pagePostAuthor":"omote"};
+	dataLayer.push( dataLayer_content );//]]>
+</script>
+<script data-cfasync="false">//<![CDATA[
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.'+'js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NL6NPD2');//]]>
+</script>
+<!-- End Google Tag Manager -->
+<!-- End Google Tag Manager for WordPress by gtm4wp.com -->	<style type="text/css">
+		#wrapper{
+							background-color: #fcfcfc;
+				background-image: url();
+					}
+		.related-entry-headline-text span:before,
+		#comment-title span:before,
+		#reply-title span:before{
+			background-color: #0089bf;
+			border-color: #0089bf!important;
+		}
+		
+		#breadcrumb:after,
+		#page-top a{	
+			background-color: #0089bf;
+		}
+				footer{
+			background-color: #0089bf;
+		}
+		.footer-inner a,
+		#copyright,
+		#copyright-center{
+			border-color: #fff!important;
+			color: #fff!important;
+		}
+		#footer-widget-area
+		{
+			border-color: #fff!important;
+		}
+				.page-top-footer a{
+			color: #0089bf!important;
+		}
+				#breadcrumb ul li,
+		#breadcrumb ul li a{
+			color: #0089bf!important;
+		}
+		
+		body,
+		a,
+		a:link,
+		a:visited,
+		.my-profile,
+		.widgettitle,
+		.tabBtn-mag label{
+			color: #3a3e40;
+		}
+		a:hover{
+			color: #008db7;
+		}
+						.widget_nav_menu ul > li > a:before,
+		.widget_categories ul > li > a:before,
+		.widget_pages ul > li > a:before,
+		.widget_recent_entries ul > li > a:before,
+		.widget_archive ul > li > a:before,
+		.widget_archive form:after,
+		.widget_categories form:after,
+		.widget_nav_menu ul > li > ul.sub-menu > li > a:before,
+		.widget_categories ul > li > .children > li > a:before,
+		.widget_pages ul > li > .children > li > a:before,
+		.widget_nav_menu ul > li > ul.sub-menu > li > ul.sub-menu li > a:before,
+		.widget_categories ul > li > .children > li > .children li > a:before,
+		.widget_pages ul > li > .children > li > .children li > a:before{
+			color: #0089bf;
+		}
+		.widget_nav_menu ul .sub-menu .sub-menu li a:before{
+			background-color: #3a3e40!important;
+		}
+		footer .footer-widget,
+		footer .footer-widget a,
+		footer .footer-widget ul li,
+		.footer-widget.widget_nav_menu ul > li > a:before,
+		.footer-widget.widget_categories ul > li > a:before,
+		.footer-widget.widget_recent_entries ul > li > a:before,
+		.footer-widget.widget_pages ul > li > a:before,
+		.footer-widget.widget_archive ul > li > a:before,
+		footer .widget_tag_cloud .tagcloud a:before{
+			color: #fff!important;
+			border-color: #fff!important;
+		}
+		footer .footer-widget .widgettitle{
+			color: #fff!important;
+			border-color: #ffcd44!important;
+		}
+		footer .widget_nav_menu ul .children .children li a:before,
+		footer .widget_categories ul .children .children li a:before,
+		footer .widget_nav_menu ul .sub-menu .sub-menu li a:before{
+			background-color: #fff!important;
+		}
+		#drawernav a:hover,
+		.post-list-title,
+		#prev-next p,
+		#toc_container .toc_list li a{
+			color: #3a3e40!important;
+		}
+		
+		#header-box{
+			background-color: #ffffff;
+		}
+						@media (min-width: 768px) {
+		#header-box .header-box10-bg:before,
+		#header-box .header-box11-bg:before{
+			border-radius: 2px;
+		}
+		}
+										@media (min-width: 768px) {
+			.top-image-meta{
+				margin-top: calc(0px - 30px);
+			}
+		}
+		@media (min-width: 1200px) {
+			.top-image-meta{
+				margin-top: calc(0px);
+			}
+		}
+				.pickup-contents:before{
+			background-color: #ffffff!important;
+		}
+		
+		.main-image-text{
+			color: #000000;
+		}
+		.main-image-text-sub{
+			color: #555;
+		}
+		
+				@media (min-width: 481px) {
+			#site-info{
+				padding-top: 10px!important;
+				padding-bottom: 10px!important;
+			}
+		}
+		
+		#site-info span a{
+			color: #0089bf!important;
+		}
+		
+				#headmenu .headsns .line a svg{
+			fill: #f4f4f4!important;
+		}
+		#headmenu .headsns a,
+		#headmenu{
+			color: #f4f4f4!important;
+			border-color:#f4f4f4!important;
+		}
+						.profile-follow .line-sns a svg{
+			fill: #0089bf!important;
+		}
+		.profile-follow .line-sns a:hover svg{
+			fill: #ffcd44!important;
+		}
+		.profile-follow a{
+			color: #0089bf!important;
+			border-color:#0089bf!important;
+		}
+		.profile-follow a:hover,
+		#headmenu .headsns a:hover{
+			color:#ffcd44!important;
+			border-color:#ffcd44!important;
+		}
+				.search-box:hover{
+			color:#ffcd44!important;
+			border-color:#ffcd44!important;
+		}
+				#header #headmenu .headsns .line a:hover svg{
+			fill:#ffcd44!important;
+		}
+		.cps-icon-bar,
+		#navtoggle:checked + .sp-menu-open .cps-icon-bar{
+			background-color: #0089bf;
+		}
+		#nav-container{
+			background-color: #ffffff;
+		}
+		.menu-box .menu-item svg{
+			fill:#3a3e40;
+		}
+		#drawernav ul.menu-box > li > a,
+		#drawernav2 ul.menu-box > li > a,
+		#drawernav3 ul.menu-box > li > a,
+		#drawernav4 ul.menu-box > li > a,
+		#drawernav5 ul.menu-box > li > a,
+		#drawernav ul.menu-box > li.menu-item-has-children:after,
+		#drawernav2 ul.menu-box > li.menu-item-has-children:after,
+		#drawernav3 ul.menu-box > li.menu-item-has-children:after,
+		#drawernav4 ul.menu-box > li.menu-item-has-children:after,
+		#drawernav5 ul.menu-box > li.menu-item-has-children:after{
+			color: #3a3e40!important;
+		}
+		#drawernav ul.menu-box li a,
+		#drawernav2 ul.menu-box li a,
+		#drawernav3 ul.menu-box li a,
+		#drawernav4 ul.menu-box li a,
+		#drawernav5 ul.menu-box li a{
+			font-size: 15px!important;
+		}
+		#drawernav3 ul.menu-box > li{
+			color: #3a3e40!important;
+		}
+		#drawernav4 .menu-box > .menu-item > a:after,
+		#drawernav3 .menu-box > .menu-item > a:after,
+		#drawernav .menu-box > .menu-item > a:after{
+			background-color: #3a3e40!important;
+		}
+		#drawernav2 .menu-box > .menu-item:hover,
+		#drawernav5 .menu-box > .menu-item:hover{
+			border-top-color: #0089bf!important;
+		}
+				.cps-info-bar a{
+			background-color: #ffcd44!important;
+		}
+				@media (min-width: 768px) {
+			.post-list-mag .post-list-item:not(:nth-child(2n)){
+				margin-right: 2.6%;
+			}
+		}
+				@media (min-width: 768px) {
+			#tab-1:checked ~ .tabBtn-mag li [for="tab-1"]:after,
+			#tab-2:checked ~ .tabBtn-mag li [for="tab-2"]:after,
+			#tab-3:checked ~ .tabBtn-mag li [for="tab-3"]:after,
+			#tab-4:checked ~ .tabBtn-mag li [for="tab-4"]:after{
+				border-top-color: #0089bf!important;
+			}
+			.tabBtn-mag label{
+				border-bottom-color: #0089bf!important;
+			}
+		}
+		#tab-1:checked ~ .tabBtn-mag li [for="tab-1"],
+		#tab-2:checked ~ .tabBtn-mag li [for="tab-2"],
+		#tab-3:checked ~ .tabBtn-mag li [for="tab-3"],
+		#tab-4:checked ~ .tabBtn-mag li [for="tab-4"],
+		#prev-next a.next:after,
+		#prev-next a.prev:after,
+		.more-cat-button a:hover span:before{
+			background-color: #0089bf!important;
+		}
+		
+
+		.swiper-slide .post-list-cat,
+		.post-list-mag .post-list-cat,
+		.post-list-mag3col .post-list-cat,
+		.post-list-mag-sp1col .post-list-cat,
+		.swiper-pagination-bullet-active,
+		.pickup-cat,
+		.post-list .post-list-cat,
+		#breadcrumb .bcHome a:hover span:before,
+		.popular-item:nth-child(1) .pop-num,
+		.popular-item:nth-child(2) .pop-num,
+		.popular-item:nth-child(3) .pop-num{
+			background-color: #ffcd44!important;
+		}
+		.sidebar-btn a,
+		.profile-sns-menu{
+			background-color: #ffcd44!important;
+		}
+		.sp-sns-menu a,
+		.pickup-contents-box a:hover .pickup-title{
+			border-color: #0089bf!important;
+			color: #0089bf!important;
+		}
+				.pro-line svg{
+			fill: #0089bf!important;
+		}
+		.cps-post-cat a,
+		.meta-cat,
+		.popular-cat{
+			background-color: #ffcd44!important;
+			border-color: #ffcd44!important;
+		}
+		.tagicon,
+		.tag-box a,
+		#toc_container .toc_list > li,
+		#toc_container .toc_title{
+			color: #0089bf!important;
+		}
+		.widget_tag_cloud a::before{
+			color: #3a3e40!important;
+		}
+		.tag-box a,
+		#toc_container:before{
+			border-color: #0089bf!important;
+		}
+		.cps-post-cat a:hover{
+			color: #008db7!important;
+		}
+		.pagination li:not([class*="current"]) a:hover,
+		.widget_tag_cloud a:hover{
+			background-color: #0089bf!important;
+		}
+		.pagination li:not([class*="current"]) a:hover{
+			opacity: 0.5!important;
+		}
+		.pagination li.current a{
+			background-color: #0089bf!important;
+			border-color: #0089bf!important;
+		}
+		.nextpage a:hover span {
+			color: #0089bf!important;
+			border-color: #0089bf!important;
+		}
+		.cta-content:before{
+			background-color: #6FBFCA!important;
+		}
+		.cta-text,
+		.info-title{
+			color: #fff!important;
+		}
+		#footer-widget-area.footer_style1 .widgettitle{
+			border-color: #ffcd44!important;
+		}
+		.sidebar_style1 .widgettitle,
+		.sidebar_style5 .widgettitle{
+			border-color: #0089bf!important;
+		}
+		.sidebar_style2 .widgettitle,
+		.sidebar_style4 .widgettitle,
+		.sidebar_style6 .widgettitle,
+		#home-bottom-widget .widgettitle,
+		#home-top-widget .widgettitle,
+		#post-bottom-widget .widgettitle,
+		#post-top-widget .widgettitle{
+			background-color: #0089bf!important;
+		}
+		#home-bottom-widget .widget_search .search-box input[type="submit"],
+		#home-top-widget .widget_search .search-box input[type="submit"],
+		#post-bottom-widget .widget_search .search-box input[type="submit"],
+		#post-top-widget .widget_search .search-box input[type="submit"]{
+			background-color: #ffcd44!important;
+		}
+		
+		.tn-logo-size{
+			font-size: 80%!important;
+		}
+		@media (min-width: 481px) {
+		.tn-logo-size img{
+			width: calc(80%*0.5)!important;
+		}
+		}
+		@media (min-width: 768px) {
+		.tn-logo-size img{
+			width: calc(80%*2.2)!important;
+		}
+		}
+		@media (min-width: 1200px) {
+		.tn-logo-size img{
+			width: 80%!important;
+		}
+		}
+		.sp-logo-size{
+			font-size: 55%!important;
+		}
+		.sp-logo-size img{
+			width: 55%!important;
+		}
+				.cps-post-main ul > li:before,
+		.cps-post-main ol > li:before{
+			background-color: #ffcd44!important;
+		}
+		.profile-card .profile-title{
+			background-color: #0089bf!important;
+		}
+		.profile-card{
+			border-color: #0089bf!important;
+		}
+		.cps-post-main a{
+			color:#008db7;
+		}
+		.cps-post-main .marker{
+			background: -webkit-linear-gradient( transparent 60%, #ffcedb 0% ) ;
+			background: linear-gradient( transparent 60%, #ffcedb 0% ) ;
+		}
+		.cps-post-main .marker2{
+			background: -webkit-linear-gradient( transparent 60%, #a9eaf2 0% ) ;
+			background: linear-gradient( transparent 60%, #a9eaf2 0% ) ;
+		}
+		.cps-post-main .jic-sc{
+			color:#e9546b;
+		}
+		
+		
+		.simple-box1{
+			border-color:#ef9b9b!important;
+		}
+		.simple-box2{
+			border-color:#f2bf7d!important;
+		}
+		.simple-box3{
+			border-color:#b5e28a!important;
+		}
+		.simple-box4{
+			border-color:#7badd8!important;
+		}
+		.simple-box4:before{
+			background-color: #7badd8;
+		}
+		.simple-box5{
+			border-color:#e896c7!important;
+		}
+		.simple-box5:before{
+			background-color: #e896c7;
+		}
+		.simple-box6{
+			background-color:#def1f9!important;
+		}
+		.simple-box7{
+			border-color:#def1f9!important;
+		}
+		.simple-box7:before{
+			background-color:#def1f9!important;
+		}
+		.simple-box8{
+			border-color:#96ddc1!important;
+		}
+		.simple-box8:before{
+			background-color:#96ddc1!important;
+		}
+		.simple-box9:before{
+			background-color:#e1c0e8!important;
+		}
+				.simple-box9:after{
+			border-color:#e1c0e8 #e1c0e8 #fff #fff!important;
+		}
+				
+		.kaisetsu-box1:before,
+		.kaisetsu-box1-title{
+			background-color:#ffb49e!important;
+		}
+		.kaisetsu-box2{
+			border-color:#89c2f4!important;
+		}
+		.kaisetsu-box2-title{
+			background-color:#89c2f4!important;
+		}
+		.kaisetsu-box4{
+			border-color:#ea91a9!important;
+		}
+		.kaisetsu-box4-title{
+			background-color:#ea91a9!important;
+		}
+		.kaisetsu-box5:before{
+			background-color:#57b3ba!important;
+		}
+		.kaisetsu-box5-title{
+			background-color:#57b3ba!important;
+		}
+		
+		.concept-box1{
+			border-color:#85db8f!important;
+		}
+		.concept-box1:after{
+			background-color:#85db8f!important;
+		}
+		.concept-box1:before{
+			content:"ポイント"!important;
+			color:#85db8f!important;
+		}
+		.concept-box2{
+			border-color:#f7cf6a!important;
+		}
+		.concept-box2:after{
+			background-color:#f7cf6a!important;
+		}
+		.concept-box2:before{
+			content:"注意点"!important;
+			color:#f7cf6a!important;
+		}
+		.concept-box3{
+			border-color:#86cee8!important;
+		}
+		.concept-box3:after{
+			background-color:#86cee8!important;
+		}
+		.concept-box3:before{
+			content:"良い例"!important;
+			color:#86cee8!important;
+		}
+		.concept-box4{
+			border-color:#ed8989!important;
+		}
+		.concept-box4:after{
+			background-color:#ed8989!important;
+		}
+		.concept-box4:before{
+			content:"悪い例"!important;
+			color:#ed8989!important;
+		}
+		.concept-box5{
+			border-color:#9e9e9e!important;
+		}
+		.concept-box5:after{
+			background-color:#9e9e9e!important;
+		}
+		.concept-box5:before{
+			content:"参考"!important;
+			color:#9e9e9e!important;
+		}
+		.concept-box6{
+			border-color:#8eaced!important;
+		}
+		.concept-box6:after{
+			background-color:#8eaced!important;
+		}
+		.concept-box6:before{
+			content:"メモ"!important;
+			color:#8eaced!important;
+		}
+		
+		.innerlink-box1,
+		.blog-card{
+			border-color:#73bc9b!important;
+		}
+		.innerlink-box1-title{
+			background-color:#73bc9b!important;
+			border-color:#73bc9b!important;
+		}
+		.innerlink-box1:before,
+		.blog-card-hl-box{
+			background-color:#73bc9b!important;
+		}
+				
+		.jin-ac-box01-title::after{
+			color: #0089bf;
+		}
+		
+		.color-button01 a,
+		.color-button01 a:hover,
+		.color-button01:before{
+			background-color: #0189be!important;
+		}
+		.top-image-btn-color a,
+		.top-image-btn-color a:hover,
+		.top-image-btn-color:before{
+			background-color: #ffcd44!important;
+		}
+		.color-button02 a,
+		.color-button02 a:hover,
+		.color-button02:before{
+			background-color: #ffcd44!important;
+		}
+		
+		.color-button01-big a,
+		.color-button01-big a:hover,
+		.color-button01-big:before{
+			background-color: #3296d1!important;
+		}
+		.color-button01-big a,
+		.color-button01-big:before{
+			border-radius: 5px!important;
+		}
+		.color-button01-big a{
+			padding-top: 20px!important;
+			padding-bottom: 20px!important;
+		}
+		
+		.color-button02-big a,
+		.color-button02-big a:hover,
+		.color-button02-big:before{
+			background-color: #ffcd44!important;
+		}
+		.color-button02-big a,
+		.color-button02-big:before{
+			border-radius: 40px!important;
+		}
+		.color-button02-big a{
+			padding-top: 10px!important;
+			padding-bottom: 10px!important;
+		}
+				.color-button01-big{
+			width: 75%!important;
+		}
+		.color-button02-big{
+			width: 90%!important;
+		}
+				
+		
+					.top-image-btn-color:before,
+			.color-button01:before,
+			.color-button02:before,
+			.color-button01-big:before,
+			.color-button02-big:before{
+				bottom: -1px;
+				left: -1px;
+				width: 100%;
+				height: 100%;
+				border-radius: 6px;
+				box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+				-webkit-transition: all .4s;
+				transition: all .4s;
+			}
+			.top-image-btn-color a:hover,
+			.color-button01 a:hover,
+			.color-button02 a:hover,
+			.color-button01-big a:hover,
+			.color-button02-big a:hover{
+				-webkit-transform: translateY(2px);
+				transform: translateY(2px);
+				-webkit-filter: brightness(0.95);
+				 filter: brightness(0.95);
+			}
+			.top-image-btn-color:hover:before,
+			.color-button01:hover:before,
+			.color-button02:hover:before,
+			.color-button01-big:hover:before,
+			.color-button02-big:hover:before{
+				-webkit-transform: translateY(2px);
+				transform: translateY(2px);
+				box-shadow: none!important;
+			}
+				
+		.h2-style01 h2,
+		.h2-style02 h2:before,
+		.h2-style03 h2,
+		.h2-style04 h2:before,
+		.h2-style05 h2,
+		.h2-style07 h2:before,
+		.h2-style07 h2:after,
+		.h3-style03 h3:before,
+		.h3-style02 h3:before,
+		.h3-style05 h3:before,
+		.h3-style07 h3:before,
+		.h2-style08 h2:after,
+		.h2-style10 h2:before,
+		.h2-style10 h2:after,
+		.h3-style02 h3:after,
+		.h4-style02 h4:before{
+			background-color: #0089bf!important;
+		}
+		.h3-style01 h3,
+		.h3-style04 h3,
+		.h3-style05 h3,
+		.h3-style06 h3,
+		.h4-style01 h4,
+		.h2-style02 h2,
+		.h2-style08 h2,
+		.h2-style08 h2:before,
+		.h2-style09 h2,
+		.h4-style03 h4{
+			border-color: #0089bf!important;
+		}
+		.h2-style05 h2:before{
+			border-top-color: #0089bf!important;
+		}
+		.h2-style06 h2:before,
+		.sidebar_style3 .widgettitle:after{
+			background-image: linear-gradient(
+				-45deg,
+				transparent 25%,
+				#0089bf 25%,
+				#0089bf 50%,
+				transparent 50%,
+				transparent 75%,
+				#0089bf 75%,
+				#0089bf			);
+		}
+				.jin-h2-icons.h2-style02 h2 .jic:before,
+		.jin-h2-icons.h2-style04 h2 .jic:before,
+		.jin-h2-icons.h2-style06 h2 .jic:before,
+		.jin-h2-icons.h2-style07 h2 .jic:before,
+		.jin-h2-icons.h2-style08 h2 .jic:before,
+		.jin-h2-icons.h2-style09 h2 .jic:before,
+		.jin-h2-icons.h2-style10 h2 .jic:before,
+		.jin-h3-icons.h3-style01 h3 .jic:before,
+		.jin-h3-icons.h3-style02 h3 .jic:before,
+		.jin-h3-icons.h3-style03 h3 .jic:before,
+		.jin-h3-icons.h3-style04 h3 .jic:before,
+		.jin-h3-icons.h3-style05 h3 .jic:before,
+		.jin-h3-icons.h3-style06 h3 .jic:before,
+		.jin-h3-icons.h3-style07 h3 .jic:before,
+		.jin-h4-icons.h4-style01 h4 .jic:before,
+		.jin-h4-icons.h4-style02 h4 .jic:before,
+		.jin-h4-icons.h4-style03 h4 .jic:before,
+		.jin-h4-icons.h4-style04 h4 .jic:before{
+			color:#0089bf;
+		}
+		
+		@media all and (-ms-high-contrast:none){
+			*::-ms-backdrop, .color-button01:before,
+			.color-button02:before,
+			.color-button01-big:before,
+			.color-button02-big:before{
+				background-color: #595857!important;
+			}
+		}
+		
+		.jin-lp-h2 h2,
+		.jin-lp-h2 h2{
+			background-color: transparent!important;
+			border-color: transparent!important;
+			color: #3a3e40!important;
+		}
+		.jincolumn-h3style2{
+			border-color:#0089bf!important;
+		}
+		.jinlph2-style1 h2:first-letter{
+			color:#0089bf!important;
+		}
+		.jinlph2-style2 h2,
+		.jinlph2-style3 h2{
+			border-color:#0089bf!important;
+		}
+		.jin-photo-title .jin-fusen1-down,
+		.jin-photo-title .jin-fusen1-even,
+		.jin-photo-title .jin-fusen1-up{
+			border-left-color:#0089bf;
+		}
+		.jin-photo-title .jin-fusen2,
+		.jin-photo-title .jin-fusen3{
+			background-color:#0089bf;
+		}
+		.jin-photo-title .jin-fusen2:before,
+		.jin-photo-title .jin-fusen3:before {
+			border-top-color: #0089bf;
+		}
+		.has-huge-font-size{
+			font-size:42px!important;
+		}
+		.has-large-font-size{
+			font-size:36px!important;
+		}
+		.has-medium-font-size{
+			font-size:20px!important;
+		}
+		.has-normal-font-size{
+			font-size:16px!important;
+		}
+		.has-small-font-size{
+			font-size:13px!important;
+		}
+		
+		
+	</style>
+	<style type="text/css">
+		/*<!--  -->*/
+		.rtoc-mokuji-content{
+			background-color: #ffffff;
+		}
+		.rtoc-mokuji-content.frame1{
+			border: 1px solid #3f9cff;
+		}
+		.rtoc-mokuji-content #rtoc-mokuji-title{
+			color:#555555;
+		}
+		.rtoc-mokuji-content .rtoc-mokuji li > a{
+			color: #555555;
+		}
+		.rtoc-mokuji-content .mokuji_ul.level-1 > .rtoc-item::before{
+			background-color:#3f9cff!important;
+		}
+		.rtoc-mokuji-content .mokuji_ul.level-2 > .rtoc-item::before{
+			background-color:#3f9cff!important;
+		}
+		.rtoc-mokuji-content.frame2::before,.rtoc-mokuji-content.frame3,.rtoc-mokuji-content.frame4,.rtoc-mokuji-content.frame5{
+			border-color:#3f9cff;
+		}
+		.rtoc-mokuji-content.frame5::before,.rtoc-mokuji-content.frame5::after{
+			background-color:#3f9cff;
+		}
+		.cls-1,.cls-2{
+    		stroke:#3f9cff;
+    	}
+    	.rtoc-mokuji-content .decimal_ol.level-2 > .rtoc-item::before,.rtoc-mokuji-content .mokuji_ol > .rtoc-item::before{
+    		color: #3f9cff;
+    	}
+    	.rtoc-mokuji-content .decimal_ol > .rtoc-item::after{
+    		background-color: #3f9cff;
+    	}
+    	.rtoc-mokuji-content .decimal_ol > .rtoc-item::before{
+    		color: #3f9cff;
+    	}
+
+    	/*６*/
+    	#rtoc-mokuji-wrapper.addon6 #rtoc-mokuji-title span .cls-1,#rtoc-mokuji-wrapper.addon6 #rtoc-mokuji-title span .cls-2{
+    		stroke: #3f9cff!important;
+    	}
+    	#rtoc-mokuji-wrapper.addon6 .rtoc-mokuji.level-1 > .rtoc-item{
+    		border-color: #3f9cff;
+    	}
+    	#rtoc-mokuji-wrapper.addon6 .rtoc-mokuji.level-1 .rtoc-mokuji.level-2{
+    		border-color: #3f9cff    	}
+    	/*7*/
+    	#rtoc-mokuji-wrapper.addon7 .rtoc-mokuji.level-1 .rtoc-chapter .rtoc-chapter-text{
+    		color: #3f9cff;
+    	}
+    	#rtoc-mokuji-wrapper.addon7 .rtoc-mokuji.level-1 > .rtoc-item::before{
+    		background-color: #3f9cff!important;
+    	}
+    	#rtoc-mokuji-wrapper.addon7 .rtoc-mokuji.level-1 > .rtoc-item .rtoc-mokuji.level-2{
+    		border-color: #3f9cff;
+    	}
+    	#rtoc_return a::before{
+    		background-image: url(https://www.tech-teacher.jp/blog/wp-content/plugins/rich-table-of-content/include/../img/rtoc_return.png);
+    	}
+
+    	#rtoc_return a{
+    		background-color: !important;
+    	}
+    }
+	</style>
+	            <style type="text/css">
+                .rtoc-mokuji-content #rtoc-mokuji-title{
+                    color: #0089bf;
+                }
+                .rtoc-mokuji-content.frame2::before, .rtoc-mokuji-content.frame3, .rtoc-mokuji-content.frame4, .rtoc-mokuji-content.frame5{
+                    border-color: #0089bf;
+                }
+                .rtoc-mokuji-content .decimal_ol > .rtoc-item::before,.rtoc-mokuji-content .decimal_ol.level-2 > .rtoc-item::before, .rtoc-mokuji-content .mokuji_ol > .rtoc-item::before{
+                    color: #0089bf;
+                }
+                .rtoc-mokuji-content .decimal_ol > .rtoc-item::after,.rtoc-mokuji-content .decimal_ol > .rtoc-item::after,.rtoc-mokuji-content .mokuji_ul.level-1 > .rtoc-item::before,.rtoc-mokuji-content .mokuji_ul.level-2 > .rtoc-item::before{
+                    background-color: #0089bf!important;
+                }
+            </style>
+            <link rel="icon" href="https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/cropped-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-11-06-18.52.07-32x32.png" sizes="32x32">
+<link rel="icon" href="https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/cropped-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-11-06-18.52.07-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/cropped-%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-11-06-18.52.07-180x180.png">
+<meta name="msapplication-TileImage" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/cropped-スクリーンショット-2019-11-06-18.52.07-270x270.png">
+		<style type="text/css" id="wp-custom-css">
+			#header-box {
+	 box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}		</style>
+			
+<!--カエレバCSS-->
+<!--アプリーチCSS-->
+
+
+<meta http-equiv="origin-trial" content="A751Xsk4ZW3DVQ8WZng2Dk5s3YzAyqncTzgv+VaE6wavgTY0QHkDvUTET1o7HanhuJO8lgv1Vvc88Ij78W1FIAAAAAB7eyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><script type="text/javascript" async="" src="./onsei_files/f.txt"></script></head>
+<body class="post-template-default single single-post postid-3129 single-format-standard" id="nofont-style">
+<div id="wrapper">
+
+		
+	<div id="scroll-content" class="animate">
+	
+		<!--ヘッダー-->
+
+					<div id="header-box" class="tn_on header-box animate">
+	<div id="header" class="header-type1 header animate">
+		
+		<div id="site-info" class="ef">
+							<span class="tn-logo-size"><a href="https://www.tech-teacher.jp/blog/" title="TechTeacher Blog" rel="home"><img src="./onsei_files/スクリーンショット-2019-11-20-15.51.57.png" alt="TechTeacher Blog"></a></span>
+					</div>
+
+				<!--グローバルナビゲーション layout3-->
+		<div id="drawernav3" class="ef">
+			<nav class="fixed-content ef"><ul class="menu-box"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3354"><a href="https://tech-teacher.jp/about/">Tech Teacherとは</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3357"><a href="https://tech-teacher.jp/course/">コース一覧</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3327"><a href="https://www.tech-teacher.jp/blog/category/python/">Python</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3326"><a href="https://www.tech-teacher.jp/blog/category/java/">Java</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3361"><a href="https://tech-teacher.jp/contact">お問い合わせ</a></li>
+</ul></nav>		</div>
+		<!--グローバルナビゲーション layout3-->
+		
+	
+		
+
+	</div>
+	
+		
+</div>
+
+	
+
+	
+	<!--ヘッダー画像-->
+													<!--ヘッダー画像-->
+
+		
+		<!--ヘッダー-->
+
+		<div class="clearfix"></div>
+
+			
+														
+		
+	<div id="contents">
+
+		<!--メインコンテンツ-->
+			<main id="main-contents" class="main-contents article_style1 animate" itemprop="mainContentOfPage">
+				
+								
+				<section class="cps-post-box hentry">
+																	<article class="cps-post">
+							<header class="cps-post-header">
+																<span class="cps-post-cat category-python" itemprop="keywords"><a href="https://www.tech-teacher.jp/blog/category/python/" style="background-color:!important;">Python</a></span>
+																<h1 class="cps-post-title entry-title" itemprop="headline">Python初心者でも音声認識に挑戦したい！ゼロから分かる解説</h1>
+								<div class="cps-post-meta vcard">
+									<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">omote</span></span>
+									<span class="cps-post-date-box">
+												<span class="cps-post-date"><i class="jic jin-ifont-watch" aria-hidden="true"></i>&nbsp;<time class="entry-date date published" datetime="2021-12-06T22:06:40+00:00">12月 6, 2021</time></span>
+	<span class="timeslash"> /</span>
+	<time class="entry-date date updated" datetime="2022-02-15T00:48:41+00:00"><span class="cps-post-date"><i class="jic jin-ifont-reload" aria-hidden="true"></i>&nbsp;2月 15, 2022</span></time>
+										</span>
+								</div>
+								
+							</header>
+																							<div class="cps-post-thumb" itemscope="" itemtype="https://schema.org/ImageObject">
+									<img src="./onsei_files/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1-1280x720.jpg" class="attachment-large_size size-large_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1-1280x720.jpg 1280w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/turntable-gd7dfb2520_1920-1-1-1-1-1-1-1-640x360.jpg 640w" sizes="(max-width: 1280px) 100vw, 1280px">								</div>
+																																							<div class="share-top sns-design-type01">
+	<div class="sns-top">
+		<ol>
+			<!--ツイートボタン-->
+							<li class="twitter"><a href="https://twitter.com/share?url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F&amp;text=Python%E5%88%9D%E5%BF%83%E8%80%85%E3%81%A7%E3%82%82%E9%9F%B3%E5%A3%B0%E8%AA%8D%E8%AD%98%E3%81%AB%E6%8C%91%E6%88%A6%E3%81%97%E3%81%9F%E3%81%84%EF%BC%81%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%88%86%E3%81%8B%E3%82%8B%E8%A7%A3%E8%AA%AC%20-%20TechTeacher%20Blog"><i class="jic jin-ifont-twitter"></i></a>
+				</li>
+						<!--Facebookボタン-->
+							<li class="facebook">
+				<a href="https://www.facebook.com/sharer.php?src=bm&amp;u=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F&amp;t=Python%E5%88%9D%E5%BF%83%E8%80%85%E3%81%A7%E3%82%82%E9%9F%B3%E5%A3%B0%E8%AA%8D%E8%AD%98%E3%81%AB%E6%8C%91%E6%88%A6%E3%81%97%E3%81%9F%E3%81%84%EF%BC%81%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%88%86%E3%81%8B%E3%82%8B%E8%A7%A3%E8%AA%AC%20-%20TechTeacher%20Blog" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600&#39;);return false;"><i class="jic jin-ifont-facebook-t" aria-hidden="true"></i></a>
+				</li>
+						<!--はてブボタン-->
+							<li class="hatebu">
+				<a href="https://b.hatena.ne.jp/add?mode=confirm&amp;url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=510&#39;);return false;"><i class="font-hatena"></i></a>
+				</li>
+						<!--Poketボタン-->
+							<li class="pocket">
+				<a href="https://getpocket.com/edit?url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F&amp;title=Python%E5%88%9D%E5%BF%83%E8%80%85%E3%81%A7%E3%82%82%E9%9F%B3%E5%A3%B0%E8%AA%8D%E8%AD%98%E3%81%AB%E6%8C%91%E6%88%A6%E3%81%97%E3%81%9F%E3%81%84%EF%BC%81%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%88%86%E3%81%8B%E3%82%8B%E8%A7%A3%E8%AA%AC%20-%20TechTeacher%20Blog"><i class="jic jin-ifont-pocket" aria-hidden="true"></i></a>
+				</li>
+							<li class="line">
+				<a href="https://line.me/R/msg/text/?https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F"><i class="jic jin-ifont-line" aria-hidden="true"></i></a>
+				</li>
+		</ol>
+	</div>
+</div>
+<div class="clearfix"></div>
+															
+							<div class="cps-post-main-box">
+								<div class="cps-post-main    h2-style01 h3-style01 h4-style04 entry-content m-size " itemprop="articleBody">
+
+									<div class="clearfix"></div>
+	
+									<p><span style="font-weight: 400;">Pythonを使って初めて音声認識に挑戦するとき、具体的にどのように音声認識をするのか、どのように勉強すればいいのか分からない…という人は少なくないでしょう。</span></p>
+<p><span style="font-weight: 400;">今回は、そんな<span class="marker2"><strong>プログラミング初心者に必見</strong></span>の内容です。<br>
+</span><b>Pythonを使って音声認識するにはどのように勉強すればいいのか、また音声認識とは具体的に何なのかという基本的な情報に加え、Pythonで音声認識をする方法を解説していきます。</b></p>
+<p><span style="font-weight: 400;">プログラミング初心者のあなたもPythonを使った音声認識に挑戦してみましょう！ぜひ参考にしてみてくださいね。</span></p>
+<div id="rtoc-mokuji-wrapper" class="rtoc-mokuji-content frame2 preset1 animation-fade rtoc_open default">
+		<div id="rtoc-mokuji-title" class="rtoc_left">
+		<button class="rtoc_open_close rtoc_open">CLOSE</button>
+		<span>目次</span>
+		</div><ol class="rtoc-mokuji mokuji_ol level-1"><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-1">Pythonで音声認識をするために学ぶべきこと</a></li><ul class="rtoc-mokuji mokuji_ul level-2"><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-2">音声認識とは</a></li><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-3">音声認識に必要なPythonのスキル</a></li><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-4">音声認識が学べるおすすめの書籍3選</a></li></ul><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-5">Pythonで音声認識をする方法</a></li><ul class="rtoc-mokuji mokuji_ul level-2"><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-6">Pythonでできる音声認識とは</a></li><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-7">Pythonで音声認識をするために開発環境を整えよう！</a></li><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-8">Pythonで音声認識をする手順</a></li></ul><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-9">Pythonの個別指導なら『Tech Teacher』</a></li><ul class="rtoc-mokuji mokuji_ul level-2"><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-13">一人ひとりに最適化された完全マンツーマン指導を提供</a></li></ul><li class="rtoc-item"><a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#rtoc-11">Pythonで音声認識に挑戦しよう！</a></li></ol></div><h2 id="rtoc-1">Pythonで音声認識をするために学ぶべきこと</h2>
+<p><span style="font-weight: 400;">Pythonは、他のプログラミング言語に比べて文法がわかりやすく簡単であることから、<span class="marker2"><strong>初心者にも使いやすい言語</strong></span>です。<br>
+主に画像処理や機械学習、音声認識の分野で多く使用されています。最近では、AI・人工知能の分野を中心に活躍していることもあり、その注目の高さがうかがえます。</span></p>
+<p><span style="font-weight: 400;">中でも音声認識は、初心者には難しいスキルが必要で難易度が高いと思ってはいませんか？</span></p>
+<p><span style="font-weight: 400;">安心してください。<br>
+<span class="marker2"><strong>現在では、初心者にも優しい環境が整いつつあり、初心者でも音声認識に挑戦しやすくなっています。</strong></span></span></p>
+<p><span style="font-weight: 400;">それでは、<strong>Pythonで音声認識をするためには具体的に何を学ぶべきか</strong>見ていきましょう。音声認識とは何かという基本的な情報も合わせて解説するので、初心者の方でも安心して読み進めてみてくださいね。</span></p>
+<h3 id="rtoc-2">音声認識とは</h3>
+<p><span style="font-weight: 400;">Pythonで開発できる音声認識は、実は私たちの身近な場所に存在しています。</span></p>
+<p><span style="font-weight: 400;">例えば、<strong>Apple社のsiri</strong>や<strong>Amazon社のアレクサ</strong>などが代表的です。<br>
+</span><span style="font-weight: 400;">「今日の天気は？」「音楽をつけて」など、スマートフォン上で実際に操作することなく、コンピューターが自動的に機能してくれますよね。</span></p>
+<p><span style="font-weight: 400;">通常、私たち人間は発せられる言葉をそのまま理解します。<br>
+これに対して</span><strong>コンピューターは数字に変換された言葉しか理解できません。<br>
+</strong>そのため、コンピューターに言葉を理解させるには、<span class="marker2"><b>私たちが発声する言葉（音）を数字に変換することが必要です。</b></span></p>
+<p><span style="font-weight: 400;">例えば、「あ」という言葉を録音すると「あ」を表す波が記録されます。<br>
+コンピューターはその波のパターンから、この音が「あ」だということを認識するのです。</span><span style="font-weight: 400;">そうすることで、まるで私たちが発する言葉を理解したような返答が可能になります。</span></p>
+<p><span style="font-weight: 400;">最近では、スマートフォンやスマートスピーカーなどの台頭により、<strong>言葉を数字に変換して解析する音声認識の利用が拡大しつつあります。</strong><br>
+</span><span style="font-weight: 400;">今後はさらに、音声認識の需要が高まり、必要になってくるでしょう。プログラミング初心者の方も、今から勉強しておきたい分野です。</span></p>
+<h3 id="rtoc-3">音声認識に必要なPythonのスキル</h3>
+<p><span style="font-weight: 400;">では、<strong>音声認識を勉強するうえで必要な知識や求められるPythonのスキル</strong>とは、具体的にどのようなものでしょうか。</span></p>
+<p><span style="font-weight: 400;">まず、</span><span class="marker2"><b>Pythonをしっかり使いこなせるようになることです。<br>
+</b></span><span style="font-weight: 400;">文法を覚えたり、使い方を習得するなど<strong>Pythonの基礎をしっかりと身に付けなければ、音声認識を作ることができません。</strong>そうした基礎的な勉強を怠らずに、Pythonを理解することから始めるのが大切です。</span></p>
+<p><span style="font-weight: 400;">さらに、</span><span class="marker2"><b>Pythonのスキルのひとつである「通信」を習得する必要があります。<br>
+</b></span><span style="font-weight: 400;">「通信」とは、他のコンピューターとデータのやり取りを行う働きのことです。</span><span style="font-weight: 400;">本来、音声認識は自身のコンピューターで行うには、データの処理が重かったり、無料版で使用できる範囲が狭かったりと限界があります。</span><strong>通信について学ぶことで、データを素早く解析出来るようになり、音声認識をより高い精度で行うことが可能になります。</strong></p>
+<h3 id="rtoc-4">音声認識が学べるおすすめの書籍3選</h3>
+<p><span style="font-weight: 400;">ここからは、初心者におすすめの書籍3冊を紹介していきます。</span></p>
+<h4><span style="font-weight: 400;">①『人と対話するコンピュータを創っています 音声認識の最前線』</span></h4>
+<p><a href="https://www.kadokawa.co.jp/product/200810000055/"><img class="aligncenter wp-image-3149 size-full" src="./onsei_files/人と対話するコンピュータ.png" alt="人と対話するコンピュータを創っています" width="623" height="348" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/人と対話するコンピュータ.png 623w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/人と対話するコンピュータ-300x168.png 300w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/人と対話するコンピュータ-320x180.png 320w" sizes="(max-width: 623px) 100vw, 623px"></a>引用元：<a href="https://www.kadokawa.co.jp/product/200810000055/"><span style="font-weight: 400;">『人と対話するコンピュータを創っています 音声認識の最前線』</span></a></p>
+<p><span style="font-weight: 400;">まずは、音声認識の概略をつかむのに適している「人と対話するコンピュータを創っています 音声認識の最前線」です。<span class="marker2"><strong>初めて音声認識を扱う人にも分かりやすく、読みやすいのが特徴です。</strong></span></span></p>
+<p><span style="font-weight: 400;">機械学習をする際に必要な難しい「数式」などが出てこないので、安心して読み進められます。</span><b>コンピューターがどのように音声を認識するのかという基本的な情報から、音声認識装置の作り方のアウトラインまで、より専門的な知識も習得できる</b><span style="font-weight: 400;">とあり、これから音声認識を覚えたい人にはぴったりの1冊です。</span></p>
+<h4><span style="font-weight: 400;">②『イラストで学ぶ音声認識』</span></h4>
+<p><a href="https://www.kspub.co.jp/book/detail/1538245.html"><img class="aligncenter wp-image-3150 size-full" src="./onsei_files/イラストで学ぶ音声認識.png" alt="イラストで学ぶ音声認識" width="775" height="303" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/イラストで学ぶ音声認識.png 775w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/イラストで学ぶ音声認識-300x117.png 300w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/イラストで学ぶ音声認識-768x300.png 768w" sizes="(max-width: 775px) 100vw, 775px"></a>引用元：<a href="https://www.kspub.co.jp/book/detail/1538245.html"><span style="font-weight: 400;">『イラストで学ぶ音声認識』</span></a></p>
+<p><span style="font-weight: 400;">タイトルの通り、</span><b>本書には図式やイラストが多く用いられており、文章だけでは難しい印象を与えるプログラミング言語が、分かりやすく解説されています。</b></p>
+<p><span style="font-weight: 400;">本書だけで音声認識のことを網羅でき、<span class="marker2"><strong>初心者でも取っ付きやすく理解しやすい</strong></span>1冊でしょう。</span></p>
+<h4><span style="font-weight: 400;">③『音声認識（機械学習プロフェッショナルシリーズ）』</span></h4>
+<p><a href="https://www.kspub.co.jp/book/detail/1529274.html"><img class="aligncenter size-full wp-image-3151" src="./onsei_files/音声認識.png" alt="音声認識" width="705" height="357" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/音声認識.png 705w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/音声認識-300x152.png 300w" sizes="(max-width: 705px) 100vw, 705px"></a>引用元：<a href="https://www.kspub.co.jp/book/detail/1529274.html"><span style="font-weight: 400;">『音声認識（機械学習プロフェッショナルシリーズ）』</span></a></p>
+<p><span style="font-weight: 400;"><span class="marker2"><strong>基礎からしっかりと学びたい人におすすめです。</strong></span>本書の第1章に「音声とは」と始まる通り、音声認識について全く理解していない人をターゲットにしているため、これから勉強したい人におすすめの1冊です。</span></p>
+<p><span style="font-weight: 400;">読み進めていくうちに、音声認識をしっかりと理解できるようになるでしょう。</span></p>
+<h2 id="rtoc-5">Pythonで音声認識をする方法</h2>
+<p><span style="font-weight: 400;">ここからは、より本格的な実践編に入ります。<br>
+<strong>Pythonでどんな音声認識ができるのか、具体的にどうしたらいいのか</strong>を解説していきます。Pythonで音声認識を習得して、スキルを身につけましょう！</span></p>
+<h3 id="rtoc-6">Pythonでできる音声認識とは</h3>
+<p><span style="font-weight: 400;">では、Pythonを用いるとどのような音声認識ができるのでしょうか？</span></p>
+<p><span class="marker2"><b>一般的なのは、私たちが発する言葉をコンピューターがテキスト化してくれる「文字起こし」です。</b></span><span style="font-weight: 400;">さらに高度なものとなると、複数人が喋っている言葉にも対応できるようになります。例えば、<strong>会社の会議で必要な議事録</strong>としても使用することが可能になるわけです。</span></p>
+<p><span style="font-weight: 400;">他にも、<span class="marker2"><strong>APIと呼ばれるサービスを利用することで、Pythonでもより精度の高い音声認識が可能になります。</strong></span>APIとは、Application Programming Interface の略称です。簡単に言うと「アプリケーションやソフトウェア」と「プログラム」を繋ぐもの、とイメージしてみるといいでしょう。</span></p>
+<p><span style="font-weight: 400;">例えば、APIに音声ファイルを送付します。すると、API内で音声を解析してくれます。利用者は、APIから送られてくる音声ファイルの解析結果を待っているだけで、変換されたテキストを手に入れられるのです。</span></p>
+<h3 id="rtoc-7">Pythonで音声認識をするために開発環境を整えよう！</h3>
+<p><span style="font-weight: 400;">Pythonでどのような音声認識ができるのか分かったところで、実践に取り掛かりましょう。</span></p>
+<h4>Pythonを使う準備</h4>
+<p><span style="font-weight: 400;">まずは、Pythonを使用するにあたり環境を整えなければなりません。<br>
+</span><span style="font-weight: 400;">通常、コンピューター上にはPythonを使用するプログラムは内蔵されていません。<span class="marker2"><strong>まずは、Pythonをインストールする必要がありますね。</strong></span></span></p>
+<p><span style="font-weight: 400;">Pythonの公式ページをクリックすると、ダウンロードできるページが表示されるので、OS別（Windows・Mac・Linux）にインストールしましょう。</span></p>
+<div class="simple-box4">
+<p><a href="https://www.python.org/"><span style="font-weight: 400;">Python公式サイト</span></a>はこちら</p>
+</div>
+<h4>APIを使う準備</h4>
+<p><span style="font-weight: 400;">Pythonのインストールが完了し、上記で紹介したAPIを使用する場合は、<span class="marker2"><strong>使用するAPIの公式サイトでアカウント登録をする必要があります。<br>
+</strong></span>多くのAPIは、無料で使える範囲が決められているので、注意が必要です。</span><span style="font-weight: 400;">個人で練習する範囲であれば問題ないでしょう。さらに、オフラインでは使用できるAPIも限られているので、事前にチェックしてくださいね。</span></p>
+<h4>ライブラリを使う準備</h4>
+<p><span style="font-weight: 400;">APIの他にも、音声認識をするための<strong>「ライブラリ」</strong>というツールがあります。<br>
+ライブラリとは、他の人が作ってくれたプログラムを自分のプログラムの中でも使用できる便利なツールのことです。</span><span style="font-weight: 400;">音声認識をするにあたり、</span>ライブラリを利用することで、簡単に音声ファイルを変換できます。<span class="marker2"><b>代表的なライブラリとして「julius」があります。</b></span></p>
+<p><span style="font-weight: 400;">juliusは高性能な「汎用大語彙連続音声認識エンジン」として知られており、 数万語彙の連続音声認識を可能にします。一般のコンピューターでも使用できるので、ダウンロードしてみるのもいいでしょう。</span></p>
+<div class="simple-box4">
+<p><a href="https://julius.osdn.jp/index.php?q=newjulius.html"><span style="font-weight: 400;">julius公式サイト</span></a>はこちら</p>
+</div>
+<h3 id="rtoc-8">Pythonで音声認識をする手順</h3>
+<p><span style="font-weight: 400;">Pythonを用いて音声認識をする準備が整えたら、実際に音声認識をする実践に移りましょう。</span><span class="marker2"><b>音声認識をするには、音声ファイルをコンピューター上に取り込む方法とマイクから音声を取り込む方法の2通りがあります。</b></span></p>
+<h4>音声ファイルを取り込む</h4>
+<p><span style="font-weight: 400;">まずは、音声ファイルからやってみましょう。<br>
+最初に、<strong><span class="marker2">文字起こししたい音声ファイルをコンピューター上にアップロード</span></strong>します。<br>
+音声ファイルの形式はWAV形式という音声データに変換しましょう。</span></p>
+<p><span style="font-weight: 400;">次に、<span class="marker2"><strong>変換したファイルをAPIに投げます。</strong></span>すると、API内で自動的に音声データを文字起こししてくれます。これで音声ファイルを文字起こしする手順は終了です。<br>
+ライブラリを使用する場合も同様です。</span></p>
+<h4>マイクから音声を取り込む</h4>
+<p><span style="font-weight: 400;">マイクから音声認識をする場合も基本的には同じです。</span></p>
+<p><span style="font-weight: 400;">まずは<span class="marker2"><strong>録音したファイルをWAVファイルとして保存</strong></span>します。WAVファイルを読み込ませることで、マイクからの音声認識が可能になります。<br>
+上記の方法と同様に、<span class="marker2"><strong>APIやライブラリに音声ファイルを投げる</strong></span>ことで、自動的に文字起こししてくれますよ。</span></p>
+<h2 id="rtoc-9">Pythonの個別指導なら『Tech Teacher』</h2>
+<p><a href="https://tech-teacher.jp/course/languages/python/"><img class="aligncenter size-full wp-image-2734" src="./onsei_files/スクリーンショット-2021-09-25-205127-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1.png" alt="" width="1286" height="492" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/09/スクリーンショット-2021-09-25-205127-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1.png 1286w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/09/スクリーンショット-2021-09-25-205127-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-300x115.png 300w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/09/スクリーンショット-2021-09-25-205127-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1024x392.png 1024w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/09/スクリーンショット-2021-09-25-205127-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-768x294.png 768w" sizes="(max-width: 1286px) 100vw, 1286px"></a>引用元：<a href="https://tech-teacher.jp/course/languages/python/">Tech Teacher</a></p>
+<p>このBlogを運営する<span class="marker2"><strong>Tech Teacherは、Pythonを学習する社会人を対象に</strong></span><span class="marker2"><strong>、初心者から挫折した人まで、一人ひとりの目的や学習状況にあわせた個別指導を行っています。</strong></span></p>
+<p>また、<span class="marker2"><strong>オンライン指導</strong></span>も選べるので、<span class="marker2"><strong>自宅でも対面でも</strong></span>受講できます。</p>
+<h3 id="rtoc-13">一人ひとりに最適化された完全マンツーマン指導を提供</h3>
+<div class="simple-box7">
+<p><i class="jic jin-ifont-checkcircle"></i><strong>完全マンツーマン指導で着実に身につく！</strong></p>
+<p>Tech Teacherでは<span class="marker2"><strong>専任の教師が完全マンツーマン指導</strong></span>を行います。<br>
+学習状況や目標をしっかり把握した教師が、<strong>生徒様のご要望もふまえながら最適なオーダーメイドの指導をご提供</strong>します。</p>
+</div>
+<div class="simple-box7">
+<p><strong><i class="jic jin-ifont-checkcircle"></i>お仕事と両立しながら続けられる！<br>
+</strong></p>
+<p>Tech Teacherなら、<span class="marker2"><strong>受講日時や回数を生徒様のご都合に合わせて柔軟に調整</strong></span>することができます。<br>
+そのため、お仕事との両立がしやすく、プログラミング学習を継続的に学習することができます。<strong>忙しい合間にプログラミングを学びたいという方におすすめ</strong>です。</p>
+</div>
+<div class="simple-box7">
+<p><i class="jic jin-ifont-checkcircle"></i><strong>授業料は受けた分だけ！</strong></p>
+<p>Tech Teacherでは、生徒様が<span class="marker2"><strong>受けた授業の時間分だけ後払い</strong></span>で請求させていただきます。そのため、<strong>気軽にプログラミングの学習を始めることができます</strong>。</p>
+</div>
+<p>以下のボタンからさらに詳しい情報をご覧いただけます。</p>
+<div class="jin-flexbox">
+<div class="jin-shortcode-button jsb-visual-shiny jsb-hover-down"><a href="https://tech-teacher.jp/about/feature/">詳しく見る</a></div>
+</div>
+<h2 id="rtoc-10">Pythonで音声認識に挑戦しよう！</h2>
+<p><span style="font-weight: 400;">今回は、<span class="marker2"><strong>Pythonを用いた音声認識の方法を解説</strong></span>しました。<br>
+一見難しそうに見える音声認識ですが、APIやライブラリを利用すれば、初心者でも簡単にできることが分かりましたね。</span></p>
+<p><span style="font-weight: 400;">今まで遠ざけていた方も、これから音声認識をやってみたい方も、Pythonを使って音声認識に挑戦してみてはいかがでしょうか。</span></p>
+									
+																		
+									
+									<div class="tag-box"><span><a href="https://www.tech-teacher.jp/blog/tag/ai/"> AI</a></span><span><a href="https://www.tech-teacher.jp/blog/tag/python%e9%96%8b%e7%99%ba%e5%88%9d%e5%bf%83%e8%80%85/"> Python開発初心者</a></span></div>									
+									
+									
+									<div class="clearfix"></div>
+<div class="adarea-box">
+	</div>
+									
+																		<div class="related-ad-unit-area"></div>
+																		
+																			<div class="share sns-design-type01">
+	<div class="sns">
+		<ol>
+			<!--ツイートボタン-->
+							<li class="twitter"><a href="https://twitter.com/share?url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F&amp;text=Python%E5%88%9D%E5%BF%83%E8%80%85%E3%81%A7%E3%82%82%E9%9F%B3%E5%A3%B0%E8%AA%8D%E8%AD%98%E3%81%AB%E6%8C%91%E6%88%A6%E3%81%97%E3%81%9F%E3%81%84%EF%BC%81%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%88%86%E3%81%8B%E3%82%8B%E8%A7%A3%E8%AA%AC%20-%20TechTeacher%20Blog"><i class="jic jin-ifont-twitter"></i></a>
+				</li>
+						<!--Facebookボタン-->
+							<li class="facebook">
+				<a href="https://www.facebook.com/sharer.php?src=bm&amp;u=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F&amp;t=Python%E5%88%9D%E5%BF%83%E8%80%85%E3%81%A7%E3%82%82%E9%9F%B3%E5%A3%B0%E8%AA%8D%E8%AD%98%E3%81%AB%E6%8C%91%E6%88%A6%E3%81%97%E3%81%9F%E3%81%84%EF%BC%81%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%88%86%E3%81%8B%E3%82%8B%E8%A7%A3%E8%AA%AC%20-%20TechTeacher%20Blog" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600&#39;);return false;"><i class="jic jin-ifont-facebook-t" aria-hidden="true"></i></a>
+				</li>
+						<!--はてブボタン-->
+							<li class="hatebu">
+				<a href="https://b.hatena.ne.jp/add?mode=confirm&amp;url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=510&#39;);return false;"><i class="font-hatena"></i></a>
+				</li>
+						<!--Poketボタン-->
+							<li class="pocket">
+				<a href="https://getpocket.com/edit?url=https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F&amp;title=Python%E5%88%9D%E5%BF%83%E8%80%85%E3%81%A7%E3%82%82%E9%9F%B3%E5%A3%B0%E8%AA%8D%E8%AD%98%E3%81%AB%E6%8C%91%E6%88%A6%E3%81%97%E3%81%9F%E3%81%84%EF%BC%81%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%88%86%E3%81%8B%E3%82%8B%E8%A7%A3%E8%AA%AC%20-%20TechTeacher%20Blog"><i class="jic jin-ifont-pocket" aria-hidden="true"></i></a>
+				</li>
+							<li class="line">
+				<a href="https://line.me/R/msg/text/?https%3A%2F%2Fwww.tech-teacher.jp%2Fblog%2Fpython_voicerecognition%2F"><i class="jic jin-ifont-line" aria-hidden="true"></i></a>
+				</li>
+		</ol>
+	</div>
+</div>
+
+																		
+									
+
+															
+								</div>
+							</div>
+						</article>
+						
+														</section>
+				
+								
+																
+								
+<div class="toppost-list-box-simple">
+<section class="related-entry-section toppost-list-box-inner">
+		<div class="related-entry-headline">
+		<div class="related-entry-headline-text ef"><span class="fa-headline"><i class="jic jin-ifont-post" aria-hidden="true"></i>RELATED POST</span></div>
+	</div>
+						<div class="post-list-mag3col-slide related-slide">
+			<div class="swiper-container2 swiper-container-horizontal">
+				<ul class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-757px, 0px, 0px);"><li class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev" data-swiper-slide-index="0" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python_income/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/coding-g9941fbed2_1920-2-2-640x360.jpg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-640x360.jpg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-320x180.jpg 320w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-640x360.jpg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">Pythonを学べば年収が増える!? Pythonエンジニアのススメ</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-10-06" content="2021-10-06">10月 6, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">miyashita</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li><li class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="1" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python-blockchain/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-320x180.jpeg 320w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">Pythonでブロックチェーンを開発！独学エンジニアの基礎知識</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-12-20" content="2021-12-20">12月 20, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">ichimura</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li><li class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="2" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python_data_scientist/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-1280x720.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">【初心者向け】Pythonでデータサイエンティストを目指すには？</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-11-13" content="2021-11-13">11月 13, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">miyashita</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li>
+					<li class="swiper-slide swiper-slide-prev" data-swiper-slide-index="0" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python_income/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/coding-g9941fbed2_1920-2-2-640x360.jpg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-640x360.jpg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-320x180.jpg 320w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-640x360.jpg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">Pythonを学べば年収が増える!? Pythonエンジニアのススメ</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-10-06" content="2021-10-06">10月 6, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">miyashita</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li>					<li class="swiper-slide swiper-slide-active" data-swiper-slide-index="1" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python-blockchain/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-320x180.jpeg 320w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">Pythonでブロックチェーンを開発！独学エンジニアの基礎知識</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-12-20" content="2021-12-20">12月 20, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">ichimura</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li>					<li class="swiper-slide swiper-slide-next" data-swiper-slide-index="2" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python_data_scientist/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-1280x720.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">【初心者向け】Pythonでデータサイエンティストを目指すには？</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-11-13" content="2021-11-13">11月 13, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">miyashita</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li>						<li class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev" data-swiper-slide-index="0" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python_income/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/coding-g9941fbed2_1920-2-2-640x360.jpg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-640x360.jpg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-320x180.jpg 320w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/coding-g9941fbed2_1920-2-2-640x360.jpg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">Pythonを学べば年収が増える!? Pythonエンジニアのススメ</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-10-06" content="2021-10-06">10月 6, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">miyashita</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li><li class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="1" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python-blockchain/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-320x180.jpeg 320w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/12/外注記事編集　ビットコインとクリアなパソコン-640x360.jpeg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">Pythonでブロックチェーンを開発！独学エンジニアの基礎知識</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-12-20" content="2021-12-20">12月 20, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">ichimura</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li><li class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="2" style="width: 235.333px; margin-right: 17px;">
+	<article class="post-list-item" itemscope="" itemtype="https://schema.org/BlogPosting">
+		<a class="post-list-link" rel="bookmark" href="https://www.tech-teacher.jp/blog/python_data_scientist/" itemprop="mainEntityOfPage">
+			<div class="post-list-inner">
+				<div class="post-list-thumb" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+																		<img src="./onsei_files/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg" class="attachment-small_size size-small_size wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-1280x720.jpg 1280w" sizes="(max-width: 640px) 100vw, 640px">							<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/10/fotis-fotopoulos-6sAl6aQ4OWI-unsplash-2-2-640x360.jpg">
+							<meta itemprop="width" content="320">
+							<meta itemprop="height" content="180">
+															</div>
+				<div class="post-list-meta vcard">
+										<span class="post-list-cat category-python" style="background-color:!important;" itemprop="keywords">Python</span>
+					
+					<h2 class="post-list-title entry-title" itemprop="headline">【初心者向け】Pythonでデータサイエンティストを目指すには？</h2>
+											<span class="post-list-date date updated ef" itemprop="datePublished dateModified" datetime="2021-11-13" content="2021-11-13">11月 13, 2021</span>
+					
+					<span class="writer fn" itemprop="author" itemscope="" itemtype="https://schema.org/Person"><span itemprop="name">miyashita</span></span>
+
+					<div class="post-list-publisher" itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+						<span itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+							<span itemprop="url">https://www.tech-teacher.jp/blog/wp-content/uploads/2019/11/スクリーンショット-2019-11-20-15.51.57.png</span>
+						</span>
+						<span itemprop="name">TechTeacher Blog</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</article>
+</li></ul>
+				<div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+		</div>
+			</section>
+</div>
+<div class="clearfix"></div>
+	
+
+									
+				
+				
+					<div id="prev-next" class="clearfix">
+		
+					<a class="prev" href="https://www.tech-teacher.jp/blog/python_what_you_can_do/" title="【初心者必見】Pythonでできることと必要なスキルを解説">
+				<div class="metabox">
+											<img src="./onsei_files/alexandru-acea-WBYxmW4yuw-unsplash-2-2-320x180.jpg" class="attachment-cps_thumbnails size-cps_thumbnails wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/11/alexandru-acea-WBYxmW4yuw-unsplash-2-2-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/11/alexandru-acea-WBYxmW4yuw-unsplash-2-2-640x360.jpg 640w" sizes="(max-width: 320px) 100vw, 320px">										
+					<p>【初心者必見】Pythonでできることと必要なスキルを解説</p>
+				</div>
+			</a>
+		
+
+					<a class="next" href="https://www.tech-teacher.jp/blog/python_beginner/" title="Python初心者必見！おすすめの学習法や活用法を紹介">
+				<div class="metabox">
+					<p>Python初心者必見！おすすめの学習法や活用法を紹介</p>
+
+											<img src="./onsei_files/student-g88fc7ee0d_1920-1-2-1-1-1-320x180.jpg" class="attachment-cps_thumbnails size-cps_thumbnails wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2021/11/student-g88fc7ee0d_1920-1-2-1-1-1-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/11/student-g88fc7ee0d_1920-1-2-1-1-1-640x360.jpg 640w, https://www.tech-teacher.jp/blog/wp-content/uploads/2021/11/student-g88fc7ee0d_1920-1-2-1-1-1-1280x720.jpg 1280w" sizes="(max-width: 320px) 100vw, 320px">									</div>
+			</a>
+		
+	</div>
+	<div class="clearfix"></div>
+			</main>
+
+		<!--サイドバー-->
+<div id="sidebar" class="sideber sidebar_style6" role="complementary" itemscope="" itemtype="https://schema.org/WPSideBar" style="position: fixed; margin: 0px; bottom: -1862px; left: 851.25px;">
+		
+		
+			<div id="widget-tracking">
+	<div id="custom_html-6" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><a href="https://tech-teacher.jp/"><img class="aligncenter size-large wp-image-81" src="./onsei_files/スクリーンショット-2019-11-15-18.23.28.png" alt="プログラミングの家庭教師 TechTeacherはこちら" width="1024" height="653"></a></div></div><div id="search-4" class="widget widget_search"><div class="widgettitle ef">記事を検索</div><form class="search-box" role="search" method="get" id="searchform" action="https://www.tech-teacher.jp/blog/">
+	<input type="search" placeholder="" class="text search-text" value="" name="s" id="s">
+	<input type="submit" id="searchsubmit" value="">
+</form>
+</div><div id="categories-4" class="widget widget_categories"><div class="widgettitle ef">「カテゴリー」から探す</div>		<ul>
+				<li class="cat-item cat-item-177"><a href="https://www.tech-teacher.jp/blog/category/ai/">AI <span class="count">18</span></a>
+</li>
+	<li class="cat-item cat-item-67"><a href="https://www.tech-teacher.jp/blog/category/clanguage/">C言語 <span class="count">7</span></a>
+</li>
+	<li class="cat-item cat-item-29"><a href="https://www.tech-teacher.jp/blog/category/excel/">Excel <span class="count">5</span></a>
+</li>
+	<li class="cat-item cat-item-30"><a href="https://www.tech-teacher.jp/blog/category/excel-vba/">Excel VBA <span class="count">3</span></a>
+</li>
+	<li class="cat-item cat-item-31"><a href="https://www.tech-teacher.jp/blog/category/java/">Java <span class="count">27</span></a>
+<ul class="children">
+	<li class="cat-item cat-item-96"><a href="https://www.tech-teacher.jp/blog/category/java/career-java/">キャリア <span class="count">2</span></a>
+</li>
+	<li class="cat-item cat-item-93"><a href="https://www.tech-teacher.jp/blog/category/java/skillup-java/">スキルアップ <span class="count">2</span></a>
+</li>
+	<li class="cat-item cat-item-94"><a href="https://www.tech-teacher.jp/blog/category/java/shool-java/">スクール <span class="count">3</span></a>
+</li>
+	<li class="cat-item cat-item-91"><a href="https://www.tech-teacher.jp/blog/category/java/use-java/">使い方 <span class="count">16</span></a>
+</li>
+	<li class="cat-item cat-item-95"><a href="https://www.tech-teacher.jp/blog/category/java/frustration-java/">挫折 <span class="count">1</span></a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-28"><a href="https://www.tech-teacher.jp/blog/category/python/">Python <span class="count">97</span></a>
+<ul class="children">
+	<li class="cat-item cat-item-88"><a href="https://www.tech-teacher.jp/blog/category/python/career-python/">キャリア <span class="count">14</span></a>
+</li>
+	<li class="cat-item cat-item-89"><a href="https://www.tech-teacher.jp/blog/category/python/skillup-python/">スキルアップ <span class="count">20</span></a>
+</li>
+	<li class="cat-item cat-item-87"><a href="https://www.tech-teacher.jp/blog/category/python/school-python/">スクール <span class="count">5</span></a>
+</li>
+	<li class="cat-item cat-item-85"><a href="https://www.tech-teacher.jp/blog/category/python/use-python/">使い方 <span class="count">28</span></a>
+</li>
+	<li class="cat-item cat-item-90"><a href="https://www.tech-teacher.jp/blog/category/python/frustration-python/">挫折 <span class="count">4</span></a>
+</li>
+	<li class="cat-item cat-item-86"><a href="https://www.tech-teacher.jp/blog/category/python/utilize-python/">活用 <span class="count">25</span></a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://www.tech-teacher.jp/blog/category/uncategorized/">Uncategorized <span class="count">36</span></a>
+</li>
+	<li class="cat-item cat-item-68"><a href="https://www.tech-teacher.jp/blog/category/career/">キャリア <span class="count">28</span></a>
+</li>
+	<li class="cat-item cat-item-43"><a href="https://www.tech-teacher.jp/blog/category/skillup/">スキルアップ <span class="count">48</span></a>
+</li>
+	<li class="cat-item cat-item-13"><a href="https://www.tech-teacher.jp/blog/category/programming-school/">スクール・講座 <span class="count">51</span></a>
+<ul class="children">
+	<li class="cat-item cat-item-77"><a href="https://www.tech-teacher.jp/blog/category/programming-school/field/">分野からさがす <span class="count">12</span></a>
+</li>
+	<li class="cat-item cat-item-76"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/">地域からさがす <span class="count">19</span></a>
+	<ul class="children">
+	<li class="cat-item cat-item-40"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/chugoku/">中国地方 <span class="count">2</span></a>
+</li>
+	<li class="cat-item cat-item-42"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/kyushu-okinawa/">九州・沖縄地方 <span class="count">4</span></a>
+</li>
+	<li class="cat-item cat-item-34"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/hokkaido/">北海道地方 <span class="count">1</span></a>
+</li>
+	<li class="cat-item cat-item-36"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/hokuriku/">北陸地方 <span class="count">1</span></a>
+</li>
+	<li class="cat-item cat-item-41"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/shikoku/">四国地方 <span class="count">1</span></a>
+</li>
+	<li class="cat-item cat-item-35"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/tohoku/">東北地方 <span class="count">1</span></a>
+</li>
+	<li class="cat-item cat-item-38"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/tokai/">東海地方 <span class="count">2</span></a>
+</li>
+	<li class="cat-item cat-item-39"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/kinki/">近畿地方 <span class="count">3</span></a>
+</li>
+	<li class="cat-item cat-item-37"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/kanto/">関東地方 <span class="count">4</span></a>
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-78"><a href="https://www.tech-teacher.jp/blog/category/programming-school/features/">特徴からさがす <span class="count">13</span></a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-169"><a href="https://www.tech-teacher.jp/blog/category/others/">その他の言語 <span class="count">6</span></a>
+</li>
+	<li class="cat-item cat-item-188"><a href="https://www.tech-teacher.jp/blog/category/%e3%82%bd%e3%83%95%e3%83%88%e3%82%a6%e3%82%a7%e3%82%a2%e9%96%8b%e7%99%ba/">ソフトウェア開発 <span class="count">6</span></a>
+</li>
+	<li class="cat-item cat-item-176"><a href="https://www.tech-teacher.jp/blog/category/datascience/">データサイエンス <span class="count">57</span></a>
+</li>
+	<li class="cat-item cat-item-189"><a href="https://www.tech-teacher.jp/blog/category/%e5%9f%ba%e5%b9%b9%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0/">基幹システム <span class="count">2</span></a>
+</li>
+	<li class="cat-item cat-item-44"><a href="https://www.tech-teacher.jp/blog/category/frustration/">挫折 <span class="count">22</span></a>
+</li>
+	<li class="cat-item cat-item-183"><a href="https://www.tech-teacher.jp/blog/category/%e6%a9%9f%e6%a2%b0%e5%ad%a6%e7%bf%92/">機械学習 <span class="count">29</span></a>
+</li>
+		</ul>
+			</div><div id="tag_cloud-5" class="widget widget_tag_cloud"><div class="widgettitle ef">「タグ」から探す</div><div class="tagcloud"><a href="https://www.tech-teacher.jp/blog/tag/ai/" class="tag-cloud-link tag-link-114 tag-link-position-1" style="font-size: 22pt;" aria-label="AI (22個の項目)">AI</a>
+<a href="https://www.tech-teacher.jp/blog/tag/college/" class="tag-cloud-link tag-link-191 tag-link-position-2" style="font-size: 16.272727272727pt;" aria-label="College (9個の項目)">College</a>
+<a href="https://www.tech-teacher.jp/blog/tag/c%e8%a8%80%e8%aa%9e%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-124 tag-link-position-3" style="font-size: 12.772727272727pt;" aria-label="C言語初心者 (5個の項目)">C言語初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/c%e8%a8%80%e8%aa%9e%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-123 tag-link-position-4" style="font-size: 8pt;" aria-label="C言語講座 (2個の項目)">C言語講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/excel-vba/" class="tag-cloud-link tag-link-27 tag-link-position-5" style="font-size: 8pt;" aria-label="Excel VBA (2個の項目)">Excel VBA</a>
+<a href="https://www.tech-teacher.jp/blog/tag/excel%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-143 tag-link-position-6" style="font-size: 12.772727272727pt;" aria-label="Excel初心者 (5個の項目)">Excel初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2/" class="tag-cloud-link tag-link-130 tag-link-position-7" style="font-size: 8pt;" aria-label="Javaエンジニア (2個の項目)">Javaエンジニア</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e3%82%bd%e3%83%95%e3%83%88/" class="tag-cloud-link tag-link-149 tag-link-position-8" style="font-size: 8pt;" aria-label="Javaソフト (2個の項目)">Javaソフト</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-127 tag-link-position-9" style="font-size: 12.772727272727pt;" aria-label="Java初心者 (5個の項目)">Java初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e5%ad%a6%e7%bf%92%e6%96%b9%e6%b3%95/" class="tag-cloud-link tag-link-150 tag-link-position-10" style="font-size: 8pt;" aria-label="Java学習方法 (2個の項目)">Java学習方法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e6%96%87%e6%b3%95/" class="tag-cloud-link tag-link-147 tag-link-position-11" style="font-size: 17.545454545455pt;" aria-label="Java文法 (11個の項目)">Java文法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-120 tag-link-position-12" style="font-size: 8pt;" aria-label="Java講座 (2個の項目)">Java講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%e5%9e%8b/" class="tag-cloud-link tag-link-164 tag-link-position-13" style="font-size: 8pt;" aria-label="Pythonのデータ型 (2個の項目)">Pythonのデータ型</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%81%ae%e5%9f%ba%e7%a4%8e/" class="tag-cloud-link tag-link-160 tag-link-position-14" style="font-size: 12.772727272727pt;" aria-label="Pythonの基礎 (5個の項目)">Pythonの基礎</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2/" class="tag-cloud-link tag-link-103 tag-link-position-15" style="font-size: 18.659090909091pt;" aria-label="Pythonエンジニア (13個の項目)">Pythonエンジニア</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e6%93%8d%e4%bd%9c/" class="tag-cloud-link tag-link-146 tag-link-position-16" style="font-size: 8pt;" aria-label="Pythonファイル操作 (2個の項目)">Pythonファイル操作</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%83%a9%e3%82%a4%e3%83%96%e3%83%a9%e3%83%aa/" class="tag-cloud-link tag-link-145 tag-link-position-17" style="font-size: 13.886363636364pt;" aria-label="Pythonライブラリ (6個の項目)">Pythonライブラリ</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-106 tag-link-position-18" style="font-size: 17.545454545455pt;" aria-label="Python初心者 (11個の項目)">Python初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e5%ad%a6%e7%bf%92%e3%83%84%e3%83%bc%e3%83%ab/" class="tag-cloud-link tag-link-157 tag-link-position-19" style="font-size: 12.772727272727pt;" aria-label="Python学習ツール (5個の項目)">Python学習ツール</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e5%ad%a6%e7%bf%92%e6%96%b9%e6%b3%95/" class="tag-cloud-link tag-link-109 tag-link-position-20" style="font-size: 16.272727272727pt;" aria-label="Python学習方法 (9個の項目)">Python学習方法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e6%96%87%e6%b3%95/" class="tag-cloud-link tag-link-104 tag-link-position-21" style="font-size: 22pt;" aria-label="Python文法 (22個の項目)">Python文法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-112 tag-link-position-22" style="font-size: 11.5pt;" aria-label="Python講座 (4個の項目)">Python講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e9%96%8b%e7%99%ba%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-168 tag-link-position-23" style="font-size: 19.136363636364pt;" aria-label="Python開発初心者 (14個の項目)">Python開発初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-142 tag-link-position-24" style="font-size: 9.9090909090909pt;" aria-label="オンライン講座 (3個の項目)">オンライン講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%82%b9%e3%83%a9%e3%83%b3%e3%83%97/" class="tag-cloud-link tag-link-151 tag-link-position-25" style="font-size: 16.909090909091pt;" aria-label="スランプ (10個の項目)">スランプ</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%87%e3%83%bc%e3%82%bf%e3%82%b5%e3%82%a4%e3%82%a8%e3%83%b3%e3%82%b9/" class="tag-cloud-link tag-link-173 tag-link-position-26" style="font-size: 8pt;" aria-label="データサイエンス (2個の項目)">データサイエンス</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%87%e3%83%bc%e3%82%bf%e5%88%86%e6%9e%90/" class="tag-cloud-link tag-link-108 tag-link-position-27" style="font-size: 15.477272727273pt;" aria-label="データ分析 (8個の項目)">データ分析</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-126 tag-link-position-28" style="font-size: 15.477272727273pt;" aria-label="プログラミング初心者 (8個の項目)">プログラミング初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0%e5%ad%a6%e7%bf%92%e6%96%b9%e6%b3%95/" class="tag-cloud-link tag-link-128 tag-link-position-29" style="font-size: 13.886363636364pt;" aria-label="プログラミング学習方法 (6個の項目)">プログラミング学習方法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%a2%e3%83%81%e3%83%99%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/" class="tag-cloud-link tag-link-129 tag-link-position-30" style="font-size: 12.772727272727pt;" aria-label="モチベーション (5個の項目)">モチベーション</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e4%b8%ad%e5%9b%bd/" class="tag-cloud-link tag-link-139 tag-link-position-31" style="font-size: 8pt;" aria-label="中国 (2個の項目)">中国</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e4%b9%9d%e5%b7%9e/" class="tag-cloud-link tag-link-132 tag-link-position-32" style="font-size: 9.9090909090909pt;" aria-label="九州 (3個の項目)">九州</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e5%88%b6%e5%be%a1%e6%a7%8b%e6%96%87/" class="tag-cloud-link tag-link-162 tag-link-position-33" style="font-size: 9.9090909090909pt;" aria-label="制御構文 (3個の項目)">制御構文</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e5%b0%b1%e8%81%b7/" class="tag-cloud-link tag-link-116 tag-link-position-34" style="font-size: 15.477272727273pt;" aria-label="就職 (8個の項目)">就職</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%96%87%e5%ad%97%e5%88%97/" class="tag-cloud-link tag-link-158 tag-link-position-35" style="font-size: 8pt;" aria-label="文字列 (2個の項目)">文字列</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%9d%a1%e4%bb%b6%e5%88%86%e5%b2%90/" class="tag-cloud-link tag-link-167 tag-link-position-36" style="font-size: 8pt;" aria-label="条件分岐 (2個の項目)">条件分岐</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%9d%b1%e6%b5%b7/" class="tag-cloud-link tag-link-136 tag-link-position-37" style="font-size: 8pt;" aria-label="東海 (2個の項目)">東海</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%a9%9f%e6%a2%b0%e5%ad%a6%e7%bf%92/" class="tag-cloud-link tag-link-179 tag-link-position-38" style="font-size: 16.909090909091pt;" aria-label="機械学習 (10個の項目)">機械学習</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e7%84%a1%e6%96%99%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-122 tag-link-position-39" style="font-size: 11.5pt;" aria-label="無料講座 (4個の項目)">無料講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e7%b9%b0%e3%82%8a%e8%bf%94%e3%81%97%e5%87%a6%e7%90%86/" class="tag-cloud-link tag-link-159 tag-link-position-40" style="font-size: 11.5pt;" aria-label="繰り返し処理 (4個の項目)">繰り返し処理</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e8%b3%87%e6%a0%bc%e6%a4%9c%e5%ae%9a/" class="tag-cloud-link tag-link-111 tag-link-position-41" style="font-size: 9.9090909090909pt;" aria-label="資格検定 (3個の項目)">資格検定</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e8%bb%a2%e8%81%b7/" class="tag-cloud-link tag-link-115 tag-link-position-42" style="font-size: 9.9090909090909pt;" aria-label="転職 (3個の項目)">転職</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e8%bf%91%e7%95%bf/" class="tag-cloud-link tag-link-133 tag-link-position-43" style="font-size: 9.9090909090909pt;" aria-label="近畿 (3個の項目)">近畿</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e9%96%a2%e6%95%b0/" class="tag-cloud-link tag-link-166 tag-link-position-44" style="font-size: 12.772727272727pt;" aria-label="関数 (5個の項目)">関数</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e9%96%a2%e6%9d%b1/" class="tag-cloud-link tag-link-138 tag-link-position-45" style="font-size: 11.5pt;" aria-label="関東 (4個の項目)">関東</a></div>
+</div>	</div>
+		</div>
+	</div>
+<div class="clearfix"></div>
+	<!--フッター-->
+			<!-- breadcrumb -->
+<div id="breadcrumb" class="footer_type1">
+	<ul itemscope="" itemtype="https://schema.org/BreadcrumbList">
+		
+		<div class="page-top-footer"><a class="totop"><i class="jic jin-ifont-arrowtop"></i></a></div>
+		
+		<li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+			<a href="https://www.tech-teacher.jp/blog/" itemid="https://www.tech-teacher.jp/blog/" itemscope="" itemtype="https://schema.org/Thing" itemprop="item">
+				<i class="jic jin-ifont-home space-i" aria-hidden="true"></i><span itemprop="name">HOME</span>
+			</a>
+			<meta itemprop="position" content="1">
+		</li>
+		
+		<li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><i class="jic jin-ifont-arrow space" aria-hidden="true"></i><a href="https://www.tech-teacher.jp/blog/category/python/" itemid="https://www.tech-teacher.jp/blog/category/python/" itemscope="" itemtype="https://schema.org/Thing" itemprop="item"><span itemprop="name">Python</span></a><meta itemprop="position" content="2"></li>		
+				<li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+			<i class="jic jin-ifont-arrow space" aria-hidden="true"></i>
+			<a href="https://www.tech-teacher.jp/blog/python_voicerecognition/#" itemid="" itemscope="" itemtype="https://schema.org/Thing" itemprop="item">
+				<span itemprop="name">Python初心者でも音声認識に挑戦したい！ゼロから分かる解説</span>
+			</a>
+			<meta itemprop="position" content="3">		</li>
+			</ul>
+</div>
+<!--breadcrumb-->			<footer role="contentinfo" itemscope="" itemtype="https://schema.org/WPFooter">
+	
+		<!--ここからフッターウィジェット-->
+		
+								<div id="footer-widget-area" class="footer_style1 footer_type1">
+				<div id="footer-widget-box">
+					<div id="footer-widget-left">
+						<div id="text-2" class="footer-widget widget_text"><div class="widgettitle ef">Tech Teacher Blogとは？</div>			<div class="textwidget"><p>Tech Teacher Blogはプログラミングの家庭教師 Tech Teacher（テックティーチャー）の運営するブログです。</p>
+<p>プログラミングに関する知識や最新情報、ノウハウをブログで積極的に公開しています。</p>
+<p>&nbsp;</p>
+<p><span class="color-button02-big"><a href="https://www.tech-teacher.jp/"><svg class="svg-inline--fa fa-chevron-circle-right fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="chevron-circle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path></svg><!-- <i class="fas fa-chevron-circle-right"></i> --><span style="font-size: medium;">　Tech Teacher はこちら</span></a></span></p>
+</div>
+		</div>					</div>
+					<div id="footer-widget-center-box">
+						<div id="footer-widget-center1">
+							<div id="nav_menu-2" class="footer-widget widget_nav_menu"><div class="widgettitle ef">メニュー</div><div class="menu-%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc-container"><ul id="menu-%e3%83%a1%e3%83%8b%e3%83%a5%e3%83%bc-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3354"><a href="https://tech-teacher.jp/about/">Tech Teacherとは</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3357"><a href="https://tech-teacher.jp/course/">コース一覧</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3327"><a href="https://www.tech-teacher.jp/blog/category/python/">Python</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3326"><a href="https://www.tech-teacher.jp/blog/category/java/">Java</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3361"><a href="https://tech-teacher.jp/contact">お問い合わせ</a></li>
+</ul></div></div>						</div>
+						<div id="footer-widget-center2">
+							<div id="categories-3" class="footer-widget widget_categories"><div class="widgettitle ef">カテゴリー</div>		<ul>
+				<li class="cat-item cat-item-177"><a href="https://www.tech-teacher.jp/blog/category/ai/">AI</a>
+</li>
+	<li class="cat-item cat-item-67"><a href="https://www.tech-teacher.jp/blog/category/clanguage/">C言語</a>
+</li>
+	<li class="cat-item cat-item-29"><a href="https://www.tech-teacher.jp/blog/category/excel/">Excel</a>
+</li>
+	<li class="cat-item cat-item-30"><a href="https://www.tech-teacher.jp/blog/category/excel-vba/">Excel VBA</a>
+</li>
+	<li class="cat-item cat-item-31"><a href="https://www.tech-teacher.jp/blog/category/java/">Java</a>
+<ul class="children">
+	<li class="cat-item cat-item-96"><a href="https://www.tech-teacher.jp/blog/category/java/career-java/">キャリア</a>
+</li>
+	<li class="cat-item cat-item-93"><a href="https://www.tech-teacher.jp/blog/category/java/skillup-java/">スキルアップ</a>
+</li>
+	<li class="cat-item cat-item-94"><a href="https://www.tech-teacher.jp/blog/category/java/shool-java/">スクール</a>
+</li>
+	<li class="cat-item cat-item-91"><a href="https://www.tech-teacher.jp/blog/category/java/use-java/">使い方</a>
+</li>
+	<li class="cat-item cat-item-95"><a href="https://www.tech-teacher.jp/blog/category/java/frustration-java/">挫折</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-28"><a href="https://www.tech-teacher.jp/blog/category/python/">Python</a>
+<ul class="children">
+	<li class="cat-item cat-item-88"><a href="https://www.tech-teacher.jp/blog/category/python/career-python/">キャリア</a>
+</li>
+	<li class="cat-item cat-item-89"><a href="https://www.tech-teacher.jp/blog/category/python/skillup-python/">スキルアップ</a>
+</li>
+	<li class="cat-item cat-item-87"><a href="https://www.tech-teacher.jp/blog/category/python/school-python/">スクール</a>
+</li>
+	<li class="cat-item cat-item-85"><a href="https://www.tech-teacher.jp/blog/category/python/use-python/">使い方</a>
+</li>
+	<li class="cat-item cat-item-90"><a href="https://www.tech-teacher.jp/blog/category/python/frustration-python/">挫折</a>
+</li>
+	<li class="cat-item cat-item-86"><a href="https://www.tech-teacher.jp/blog/category/python/utilize-python/">活用</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://www.tech-teacher.jp/blog/category/uncategorized/">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-68"><a href="https://www.tech-teacher.jp/blog/category/career/">キャリア</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="https://www.tech-teacher.jp/blog/category/skillup/">スキルアップ</a>
+</li>
+	<li class="cat-item cat-item-13"><a href="https://www.tech-teacher.jp/blog/category/programming-school/">スクール・講座</a>
+<ul class="children">
+	<li class="cat-item cat-item-77"><a href="https://www.tech-teacher.jp/blog/category/programming-school/field/">分野からさがす</a>
+</li>
+	<li class="cat-item cat-item-76"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/">地域からさがす</a>
+	<ul class="children">
+	<li class="cat-item cat-item-40"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/chugoku/">中国地方</a>
+</li>
+	<li class="cat-item cat-item-42"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/kyushu-okinawa/">九州・沖縄地方</a>
+</li>
+	<li class="cat-item cat-item-34"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/hokkaido/">北海道地方</a>
+</li>
+	<li class="cat-item cat-item-36"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/hokuriku/">北陸地方</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/shikoku/">四国地方</a>
+</li>
+	<li class="cat-item cat-item-35"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/tohoku/">東北地方</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/tokai/">東海地方</a>
+</li>
+	<li class="cat-item cat-item-39"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/kinki/">近畿地方</a>
+</li>
+	<li class="cat-item cat-item-37"><a href="https://www.tech-teacher.jp/blog/category/programming-school/region/kanto/">関東地方</a>
+</li>
+	</ul>
+</li>
+	<li class="cat-item cat-item-78"><a href="https://www.tech-teacher.jp/blog/category/programming-school/features/">特徴からさがす</a>
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-169"><a href="https://www.tech-teacher.jp/blog/category/others/">その他の言語</a>
+</li>
+	<li class="cat-item cat-item-188"><a href="https://www.tech-teacher.jp/blog/category/%e3%82%bd%e3%83%95%e3%83%88%e3%82%a6%e3%82%a7%e3%82%a2%e9%96%8b%e7%99%ba/">ソフトウェア開発</a>
+</li>
+	<li class="cat-item cat-item-176"><a href="https://www.tech-teacher.jp/blog/category/datascience/">データサイエンス</a>
+</li>
+	<li class="cat-item cat-item-189"><a href="https://www.tech-teacher.jp/blog/category/%e5%9f%ba%e5%b9%b9%e3%82%b7%e3%82%b9%e3%83%86%e3%83%a0/">基幹システム</a>
+</li>
+	<li class="cat-item cat-item-44"><a href="https://www.tech-teacher.jp/blog/category/frustration/">挫折</a>
+</li>
+	<li class="cat-item cat-item-183"><a href="https://www.tech-teacher.jp/blog/category/%e6%a9%9f%e6%a2%b0%e5%ad%a6%e7%bf%92/">機械学習</a>
+</li>
+		</ul>
+			</div>						</div>
+					</div>
+					<div id="footer-widget-right">
+						<div id="search-3" class="footer-widget widget_search"><div class="widgettitle ef">検索</div><form class="search-box" role="search" method="get" id="searchform" action="https://www.tech-teacher.jp/blog/">
+	<input type="search" placeholder="" class="text search-text" value="" name="s" id="s">
+	<input type="submit" id="searchsubmit" value="">
+</form>
+</div><div id="tag_cloud-4" class="footer-widget widget_tag_cloud"><div class="widgettitle ef">タグ</div><div class="tagcloud"><a href="https://www.tech-teacher.jp/blog/tag/ai/" class="tag-cloud-link tag-link-114 tag-link-position-1" style="font-size: 22pt;" aria-label="AI (22個の項目)">AI</a>
+<a href="https://www.tech-teacher.jp/blog/tag/college/" class="tag-cloud-link tag-link-191 tag-link-position-2" style="font-size: 16.272727272727pt;" aria-label="College (9個の項目)">College</a>
+<a href="https://www.tech-teacher.jp/blog/tag/c%e8%a8%80%e8%aa%9e%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-124 tag-link-position-3" style="font-size: 12.772727272727pt;" aria-label="C言語初心者 (5個の項目)">C言語初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/c%e8%a8%80%e8%aa%9e%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-123 tag-link-position-4" style="font-size: 8pt;" aria-label="C言語講座 (2個の項目)">C言語講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/excel-vba/" class="tag-cloud-link tag-link-27 tag-link-position-5" style="font-size: 8pt;" aria-label="Excel VBA (2個の項目)">Excel VBA</a>
+<a href="https://www.tech-teacher.jp/blog/tag/excel%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-143 tag-link-position-6" style="font-size: 12.772727272727pt;" aria-label="Excel初心者 (5個の項目)">Excel初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2/" class="tag-cloud-link tag-link-130 tag-link-position-7" style="font-size: 8pt;" aria-label="Javaエンジニア (2個の項目)">Javaエンジニア</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e3%82%bd%e3%83%95%e3%83%88/" class="tag-cloud-link tag-link-149 tag-link-position-8" style="font-size: 8pt;" aria-label="Javaソフト (2個の項目)">Javaソフト</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-127 tag-link-position-9" style="font-size: 12.772727272727pt;" aria-label="Java初心者 (5個の項目)">Java初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e5%ad%a6%e7%bf%92%e6%96%b9%e6%b3%95/" class="tag-cloud-link tag-link-150 tag-link-position-10" style="font-size: 8pt;" aria-label="Java学習方法 (2個の項目)">Java学習方法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e6%96%87%e6%b3%95/" class="tag-cloud-link tag-link-147 tag-link-position-11" style="font-size: 17.545454545455pt;" aria-label="Java文法 (11個の項目)">Java文法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/java%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-120 tag-link-position-12" style="font-size: 8pt;" aria-label="Java講座 (2個の項目)">Java講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%81%ae%e3%83%87%e3%83%bc%e3%82%bf%e5%9e%8b/" class="tag-cloud-link tag-link-164 tag-link-position-13" style="font-size: 8pt;" aria-label="Pythonのデータ型 (2個の項目)">Pythonのデータ型</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%81%ae%e5%9f%ba%e7%a4%8e/" class="tag-cloud-link tag-link-160 tag-link-position-14" style="font-size: 12.772727272727pt;" aria-label="Pythonの基礎 (5個の項目)">Pythonの基礎</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2/" class="tag-cloud-link tag-link-103 tag-link-position-15" style="font-size: 18.659090909091pt;" aria-label="Pythonエンジニア (13個の項目)">Pythonエンジニア</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e6%93%8d%e4%bd%9c/" class="tag-cloud-link tag-link-146 tag-link-position-16" style="font-size: 8pt;" aria-label="Pythonファイル操作 (2個の項目)">Pythonファイル操作</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e3%83%a9%e3%82%a4%e3%83%96%e3%83%a9%e3%83%aa/" class="tag-cloud-link tag-link-145 tag-link-position-17" style="font-size: 13.886363636364pt;" aria-label="Pythonライブラリ (6個の項目)">Pythonライブラリ</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-106 tag-link-position-18" style="font-size: 17.545454545455pt;" aria-label="Python初心者 (11個の項目)">Python初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e5%ad%a6%e7%bf%92%e3%83%84%e3%83%bc%e3%83%ab/" class="tag-cloud-link tag-link-157 tag-link-position-19" style="font-size: 12.772727272727pt;" aria-label="Python学習ツール (5個の項目)">Python学習ツール</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e5%ad%a6%e7%bf%92%e6%96%b9%e6%b3%95/" class="tag-cloud-link tag-link-109 tag-link-position-20" style="font-size: 16.272727272727pt;" aria-label="Python学習方法 (9個の項目)">Python学習方法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e6%96%87%e6%b3%95/" class="tag-cloud-link tag-link-104 tag-link-position-21" style="font-size: 22pt;" aria-label="Python文法 (22個の項目)">Python文法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-112 tag-link-position-22" style="font-size: 11.5pt;" aria-label="Python講座 (4個の項目)">Python講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/python%e9%96%8b%e7%99%ba%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-168 tag-link-position-23" style="font-size: 19.136363636364pt;" aria-label="Python開発初心者 (14個の項目)">Python開発初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-142 tag-link-position-24" style="font-size: 9.9090909090909pt;" aria-label="オンライン講座 (3個の項目)">オンライン講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%82%b9%e3%83%a9%e3%83%b3%e3%83%97/" class="tag-cloud-link tag-link-151 tag-link-position-25" style="font-size: 16.909090909091pt;" aria-label="スランプ (10個の項目)">スランプ</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%87%e3%83%bc%e3%82%bf%e3%82%b5%e3%82%a4%e3%82%a8%e3%83%b3%e3%82%b9/" class="tag-cloud-link tag-link-173 tag-link-position-26" style="font-size: 8pt;" aria-label="データサイエンス (2個の項目)">データサイエンス</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%87%e3%83%bc%e3%82%bf%e5%88%86%e6%9e%90/" class="tag-cloud-link tag-link-108 tag-link-position-27" style="font-size: 15.477272727273pt;" aria-label="データ分析 (8個の項目)">データ分析</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-126 tag-link-position-28" style="font-size: 15.477272727273pt;" aria-label="プログラミング初心者 (8個の項目)">プログラミング初心者</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0%e5%ad%a6%e7%bf%92%e6%96%b9%e6%b3%95/" class="tag-cloud-link tag-link-128 tag-link-position-29" style="font-size: 13.886363636364pt;" aria-label="プログラミング学習方法 (6個の項目)">プログラミング学習方法</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e3%83%a2%e3%83%81%e3%83%99%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3/" class="tag-cloud-link tag-link-129 tag-link-position-30" style="font-size: 12.772727272727pt;" aria-label="モチベーション (5個の項目)">モチベーション</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e4%b8%ad%e5%9b%bd/" class="tag-cloud-link tag-link-139 tag-link-position-31" style="font-size: 8pt;" aria-label="中国 (2個の項目)">中国</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e4%b9%9d%e5%b7%9e/" class="tag-cloud-link tag-link-132 tag-link-position-32" style="font-size: 9.9090909090909pt;" aria-label="九州 (3個の項目)">九州</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e5%88%b6%e5%be%a1%e6%a7%8b%e6%96%87/" class="tag-cloud-link tag-link-162 tag-link-position-33" style="font-size: 9.9090909090909pt;" aria-label="制御構文 (3個の項目)">制御構文</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e5%b0%b1%e8%81%b7/" class="tag-cloud-link tag-link-116 tag-link-position-34" style="font-size: 15.477272727273pt;" aria-label="就職 (8個の項目)">就職</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%96%87%e5%ad%97%e5%88%97/" class="tag-cloud-link tag-link-158 tag-link-position-35" style="font-size: 8pt;" aria-label="文字列 (2個の項目)">文字列</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%9d%a1%e4%bb%b6%e5%88%86%e5%b2%90/" class="tag-cloud-link tag-link-167 tag-link-position-36" style="font-size: 8pt;" aria-label="条件分岐 (2個の項目)">条件分岐</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%9d%b1%e6%b5%b7/" class="tag-cloud-link tag-link-136 tag-link-position-37" style="font-size: 8pt;" aria-label="東海 (2個の項目)">東海</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e6%a9%9f%e6%a2%b0%e5%ad%a6%e7%bf%92/" class="tag-cloud-link tag-link-179 tag-link-position-38" style="font-size: 16.909090909091pt;" aria-label="機械学習 (10個の項目)">機械学習</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e7%84%a1%e6%96%99%e8%ac%9b%e5%ba%a7/" class="tag-cloud-link tag-link-122 tag-link-position-39" style="font-size: 11.5pt;" aria-label="無料講座 (4個の項目)">無料講座</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e7%b9%b0%e3%82%8a%e8%bf%94%e3%81%97%e5%87%a6%e7%90%86/" class="tag-cloud-link tag-link-159 tag-link-position-40" style="font-size: 11.5pt;" aria-label="繰り返し処理 (4個の項目)">繰り返し処理</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e8%b3%87%e6%a0%bc%e6%a4%9c%e5%ae%9a/" class="tag-cloud-link tag-link-111 tag-link-position-41" style="font-size: 9.9090909090909pt;" aria-label="資格検定 (3個の項目)">資格検定</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e8%bb%a2%e8%81%b7/" class="tag-cloud-link tag-link-115 tag-link-position-42" style="font-size: 9.9090909090909pt;" aria-label="転職 (3個の項目)">転職</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e8%bf%91%e7%95%bf/" class="tag-cloud-link tag-link-133 tag-link-position-43" style="font-size: 9.9090909090909pt;" aria-label="近畿 (3個の項目)">近畿</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e9%96%a2%e6%95%b0/" class="tag-cloud-link tag-link-166 tag-link-position-44" style="font-size: 12.772727272727pt;" aria-label="関数 (5個の項目)">関数</a>
+<a href="https://www.tech-teacher.jp/blog/tag/%e9%96%a2%e6%9d%b1/" class="tag-cloud-link tag-link-138 tag-link-position-45" style="font-size: 11.5pt;" aria-label="関東 (4個の項目)">関東</a></div>
+</div><div id="widget-popular-2" class="footer-widget widget-popular"><div class="widgettitle ef">人気記事</div>		<div id="new-entry-box">
+				<ul>
+												   				   										<li class="new-entry-item popular-item">
+						<a href="https://www.tech-teacher.jp/blog/python-opencv/" rel="bookmark">
+							<div class="new-entry" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+								<figure class="eyecatch">
+																			<img src="./onsei_files/photography-of-person-typing-1181675-1-1-320x180.jpg" class="attachment-cps_thumbnails size-cps_thumbnails wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/photography-of-person-typing-1181675-1-1-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/photography-of-person-typing-1181675-1-1-640x360.jpg 640w" sizes="(max-width: 320px) 100vw, 320px">										<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/photography-of-person-typing-1181675-1-1-640x360.jpg">
+										<meta itemprop="width" content="640">
+										<meta itemprop="height" content="360">
+																	</figure>
+								<span class="pop-num ef">1</span>
+							</div>
+							<div class="new-entry-item-meta">
+								<h3 class="new-entry-item-title" itemprop="headline">画像処理をマスターしよう！PythonでOpenCVを使う方法を紹介！</h3>
+							</div>
+																				</a>
+					</li>
+					   										<li class="new-entry-item popular-item">
+						<a href="https://www.tech-teacher.jp/blog/python-class/" rel="bookmark">
+							<div class="new-entry" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+								<figure class="eyecatch">
+																			<img src="./onsei_files/matrix-3408060-1024x683-1-320x180.jpg" class="attachment-cps_thumbnails size-cps_thumbnails wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/matrix-3408060-1024x683-1-320x180.jpg 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/matrix-3408060-1024x683-1-640x360.jpg 640w" sizes="(max-width: 320px) 100vw, 320px">										<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/matrix-3408060-1024x683-1-640x360.jpg">
+										<meta itemprop="width" content="640">
+										<meta itemprop="height" content="360">
+																	</figure>
+								<span class="pop-num ef">2</span>
+							</div>
+							<div class="new-entry-item-meta">
+								<h3 class="new-entry-item-title" itemprop="headline">【Python】classの使い方を理解しよう！役割や実践方法を徹底解説！</h3>
+							</div>
+																				</a>
+					</li>
+					   										<li class="new-entry-item popular-item">
+						<a href="https://www.tech-teacher.jp/blog/python-datetime/" rel="bookmark">
+							<div class="new-entry" itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+								<figure class="eyecatch">
+																			<img src="./onsei_files/programming-1873854-1-1024x563-1-320x180.png" class="attachment-cps_thumbnails size-cps_thumbnails wp-post-image" alt="" srcset="https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/programming-1873854-1-1024x563-1-320x180.png 320w, https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/programming-1873854-1-1024x563-1-640x360.png 640w" sizes="(max-width: 320px) 100vw, 320px">										<meta itemprop="url" content="https://www.tech-teacher.jp/blog/wp-content/uploads/2020/06/programming-1873854-1-1024x563-1-640x360.png">
+										<meta itemprop="width" content="640">
+										<meta itemprop="height" content="360">
+																	</figure>
+								<span class="pop-num ef">3</span>
+							</div>
+							<div class="new-entry-item-meta">
+								<h3 class="new-entry-item-title" itemprop="headline">Pythonのdatetimeを使いこなそう！現在日時取得から文字列変換まで</h3>
+							</div>
+																				</a>
+					</li>
+														</ul>
+			</div>
+		</div>					</div>
+				</div>
+			</div>
+						<div class="footersen"></div>
+				
+		
+		<div class="clearfix"></div>
+		
+		<!--ここまでフッターウィジェット-->
+	
+					<div id="footer-box">
+				<div class="footer-inner">
+					<span id="privacy"><a href="https://www.tech-teacher.jp/privacy">プライバシーポリシー</a></span>
+					<span id="law"><a href="https://www.tech-teacher.jp/law">免責事項</a></span>
+					<span id="copyright" itemprop="copyrightHolder"><i class="jic jin-ifont-copyright" aria-hidden="true"></i>2019–2022&nbsp;&nbsp;TechTeacher Blog</span>
+				</div>
+			</div>
+				<div class="clearfix"></div>
+	</footer>
+	
+	
+	
+		
+	</div><!--scroll-content-->
+
+			
+</div><!--wrapper-->
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NL6NPD2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --><script type="text/javascript">
+/* <![CDATA[ */
+var rtocListH2Type = {"rtocListH2Type":"ol"};
+var rtocListH3Type = {"rtocListH3Type":"ul"};
+var rtocTitleDisplay = {"rtocTitleDisplay":"left"};
+var rtocTitle = {"rtocTitle":"\u76ee\u6b21"};
+var rtocDisplay = {"rtocDisplay":{"post":"post","page":"page"}};
+var rtocInitialDisplay = {"rtocInitialDisplay":"open"};
+var rtocHeadlineDisplay = {"rtocHeadlineDisplay":"h3"};
+var rtocDisplayHeadlineAmount = {"rtocDisplayHeadlineAmount":"4"};
+var rtocFont = {"rtocFont":"default"};
+var rtocAnimation = {"rtocAnimation":"animation-fade"};
+var rtocColor = {"rtocColor":"preset1"};
+var rtocScrollAnimation = {"rtocScrollAnimation":"on"};
+var rtocBackButton = {"rtocBackButton":"off"};
+var rtocOpenText = {"rtocOpenText":"OPEN"};
+var rtocCloseText = {"rtocCloseText":"CLOSE"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./onsei_files/rtoc_common.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/rtoc_scroll.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/common.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/jin_h_icons.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/swiper.min.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/all.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/followwidget.js.ダウンロード"></script>
+<script type="text/javascript" src="./onsei_files/wp-embed.min.js.ダウンロード"></script>
+
+<script>
+	var mySwiper = new Swiper ('.swiper-container', {
+		// Optional parameters
+		loop: true,
+		slidesPerView: 5,
+		spaceBetween: 15,
+		autoplay: {
+			delay: 2700,
+		},
+		// If we need pagination
+		pagination: {
+			el: '.swiper-pagination',
+		},
+
+		// Navigation arrows
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+
+		// And if we need scrollbar
+		scrollbar: {
+			el: '.swiper-scrollbar',
+		},
+		breakpoints: {
+              1024: {
+				slidesPerView: 4,
+				spaceBetween: 15,
+			},
+              767: {
+				slidesPerView: 2,
+				spaceBetween: 10,
+				centeredSlides : true,
+				autoplay: {
+					delay: 4200,
+				},
+			}
+        }
+	});
+	
+	var mySwiper2 = new Swiper ('.swiper-container2', {
+	// Optional parameters
+		loop: true,
+		slidesPerView: 3,
+		spaceBetween: 17,
+		centeredSlides : true,
+		autoplay: {
+			delay: 4000,
+		},
+
+		// If we need pagination
+		pagination: {
+			el: '.swiper-pagination',
+		},
+
+		// Navigation arrows
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+
+		// And if we need scrollbar
+		scrollbar: {
+			el: '.swiper-scrollbar',
+		},
+
+		breakpoints: {
+			767: {
+				slidesPerView: 2,
+				spaceBetween: 10,
+				centeredSlides : true,
+				autoplay: {
+					delay: 4200,
+				},
+			}
+		}
+	});
+
+</script>
+<div id="page-top">
+	<a class="totop"><i class="jic jin-ifont-arrowtop"></i></a>
+</div>
+
+
+
+<link href="./onsei_files/css" rel="stylesheet">
+<script type="text/javascript" id="" src="./onsei_files/a8sales.js.ダウンロード"></script>
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","432404381625987");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=432404381625987&amp;ev=PageView&amp;noscript=1"></noscript>
+
+<script type="text/javascript" id="" src="./onsei_files/a8crossDomain.js.ダウンロード"></script></body></html>

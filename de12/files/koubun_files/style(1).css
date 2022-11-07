@@ -1,0 +1,176 @@
+@charset "UTF-8";
+/*
+ Theme Name: SANGO Child
+ Theme URI: https://saruwakakun.design
+ Author: SARUWAKA
+ Author URI: https://saruwakakun.com
+ Template: sango-theme
+ Version: 3.0
+*/
+/*こちらはSANGOの子テーマ用CSSです。以下にCSSを記入していきましょう。*/
+
+/* ブログカードに装飾*/
+.linkto{
+  padding: .9rem 1rem 1.5rem;
+  color: #707070;
+  position: relative;
+  border-color: #42b983 !important;/*枠線の色*/
+  font-size:.95em;
+  box-shadow: 0 4px 4px rgba(0,0,0,.13), 0 2px 3px -2px rgba(0,0,0,.12);/*本体の影*/
+  margin:0 auto;
+  z-index:0;
+}
+.linkto span {
+  opacity: .8;
+}
+.linkto:hover {
+  background-color: initial;
+  opacity: .9;
+  transform: scale(1.04);
+}
+.linkto img{
+  box-shadow:initial;
+  max-width: 70%;
+  margin-left: .7rem;
+  z-index: 0;
+  margin-top:10px;
+}
+@media only screen and (max-width: 480px) {
+  .linkto img{
+    max-width: 65%;
+    margin-left: .7rem;
+  }
+}
+.linkto:before {
+  content: 'あわせて読みたい';
+  position: absolute;
+  top: -.8rem;
+  left: auto;
+  font-size: 50%;
+  background-color: #42b983;/*「あわせて読みたい」の背景色*/
+  padding: .4em .8em;
+  font-weight: bold;
+  color: #fff;/*「あわせて読みたい」の文字色*/
+  border-radius: 2px;
+  font-size:.6rem;
+  z-index: 1;
+  margin-left:-.4em;
+}
+.linkto:after{
+  content: '続きを読む .linkto{
+  padding: .9rem 1rem 1.5rem;
+  color: #707070;
+  position: relative;
+  border-color: #f8c678 !important;/*枠線の色*/
+  font-size:.95em;
+  box-shadow: 0 4px 4px rgba(0,0,0,.13), 0 2px 3px -2px rgba(0,0,0,.12);/*本体の影*/
+  margin:0 auto;
+  z-index:0;
+}
+.linkto span {
+  opacity: .8;
+}
+.linkto:hover {
+  background-color: initial;
+  opacity: .9;
+  transform: scale(1.04);
+}
+.linkto img{
+  box-shadow:initial;
+  max-width: 70%;
+  margin-left: .7rem;
+  z-index: 0;
+  margin-top:10px;
+}
+@media only screen and (max-width: 480px) {
+  .linkto img{
+    max-width: 65%;
+    margin-left: .7rem;
+  }
+}
+.linkto:before {
+  content: 'あわせて読みたい';
+  position: absolute;
+  top: -.8rem;
+  left: auto;
+  font-size: 50%;
+  background-color: #42b983;/*「あわせて読みたい」の背景色*/
+  padding: .4em .8em;
+  font-weight: bold;
+  color: #fff;/*「あわせて読みたい」の文字色*/
+  border-radius: 2px;
+  font-size:.6rem;
+  z-index: 1;
+  margin-left:-.4em;
+}
+.linkto:after{
+  content: '続きを読む \0bb';
+  position: absolute;
+  bottom: .5rem;
+  right: 1rem;
+  font-size: 70%;
+  background-color: #42b983;/*「続きを読む」の背景色*/
+  padding: .3em 1.7em;
+  font-weight: bold;
+  color: #fff;/*「続きを読む」の文字色*/
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  font-size:.7rem;
+  z-index:1;
+  opacity:.9;
+  box-shadow: 0 2px 2px rgba(0,0,0,.1);
+  transform: translateX(3px);
+}
+@media screen and (min-width: 480px){
+  .linkto:before{
+    font-size:.7em;
+  }
+}bb';
+  position: absolute;
+  bottom: .5rem;
+  right: 1rem;
+  font-size: 70%;
+  background-color: #42b983;/*「続きを読む」の背景色*/
+  padding: .3em 1.7em;
+  font-weight: bold;
+  color: #fff;/*「続きを読む」の文字色*/
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  font-size:.7rem;
+  z-index:1;
+  opacity:.9;
+  box-shadow: 0 2px 2px rgba(0,0,0,.1);
+  transform: translateX(3px);
+}
+@media screen and (min-width: 480px){
+  .linkto:before{
+    font-size:.7em;
+  }
+}
+
+/*画像リンクに影*/
+.entry-content a:not(.linkto):not(.c_linkto) img{
+	box-shadow: 0 3px 6px rgba(0, 0, 0, .25);
+	transition: .3s;
+}
+.entry-content a:not(.linkto):not(.c_linkto) img:hover{
+	box-shadow: 0 13px 20px -3px rgba(0,0,0,.24);
+}
+
+/*コードを横スクロール*/
+.entry-content pre code {
+  padding: 0;
+  background: transparent;
+  overflow-x: auto;
+  margin-bottom: 1em;
+  white-space: pre;
+  max-width: 770px;
+  word-wrap: normal;
+}
+
+
+
+/* ヘッダーの区切り線の色 */
+.post-tab .tab1, .post-tab .tab2, .post-tab .tab3 {
+	border-right: solid 1px #42b983;
+}
