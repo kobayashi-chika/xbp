@@ -33,9 +33,9 @@ f.write('\n')
 f.write('</head>')
 f.write('\n')
 
-f.write('<body bgcolor="' +d+'" text="#cccccc">')
+f.write('<body bgcolor="' +d+'" text="#cccccc">') #ランダムリストの中から背景色を貼り付け
 f.write('\n')
-f.write('<div style="border: ' +v+' solid 1px; border-left:  ' +v+' solid 10px; padding: 20px; background:  ' +l+'; font-size: 100%;">"タイトル"</div>')
+f.write('<div style="border: ' +v+' solid 1px; border-left:  ' +v+' solid 10px; padding: 20px; background:  ' +l+'; font-size: 100%;">"タイトル"</div>')#ランダムリストの中から枠の色、枠内の色を貼り付け
 f.write('\n')
 f.write('本文')
 f.write('\n')
