@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)https://gakogako.com/python_hiroyuki/ -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="msapplication-TileColor" content="#42b983">
+  <meta name="theme-color" content="#42b983">
+  <link rel="pingback" href="https://gakogako.com/xmlrpc.php">
+  <title>【Python初心者向け】形態素解析とマルコフ連鎖を使ってひろゆきっぽい文章を生成してみた | 徒然なるままに技術</title>
+<meta name="robots" content="max-image-preview:large">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="https://use.fontawesome.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="徒然なるままに技術 » フィード" href="https://gakogako.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="徒然なるままに技術 » コメントフィード" href="https://gakogako.com/comments/feed/">
+		<script src="./koubun_files/f(4).txt"></script><script type="text/javascript" async="" src="./koubun_files/analytics.js.ダウンロード"></script><script src="./koubun_files/f(5).txt" id="google_shimpl"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.1.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/gakogako.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.8.6"}};
+			!function(e,a,t){var n,r,o,i=a.createElement("canvas"),p=i.getContext&&i.getContext("2d");function s(e,t){var a=String.fromCharCode;p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,e),0,0);e=i.toDataURL();return p.clearRect(0,0,i.width,i.height),p.fillText(a.apply(this,t),0,0),e===i.toDataURL()}function c(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(o=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},r=0;r<o.length;r++)t.supports[o[r]]=function(e){if(!p||!p.fillText)return!1;switch(p.textBaseline="top",p.font="600 32px Arial",e){case"flag":return s([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])?!1:!s([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!s([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!s([10084,65039,8205,55357,56613],[10084,65039,8203,55357,56613])}return!1}(o[r]),t.supports.everything=t.supports.everything&&t.supports[o[r]],"flag"!==o[r]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[o[r]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(n=t.source||{}).concatemoji?c(n.concatemoji):n.wpemoji&&n.twemoji&&(c(n.twemoji),c(n.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./koubun_files/wp-emoji-release.min.js.ダウンロード" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="sng-stylesheet-css" href="./koubun_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="sng-option-css" href="./koubun_files/entry-option.css" type="text/css" media="all">
+<link rel="stylesheet" id="sng-googlefonts-css" href="./koubun_files/css(2)" type="text/css" media="all">
+<link rel="stylesheet" id="sng-fontawesome-css" href="./koubun_files/all.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="./koubun_files/style.min.css" type="text/css" media="all">
+<style id="wp-block-library-inline-css" type="text/css">
+.has-text-align-justify{text-align:justify;}
+</style>
+<link rel="stylesheet" id="mediaelement-css" href="./koubun_files/mediaelementplayer-legacy.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-mediaelement-css" href="./koubun_files/wp-mediaelement.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="sango_theme_gutenberg-style-css" href="./koubun_files/blocks.style.build.css" type="text/css" media="all">
+<style id="sango_theme_gutenberg-style-inline-css" type="text/css">
+.is-style-sango-list-main-color li:before { background-color: #42b983; }.is-style-sango-list-accent-color li:before { background-color: #ff4242; }.sgb-label-main-c { background-color: #42b983; }.sgb-label-accent-c { background-color: #ff4242; }
+</style>
+<link rel="stylesheet" id="contact-form-7-css" href="./koubun_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="child-style-css" href="./koubun_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="hcb-style-css" href="./koubun_files/hcb_style.css" type="text/css" media="all">
+<style id="hcb-style-inline-css" type="text/css">
+.hcb_wrap pre.prism{font-size: 14px}@media screen and (max-width: 599px){.hcb_wrap pre.prism{font-size: 13px}}.hcb_wrap pre{font-family:Menlo, Consolas, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;}
+</style>
+<link rel="stylesheet" id="hcb-coloring-css" href="./koubun_files/coloring_light.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./koubun_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./koubun_files/jquery.min.js.ダウンロード" id="jquery-core-js"></script>
+<script type="text/javascript" src="./koubun_files/jquery-migrate.min.js.ダウンロード" id="jquery-migrate-js"></script>
+<link rel="https://api.w.org/" href="https://gakogako.com/wp-json/"><link rel="alternate" type="application/json" href="https://gakogako.com/wp-json/wp/v2/posts/891"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://gakogako.com/xmlrpc.php?rsd">
+<link rel="canonical" href="https://gakogako.com/python_hiroyuki/">
+<link rel="shortlink" href="https://gakogako.com/?p=891">
+<link rel="alternate" type="application/json+oembed" href="https://gakogako.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://gakogako.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;format=xml">
+<style type="text/css">img#wpstats{display:none}</style>
+		<meta property="og:title" content="【Python初心者向け】形態素解析とマルコフ連鎖を使ってひろゆきっぽい文章を生成してみた">
+<meta property="og:description" content="この記事を読んでくれているIT意識が高いであろう人(?)は「ひろゆき」さんを知らない人はいないと思います。 「2ちゃんねる」や「ニコニコ動画」といった有名Webサービスを立ち上げて現在は数々のメディアに出演されているあの ... ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://gakogako.com/python_hiroyuki/">
+<meta property="og:image" content="https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2-645x363.png">
+<meta name="thumbnail" content="https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2-645x363.png">
+<meta property="og:site_name" content="徒然なるままに技術">
+<meta name="twitter:card" content="summary_large_image">
+<!-- gtag.js -->
+<script async="" src="./koubun_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-197350728-1');
+</script>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #2c3e50; }
+</style>
+	<link rel="icon" href="https://gakogako.com/wp-content/uploads/2021/06/cropped-IMG_0950-32x32.jpg" sizes="32x32">
+<link rel="icon" href="https://gakogako.com/wp-content/uploads/2021/06/cropped-IMG_0950-192x192.jpg" sizes="192x192">
+<link rel="apple-touch-icon" href="https://gakogako.com/wp-content/uploads/2021/06/cropped-IMG_0950-180x180.jpg">
+<meta name="msapplication-TileImage" content="https://gakogako.com/wp-content/uploads/2021/06/cropped-IMG_0950-270x270.jpg">
+		<style type="text/css" id="wp-custom-css">
+			/* ヘッダータブのアクティブ箇所の文字色 */
+.post-tab > div.tab-active {
+	color: #2c3e50;
+}		</style>
+		<style> a{color:#4f96f6}.main-c, .has-sango-main-color{color:#42b983}.main-bc, .has-sango-main-background-color{background-color:#42b983}.main-bdr, #inner-content .main-bdr{border-color:#42b983}.pastel-c, .has-sango-pastel-color{color:#91baa7}.pastel-bc, .has-sango-pastel-background-color, #inner-content .pastel-bc{background-color:#91baa7}.accent-c, .has-sango-accent-color{color:#ff4242}.accent-bc, .has-sango-accent-background-color{background-color:#ff4242}.header, #footer-menu, .drawer__title{background-color:#42b983}#logo a{color:#2c3e50}.desktop-nav li a , .mobile-nav li a, #footer-menu a, #drawer__open, .header-search__open, .copyright, .drawer__title{color:#42b983}.drawer__title .close span, .drawer__title .close span:before{background:#42b983}.desktop-nav li:after{background:#42b983}.mobile-nav .current-menu-item{border-bottom-color:#42b983}.widgettitle, .sidebar .wp-block-group h2, .drawer .wp-block-group h2{color:#42b983;background-color:#2c3e50}.footer, .footer-block{background-color:#2c3e50}.footer-block, .footer, .footer a, .footer .widget ul li a{color:#42b983}#toc_container .toc_title, .entry-content .ez-toc-title-container, #footer_menu .raised, .pagination a, .pagination span, #reply-title:before, .entry-content blockquote:before, .main-c-before li:before, .main-c-b:before{color:#42b983}.searchform__submit, .footer-block .wp-block-search .wp-block-search__button, .sidebar .wp-block-search .wp-block-search__button, .footer .wp-block-search .wp-block-search__button, .drawer .wp-block-search .wp-block-search__button, #toc_container .toc_title:before, .ez-toc-title-container:before, .cat-name, .pre_tag > span, .pagination .current, .post-page-numbers.current, #submit, .withtag_list > span, .main-bc-before li:before{background-color:#42b983}#toc_container, #ez-toc-container, .entry-content h3, .li-mainbdr ul, .li-mainbdr ol{border-color:#42b983}.search-title i, .acc-bc-before li:before{background:#ff4242}.li-accentbdr ul, .li-accentbdr ol{border-color:#ff4242}.pagination a:hover, .li-pastelbc ul, .li-pastelbc ol{background:#91baa7}body{font-size:100%}@media only screen and (min-width:481px){body{font-size:107%}}@media only screen and (min-width:1030px){body{font-size:107%}}.totop{background:#42b983}.header-info a{color:#FFF;background:linear-gradient(95deg, #738bff, #85e3ec)}.fixed-menu ul{background:#FFF}.fixed-menu a{color:#a2a7ab}.fixed-menu .current-menu-item a, .fixed-menu ul li a.active{color:#6bb6ff}.post-tab{background:#2c3e50}.post-tab > div{color:#42b983}.post-tab > div.tab-active{background:linear-gradient(45deg, #42b983, #42b983)}body{font-family:"Helvetica", "Arial", "Hiragino Kaku Gothic ProN", "Hiragino Sans", YuGothic, "Yu Gothic", "メイリオ", Meiryo, sans-serif;}.dfont{font-family:"Quicksand","Helvetica", "Arial", "Hiragino Kaku Gothic ProN", "Hiragino Sans", YuGothic, "Yu Gothic", "メイリオ", Meiryo, sans-serif;}.body_bc{background-color:2c3e50}</style><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="Az6AfRvI8mo7yiW5fLfj04W21t0ig6aMsGYpIqMTaX60H+b0DkO1uDr+7BrzMcimWzv/X7SXR8jI+uvbV0IJlwYAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+USTya+tNvDPaxUgJooz+LaVk5hPoAxpLvSxjogX4Mk8awCTQ9iop6zJ9d5ldgU7WmHqBlnQB41LHHRFxoaBwoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A7FovoGr67TUBYbnY+Z0IKoJbbmRmB8fCyirUGHavNDtD91CiGyHHSA2hDG9r9T3NjUKFi6egL3RbgTwhhcVDwUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjgwNjUyNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><link rel="preload" href="./koubun_files/f(6).txt" as="script"><script type="text/javascript" src="./koubun_files/f(6).txt"></script><link rel="preload" href="./koubun_files/f(7).txt" as="script"><script type="text/javascript" src="./koubun_files/f(7).txt"></script><style id="ez-toc-active-height">.ez-toc-widget-container ul.ez-toc-list li.active::before {height:NaNpx;} </style></head>
+<body class="post-template-default single single-post postid-891 single-format-standard custom-background fa5">
+    <div id="container" style="height: auto !important;">
+    <header class="header header--center">
+            <div id="inner-header" class="wrap cf">
+    <div id="logo" class="header-logo h1 dfont">
+    <a href="https://gakogako.com/" class="header-logo__link">
+            徒然なるままに技術    </a>
+  </div>
+  <div class="header-search">
+      <label class="header-search__open" for="header-search-input"><i class="fas fa-search" aria-hidden="true"></i></label>
+    <input type="checkbox" class="header-search__input" id="header-search-input" onclick="document.querySelector(&#39;.header-search__modal .searchform__input&#39;).focus()">
+  <label class="header-search__close" for="header-search-input"></label>
+  <div class="header-search__modal">
+    <form role="search" method="get" class="searchform" action="https://gakogako.com/">
+  <div>
+    <input type="search" class="searchform__input" name="s" value="" placeholder="検索">
+    <button type="submit" class="searchform__submit" aria-label="検索"><i class="fas fa-search" aria-hidden="true"></i></button>
+  </div>
+</form>  </div>
+</div>  </div>
+    </header>
+      <div id="content" style="height: auto !important;">
+    <div id="inner-content" class="wrap cf" style="height: auto !important;">
+      <main id="main" class="m-all t-2of3 d-5of7 cf">
+                  <article id="entry" class="cf post-891 post type-post status-publish format-standard has-post-thumbnail category-python category-programming tag-mecab tag-python tag-66 tag-63 tag-64">
+            <header class="article-header entry-header">
+  <nav id="breadcrumb" class="breadcrumb"><ul itemscope="" itemtype="http://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="https://gakogako.com/" itemprop="item"><span itemprop="name">ホーム</span></a><meta itemprop="position" content="1"></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="https://gakogako.com/category/programming/" itemprop="item"><span itemprop="name">プログラミング</span></a><meta itemprop="position" content="2"></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="https://gakogako.com/category/programming/python/" itemprop="item"><span itemprop="name">Python</span></a><meta itemprop="position" content="3"></li></ul></nav>  <h1 class="entry-title single-title">【Python初心者向け】形態素解析とマルコフ連鎖を使ってひろゆきっぽい文章を生成してみた</h1>
+  <div class="entry-meta vcard">
+    <time class="pubdate entry-time" itemprop="datePublished" datetime="2021-10-12">2021年10月12日</time><time class="updated entry-time" itemprop="dateModified" datetime="2021-12-23">2021年12月23日</time>  </div>
+      <p class="post-thumbnail"><img width="940" height="529" src="./koubun_files/hiroyuki_2-940x529.png" class="attachment-thumb-940 size-thumb-940 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2-940x529.png 940w, https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2-300x169.png 300w, https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2-645x363.png 645w, https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2-768x432.png 768w, https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2.png 1280w" sizes="(max-width: 940px) 100vw, 940px"></p>
+        <input type="checkbox" id="fab">
+    <label class="fab-btn extended-fab main-c" for="fab"><i class="fas fa-share-alt" aria-hidden="true"></i></label>
+    <label class="fab__close-cover" for="fab"></label>
+        <div id="fab__contents">
+      <div class="fab__contents-main dfont">
+        <label class="close" for="fab"><span></span></label>
+        <p class="fab__contents_title">SHARE</p>
+                  <div class="fab__contents_img" style="background-image: url(https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2-520x300.png);">
+          </div>
+                  <div class="sns-btn sns-dif">
+          <ul>
+        <!-- twitter -->
+        <li class="tw sns-btn__item">
+          <a href="https://twitter.com/share?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;text=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="Twitterでシェアする">
+            <i class="fab fa-twitter" aria-hidden="true"></i>            <span class="share_txt">ツイート</span>
+          </a>
+                  </li>
+        <!-- facebook -->
+        <li class="fb sns-btn__item">
+          <a href="https://www.facebook.com/share.php?u=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F" target="_blank" rel="nofollow noopener noreferrer" aria-label="Facebookでシェアする">
+            <i class="fab fa-facebook" aria-hidden="true"></i>            <span class="share_txt">シェア</span>
+          </a>
+                  </li>
+        <!-- はてなブックマーク -->
+        <li class="hatebu sns-btn__item">
+          <a href="http://b.hatena.ne.jp/add?mode=confirm&amp;url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;title=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="はてブでブックマークする">
+            <i class="fa fa-hatebu" aria-hidden="true"></i>
+            <span class="share_txt">はてブ</span>
+          </a>
+                  </li>
+        <!-- LINE -->
+        <li class="line sns-btn__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;text=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="LINEでシェアする">
+                          <i class="fab fa-line" aria-hidden="true"></i>
+                        <span class="share_txt share_txt_line dfont">LINE</span>
+          </a>
+        </li>
+        <!-- Pocket -->
+        <li class="pkt sns-btn__item">
+          <a href="http://getpocket.com/edit?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;title=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="Pocketに保存する">
+            <i class="fab fa-get-pocket" aria-hidden="true"></i>            <span class="share_txt">Pocket</span>
+          </a>
+                  </li>
+      </ul>
+  </div>
+        </div>
+    </div>
+    </header>
+<section class="entry-content cf">
+  <div class="widget_text sponsored"><div class="textwidget custom-html-widget"><script async="" src="./koubun_files/f(8).txt" crossorigin="anonymous" data-checked-head="true"></script>
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 175px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8474156868822041" data-ad-slot="9283056202" data-adsbygoogle-status="done" data-ad-status="filled"><div id="aswift_1_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 175px; width: 700px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0;width:700px;height:175px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="700" height="175" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./koubun_files/ads.html" data-google-container-id="a!2" data-google-query-id="CJGM2JKdnPsCFZQXYAodNiIIYw" data-load-complete="true"></iframe></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+<p>この記事を読んでくれているIT意識が高いであろう人(?)は「ひろゆき」さんを知らない人はいないと思います。</p>
+
+
+
+<p>「2ちゃんねる」や「ニコニコ動画」といった有名Webサービスを立ち上げて現在は数々のメディアに出演されているあのひろゆきさんです。</p>
+
+
+
+<p>YouTubeのライブ配信や切り抜き動画を止め時がわからず無限再生させられてしまっている人はかなり多いのではないでしょうか。</p>
+
+
+
+<p>そんなひろゆきさんですが、ディベート対決や議論の場での論争で負け知らずの論破王としても有名で、これまで多くの名言、論破ワードを生み出しています。</p>
+
+
+
+<p class="has-text-color" style="color:#ff0000"><span class="has-inline-color has-sango-black-color">そこで今回は</span><strong><span class="bold-blue"><span style="color:#ff0000" class="has-inline-color">その数々の名言を解析してそれを元にあたかもひろゆきさんが言ってそうな文章を新しく自動生成</span></span>してみたら面白いのでは？</strong><span class="has-inline-color has-sango-black-color">という内容です。</span></p>
+
+
+
+<p>一見難しそうな事をしていると思われるかもしれないですが、Pythonを使えば簡単に実装することができてしまいます。</p>
+
+
+
+<p>ソースコードも公開しているので是非最後まで読んでみてください。</p>
+
+
+
+<p>Pythonについてよくわからない方やインストール方法を知りたい方は「<a rel="noreferrer noopener" href="https://gakogako.com/python_install/" target="_blank">【初心者向け】Pythonを学習すると何ができるのかとインストール方法を解説</a>」を参考にしてみてください。</p>
+
+
+<a class="linkto table" href="https://gakogako.com/python_install/" target="_blank"><span class="tbcell tbimg"><img width="160" height="160" src="./koubun_files/python-160x160.png" class="attachment-thumb-160 size-thumb-160 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/12/python-160x160.png 160w, https://gakogako.com/wp-content/uploads/2021/12/python-150x150.png 150w" sizes="(max-width: 160px) 100vw, 160px"></span><span class="tbcell tbtext"><time class="pubdate sng-link-time dfont" itemprop="datePublished" datetime="2021-12-23">2021年12月23日</time>【初心者向け】Pythonを学習すると何ができるのかとインストール方法を解説</span></a>
+
+
+<div id="ez-toc-container" class="ez-toc-v2_0_17 counter-hierarchy counter-decimal ez-toc-grey">
+<div class="ez-toc-title-container">
+<p class="ez-toc-title">目次</p>
+<span class="ez-toc-title-toggle"></span></div>
+<nav><ul class="ez-toc-list ez-toc-list-level-1"><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-1" href="https://gakogako.com/python_hiroyuki/#%E3%81%9D%E3%82%82%E3%81%9D%E3%82%82%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%81%AF" title="そもそも形態素解析とは">そもそも形態素解析とは</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-2" href="https://gakogako.com/python_hiroyuki/#%E3%81%9D%E3%82%82%E3%81%9D%E3%82%82%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%81%A8%E3%81%AF" title="そもそもマルコフ連鎖とは">そもそもマルコフ連鎖とは</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-3" href="https://gakogako.com/python_hiroyuki/#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB" title="ライブラリのインストール">ライブラリのインストール</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-4" href="https://gakogako.com/python_hiroyuki/#%E3%82%B3%E3%83%BC%E3%83%89%E5%85%A8%E6%96%87" title="コード全文">コード全文</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-5" href="https://gakogako.com/python_hiroyuki/#%E7%B5%82%E3%82%8F%E3%82%8A%E3%81%AB" title="終わりに">終わりに</a></li></ul></nav></div>
+<h2 class="wp-block-sgb-headings sgb-heading"><span class="ez-toc-section" id="%E3%81%9D%E3%82%82%E3%81%9D%E3%82%82%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%81%AF"></span><div class="sgb-heading__inner sgb-heading--type1 with-icon" style="background-color:transparent;border-color:#42b983;font-size:1.2em"><i class="fa fa-check" style="color:#42b983"></i><span class="sgb-heading__text" style="color:#333">そもそも形態素解析とは</span></div><span class="ez-toc-section-end"></span></h2>
+
+
+
+
+
+<p>形態素解析とは、<span class="bold-blue"><strong><span class="has-inline-color has-sango-main-color">ある文章を形態素と呼ばれる意味が通じる最小単位の単語</span></strong>まで分割する技術</span>の事です。</p>
+
+
+
+<p>今やGoogle翻訳やYouTubeなどで複数言語の自動翻訳が当たり前になっていますが、これはこの形態素解析の技術が発展したことで可能になっています。</p>
+
+
+
+<p>日本語は英語の様に文章の中に単語毎にスペースを入れる言語仕様ではないので、コンピュータが自動で品詞を分割するのが難しく翻訳の難易度が高い部類の言語なのですが、Pythonには日本語に特化した形態素解析用のライブラリが複数存在します。</p>
+
+
+
+<p>今回は京都大学などによって開発された<span class="bold-red"><strong><span class="has-inline-color has-sango-main-color">Mecab</span></strong></span>というフリーの日本語の形態素解析エンジンを使ってひろゆきさんの名言を解析していきます。</p>
+
+
+
+<p>例えば、「<span class="bold-green"><strong><span class="has-inline-color has-sango-main-color">なんだろう、嘘つくのやめてもらっていいですか？</span></strong></span>」をMecabを使ってで形態素解析すると下記の様になります。</p>
+
+
+
+<div class="wp-block-sgb-codebox pre_tag"><span><i class="fa fa-code"></i>bash</span><pre><code>$ mecab
+なんだろう、嘘つくのやめてもらっていいですか？
+なん    名詞,代名詞,一般,*,*,*,なん,ナン,ナン
+だろ    助動詞,*,*,*,特殊・ダ,未然形,だ,ダロ,ダロ
+う      助動詞,*,*,*,不変化型,基本形,う,ウ,ウ
+、      記号,読点,*,*,*,*,、,、,、
+嘘      名詞,一般,*,*,*,*,嘘,ウソ,ウソ
+つく    動詞,自立,*,*,五段・カ行イ音便,基本形,つく,ツク,ツク
+の      名詞,非自立,一般,*,*,*,の,ノ,ノ
+やめ    動詞,自立,*,*,一段,連用形,やめる,ヤメ,ヤメ
+て      助詞,接続助詞,*,*,*,*,て,テ,テ
+もらっ  動詞,非自立,*,*,五段・ワ行促音便,連用タ接続,もらう,モラッ,モラッ
+て      助詞,接続助詞,*,*,*,*,て,テ,テ
+いい    形容詞,非自立,*,*,形容詞・イイ,基本形,いい,イイ,イイ
+です    助動詞,*,*,*,特殊・デス,基本形,です,デス,デス
+か      助詞,副助詞／並立助詞／終助詞,*,*,*,*,か,カ,カ
+？      記号,一般,*,*,*,*,？,？,？
+EOS</code></pre></div>
+
+
+
+<p>この様に、文章を意味を持つ最小単位まで分割して品詞なども教えてくれます。</p>
+
+
+
+<p>これを使って今回はひろゆきさんの名言をどんどん形態素解析していって次に説明するマルコフ連鎖用の部品を増やしていきます。</p>
+
+
+
+<script async="" src="./koubun_files/f(8).txt" crossorigin="anonymous" data-checked-head="true"></script>
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 175px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8474156868822041" data-ad-slot="9283056202" data-adsbygoogle-status="done"><div id="aswift_2_host" style="border: none; height: 175px; width: 700px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+<h2 class="wp-block-sgb-headings sgb-heading"><span class="ez-toc-section" id="%E3%81%9D%E3%82%82%E3%81%9D%E3%82%82%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%81%A8%E3%81%AF"></span><div class="sgb-heading__inner sgb-heading--type1 with-icon" style="background-color:transparent;border-color:#42b983;font-size:1.2em"><i class="fa fa-check" style="color:#42b983"></i><span class="sgb-heading__text" style="color:#333">そもそもマルコフ連鎖とは</span></div><span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>マルコフ連鎖とは、<span class="bold-red"><strong><span class="has-inline-color has-sango-main-color">確率論の手法で次の状態が現在の状態からのみ決まる関係</span></strong></span>の事を言います。</p>
+
+
+
+<p>文字にすると全然理解できないと思いますし、正直これを書いている自分もよく分かっていないです。</p>
+
+
+
+<p>詳細を知りたい方はwikipediaに定義が緻密に記載されています。</p>
+
+
+
+<p><a href="https://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96">https://ja.wikipedia.org/wiki/%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96</a></p>
+
+
+
+<p>とはいえ全てwikipediaに丸投げはどうかと思うので、分からないなりに振り絞って分かりやすく説明してみようと思います。</p>
+
+
+
+<p>超簡単な例として、下記の2つの例文があるとします。</p>
+
+
+
+<div class="wp-block-sgb-list"><div id="li-y-zxnD9XV"><div class="ol-circle"><ol style="border-color:#333"><li>僕はラーメンが食べたい</li><li>僕は焼き肉が好き</li></ol></div><style>
+#li-y-zxnD9XV     li:before {
+      color: #333;
+    }
+#li-y-zxnD9XV     .ol-circle li:before {
+      color: #FFF;
+      background-color: #333;
+    }
+  </style></div></div>
+
+
+
+<p>この2つの文章を先程の<span class="bold-red">Mecab</span>を使って意味を持つ最小単位の文節（形態素）に区切ると、</p>
+
+
+
+<div class="wp-block-sgb-list"><div id="li-y-zxnD9XV"><div class="ol-circle"><ol style="border-color:#333"><li>僕 / は / ラーメン / が / 食べたい</li><li>僕 / は / 焼き肉 / が / 好き</li></ol></div><style>
+#li-y-zxnD9XV     li:before {
+      color: #333;
+    }
+#li-y-zxnD9XV     .ol-circle li:before {
+      color: #FFF;
+      background-color: #333;
+    }
+  </style></div></div>
+
+
+
+
+
+<p>となり、それをマルコフ連鎖のモデルに起こすとこうなります。</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="645" height="363" src="./koubun_files/マルコフ-645x363.png" alt="" class="wp-image-980" srcset="https://gakogako.com/wp-content/uploads/2021/10/マルコフ-645x363.png 645w, https://gakogako.com/wp-content/uploads/2021/10/マルコフ-300x169.png 300w, https://gakogako.com/wp-content/uploads/2021/10/マルコフ-768x432.png 768w, https://gakogako.com/wp-content/uploads/2021/10/マルコフ-120x68.png 120w, https://gakogako.com/wp-content/uploads/2021/10/マルコフ-160x90.png 160w, https://gakogako.com/wp-content/uploads/2021/10/マルコフ-320x180.png 320w, https://gakogako.com/wp-content/uploads/2021/10/マルコフ.png 1280w" sizes="(max-width: 645px) 100vw, 645px"></figure>
+
+
+
+<p>これを見ると、どちらの文章も文頭の「<span class="bold">僕</span>」の後は「<span class="bold-blue">は</span>」が100%の確率で続いているのが分かります。</p>
+
+
+
+<p>次に「<span class="bold-blue">は</span>」の次にはそれぞれ50%の確率で「<span class="bold-green">ラーメン</span>」または「<span class="bold-red">焼き肉</span>」が続いているのが分かります。</p>
+
+
+
+<p>そのまた次に「<span class="bold-green">ラーメン</span>」と「<span class="bold-red">焼き肉</span>」の後には「<span class="marker-red"><span class="bold">が</span></span>」が100%の確率で続いています。</p>
+
+
+
+<p>最後に「<span class="marker-red"><span class="bold">が</span></span>」の次に「<span class="marker-blue"><span class="bold">食べたい</span></span>」または「<span class="marker"><span class="bold">好き</span></span>」が50%の確率で続いています。</p>
+
+
+
+<p><strong><span class="has-inline-color has-sango-main-color">この様に<span class="bold-red">確率論によって前の状態から次の状態へ次々と状態を生成していく</span>という動きを一つ一つの文節で繰り返していきます。</span></strong></p>
+
+
+
+<p>このモデルでは、</p>
+
+
+
+<div class="wp-block-sgb-list"><div id="li-OcYjJGaKw"><div class="ol-circle"><ol style="border-color:#333"><li>文頭は「僕」から</li><li>100%の確率で「は」を引く</li><li>50%の確率で「ラーメン」を引く</li><li>100%の確率で「が」を引く</li><li>50%の確率で「好き」を引く</li></ol></div><style>
+#li-OcYjJGaKw     li:before {
+      color: #333;
+    }
+#li-OcYjJGaKw     .ol-circle li:before {
+      color: #FFF;
+      background-color: #333;
+    }
+  </style></div></div>
+
+
+
+<p>という確率を引くことによって、</p>
+
+
+
+<div class="wp-block-sgb-box sng-box box1">
+<p><strong><span style="color:#ff0000" class="has-inline-color">僕はラーメンが好き</span></strong></p>
+</div>
+
+
+
+<p>という新しい文章を生成できるわけです。</p>
+
+
+
+<p>流石にこの例では全く目新しい文章は生成できませんが、今回はこの手法を使って形態素解析したひろゆきさんの数々の名言をパズルの様に組み合わせていき、あたかもひろゆきさんが言ってそうな文章を生成してみます。</p>
+
+
+
+<script async="" src="./koubun_files/f(8).txt" crossorigin="anonymous" data-checked-head="true"></script>
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 175px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8474156868822041" data-ad-slot="9283056202" data-adsbygoogle-status="done"><div id="aswift_3_host" style="border: none; height: 175px; width: 700px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+<h2 class="wp-block-sgb-headings sgb-heading"><span class="ez-toc-section" id="%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB"></span><div class="sgb-heading__inner sgb-heading--type1 with-icon" style="background-color:transparent;border-color:#42b983;font-size:1.2em"><i class="fa fa-check" style="color:#42b983"></i><span class="sgb-heading__text" style="color:#333"><strong>ライブラリのインストール</strong></span></div><span class="ez-toc-section-end"></span></h2>
+
+
+
+<div class="wp-block-sgb-codebox pre_tag"><span><i class="fa fa-code"></i>bash</span><pre><code>pip install mecab-python3
+pip install markovify</code></pre></div>
+
+
+
+<h2 class="wp-block-sgb-headings sgb-heading"><span class="ez-toc-section" id="%E3%82%B3%E3%83%BC%E3%83%89%E5%85%A8%E6%96%87"></span><div class="sgb-heading__inner sgb-heading--type1 with-icon" style="background-color:transparent;border-color:#42b983;font-size:1.2em"><i class="fa fa-check" style="color:#42b983"></i><span class="sgb-heading__text" style="color:#333">コード全文</span></div><span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>軽くコメントを記載しているのでコード量増えてますけど、大体80行くらいです。</p>
+
+
+
+<p>これ名言か？と思われるのもあると思いますが、<span class="has-inline-color has-sango-main-color"><strong>それあなたの感想ですよね？</strong></span></p>
+
+
+
+<div class="wp-block-sgb-codebox pre_tag"><span><i class="fa fa-code"></i>main.py</span><pre class="js-sng-highlight"><code class="hljs language-python"><span class="hljs-keyword">import</span> MeCab
+<span class="hljs-keyword">import</span> markovify
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># ひろゆきの名言を配列でぶちこむ</span>
+    meigen = [
+        <span class="hljs-string">'たいていのことは検索すれば答えが出てくるわけで、個人の知識として蓄える必要があるモノってなかなか無いんですよね。'</span>,
+        <span class="hljs-string">'みんなが知らない自分だけが知っている知識があるときこそ、自分の価値が上がるわけです。'</span>,
+        <span class="hljs-string">'人間って基本死ぬまでの暇つぶしなんですよ。'</span>,
+        <span class="hljs-string">'ネット上には「音声じゃないデータ」のほうが圧倒的に多いんですよね。やっぱり、ウィキペディアとかで見たほうが手っ取り早い。'</span>,
+        <span class="hljs-string">'嘘は見抜ける人でないと掲示板を使うのは難しい。'</span>,
+        <span class="hljs-string">'事故物件っていいですよねビデオ回してワンちゃん何か撮れたらYouTubeとかですげー再生数伸びるんで。'</span>,
+        <span class="hljs-string">'「話しするの得意です」って言ってる人で面白かった人見たことないですよね。'</span>,
+        <span class="hljs-string">'必要なプライドってありません。'</span>,
+        <span class="hljs-string">'頭悪いんだから独学止めた方がいいっすよ。'</span>,
+        <span class="hljs-string">'議論とか論破とか説得みたいな話しってあるんだけど一番上手い奴らは宗教家だと思ってます。'</span>
+    ]
+
+    mecab = MeCab.Tagger()
+
+    <span class="hljs-comment"># 上手く解釈できない文字列を定義しておく</span>
+    breaking_chars = [<span class="hljs-string">'('</span>, <span class="hljs-string">')'</span>, <span class="hljs-string">'['</span>, <span class="hljs-string">']'</span>, <span class="hljs-string">'"'</span>, <span class="hljs-string">"'"</span>]
+    <span class="hljs-comment"># 最終的に1文に収めるための変数</span>
+    splitted_meigen = <span class="hljs-string">''</span>
+
+    <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> meigen:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'Line : '</span>, line)
+        <span class="hljs-comment"># lineの文字列をパースする</span>
+        parsed_nodes = mecab.parseToNode(line)
+
+        <span class="hljs-keyword">while</span> parsed_nodes:
+            <span class="hljs-keyword">try</span>:
+                <span class="hljs-comment"># 上手く解釈できない文字列は飛ばす</span>
+                <span class="hljs-keyword">if</span> parsed_nodes.surface <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> breaking_chars:
+                    splitted_meigen += parsed_nodes.surface
+                <span class="hljs-comment"># 句読点以外であればスペースを付与して分かち書きをする</span>
+                <span class="hljs-keyword">if</span> parsed_nodes.surface != <span class="hljs-string">'。'</span> <span class="hljs-keyword">and</span> parsed_nodes.surface != <span class="hljs-string">'、'</span>:
+                    splitted_meigen += <span class="hljs-string">' '</span>
+                <span class="hljs-comment"># 句点が出てきたら文章の終わりと判断して改行を付与する</span>
+                <span class="hljs-keyword">if</span> parsed_nodes.surface == <span class="hljs-string">'。'</span>:
+                    splitted_meigen += <span class="hljs-string">'\n'</span>
+            <span class="hljs-keyword">except</span> UnicodeDecodeError <span class="hljs-keyword">as</span> error:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">'Error : '</span>, line)
+            <span class="hljs-keyword">finally</span>:
+                <span class="hljs-comment"># 次の形態素に上書きする。なければNoneが入る</span>
+                parsed_nodes = parsed_nodes.<span class="hljs-built_in">next</span>
+
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">'解析結果 :\n'</span>, splitted_meigen)
+
+    <span class="hljs-comment"># マルコフ連鎖のモデルを作成</span>
+    model = markovify.NewlineText(splitted_meigen, state_size=<span class="hljs-number">2</span>)
+
+    <span class="hljs-comment"># 文章を生成する</span>
+    sentence = model.make_sentence(tries=<span class="hljs-number">100</span>)
+    <span class="hljs-keyword">if</span> sentence <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-comment"># 分かち書きされているのを結合して出力する</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'---------------------------------------------------'</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">''</span>.join(sentence.split()))
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'''
+　　　　＿＿_＿
+　　　／へへ　 ＼
+　　／／⌒⌒＼　 ＼
+　 / /　　　　ヽ　 ヽ
+　｜｜ヽ　／⌒ |　　|
+　 ﾚY-･／　-･- ヽ　 |
+　　| /　　　　 Ｖ) |
+　　|(＿つ　 ･　 丿ノ
+　　|＜三三＞)　/ /
+　　ヽ　ﾞﾞ　　／ﾚｿ
+　　　＼从ww／　｜
+　　　　/)￣　　∧
+　　　／ﾚヽ　 ／ |＼
+　　 ｜|　|　｜⌒ |｜
+'''</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'---------------------------------------------------'</span>)
+
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">'None'</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    main()
+</code></pre></div>
+
+
+
+<p>よりそれっぽく見せる為にAAもprintさせておきました。</p>
+
+
+
+<p>実行結果はこの様な感じになります。</p>
+
+
+
+<div class="wp-block-sgb-codebox pre_tag"><span><i class="fa fa-code"></i>bash</span><pre><code>Line :  たいていのことは検索すれば答えが出てくるわけで、個人の知識として蓄える必要があるモノってなかなか無いんですよね。
+Line :  みんなが知らない自分だけが知っている知識があるときこそ、自分の価値が上がるわけです。
+Line :  人間って基本死ぬまでの暇つぶしなんですよ。
+Line :  ネット上には「音声じゃないデータ」のほうが圧倒的に多いんですよね。やっぱり、ウィキペディアとかで見たほうが手っ取り早い。
+Line :  嘘は見抜ける人でないと掲示板を使うのは難しい。
+Line :  事故物件っていいですよねビデオ回してワンちゃん何か撮れたらYouTubeとかですげー再生数伸びるんで。
+Line :  「話しするの得意です」って言ってる人で面白かった人見たことないですよね。
+Line :  必要なプライドってありません。
+Line :  頭悪いんだから独学止めた方がいいっすよ。
+Line :  議論とか論破とか説得みたいな話しってあるんだけど一番上手い奴らは宗教家だと思ってます。
+解析結果 :
+  たいてい の こと は 検索 すれ ば 答え が 出 て くる わけ で 、個人 の 知識 と し て 蓄える 必要 が ある モノ って なかなか 無い ん です よ ね 。
+  みんな が 知ら ない 自分 だけ が 知っ て いる 知識 が ある とき こそ 、自分 の 価値 が 上がる わけ です 。
+  人間 って 基本 死ぬ まで の 暇つぶし な ん です よ 。
+  ネット 上 に は 「 音声 じゃ ない データ 」 の ほう が 圧倒 的 に 多い ん です よ ね 。
+やっぱり 、ウィキペディア と か で 見 た ほう が 手っ取り 早い 。
+  嘘 は 見抜ける 人 で ない と 掲示 板 を 使う の は 難しい 。
+  事故 物件 って いい です よ ね ビデオ 回し て ワン ちゃん 何 か 撮れ たら YouTube と か で すげー 再生 数 伸びる ん で 。
+  「 話し する の 得意 です 」 って 言っ てる 人 で 面白かっ た 人 見 た こと ない です よ ね 。
+  必要 な プライド って あり ませ ん 。
+  頭 悪い ん だ から 独学 止め た 方 が いい っす よ 。
+  議論 と か 論破 と か 説得 みたい な 話し って ある ん だ けど 一番 上手い 奴 ら は 宗教 家 だ と 思っ て ます 。
+ 
+---------------------------------------------------
+みんなが知らない自分だけが知っている知識があるモノってなかなか無いんですよね。
+
+　　　　＿＿_＿
+　　　／へへ　 ＼
+　　／／⌒⌒＼　 ＼
+　 / /　　　　ヽ　 ヽ
+　｜｜ヽ　／⌒ |　　|
+　 ﾚY-･／　-･- ヽ　 |
+　　| /　　　　 Ｖ) |
+　　|(＿つ　 ･　 丿ノ
+　　|＜三三＞)　/ /
+　　ヽ　ﾞﾞ　　／ﾚｿ
+　　　＼从ww／　｜
+　　　　/)￣　　∧
+　　　／ﾚヽ　 ／ |＼
+　　 ｜|　|　｜⌒ |｜
+
+---------------------------------------------------</code></pre></div>
+
+
+
+<div class="wp-block-sgb-box sng-box box19">
+<p>みんなが知らない自分だけが知っている知識があるモノってなかなか無いんですよね。</p>
+</div>
+
+
+
+<p> </p>
+
+
+
+<p> </p>
+
+
+
+<p> </p>
+
+
+
+<p> </p>
+
+
+
+<p> </p>
+
+
+
+<p> </p>
+
+
+
+<p> </p>
+
+
+
+<p></p>
+
+
+
+<p> </p>
+
+
+
+<p> </p>
+
+
+
+<p>おー、なるほどな？？</p>
+
+
+
+<p>どうですかね？なんかそれっぽい文章が作れたのではないでしょうか。</p>
+
+
+
+<p>おもろいのでもっとプログラム回してみます。</p>
+
+
+
+<div class="wp-block-sgb-list"><div id="li-yOqw0y2Nb"><div class=""><ul><li>議論とか説得みたいな話しってあるんだから独学止めた方がいいっすよ。</li><li>やっぱり、ウィキペディアとか論破とか論破とか説得みたいな話しってあるんだから独学止めた方がいいっすよ。</li><li>やっぱり、ウィキペディアとか論破とかで見たほうが手っ取り早い。</li><li>議論とか論破とか説得みたいな話しってあるんだから独学止めた方がいいっすよ。</li><li>議論とか論破とか論破とかで見たほうが手っ取り早い。</li></ul></div></div></div>
+
+
+
+<p>今回10個の名言しか配列に入れていないので、ある程度偏りが出たのかなと感じますがもっと増やせば本家ばりのバリエーションと語彙力豊かなひろゆきさんが生成できると思います。</p>
+
+
+
+<script async="" src="./koubun_files/f(8).txt" crossorigin="anonymous" data-checked-head="true"></script>
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 175px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8474156868822041" data-ad-slot="9283056202" data-adsbygoogle-status="done"><div id="aswift_4_host" style="border: none; height: 175px; width: 700px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+
+<h2 class="wp-block-sgb-headings sgb-heading"><span class="ez-toc-section" id="%E7%B5%82%E3%82%8F%E3%82%8A%E3%81%AB"></span><div class="sgb-heading__inner sgb-heading--type1 with-icon" style="background-color:transparent;border-color:#42b983;font-size:1.2em"><i class="fa fa-check" style="color:#42b983"></i><span class="sgb-heading__text" style="color:#333">終わりに</span></div><span class="ez-toc-section-end"></span></h2>
+
+
+
+<p>深夜テンションで考えたネタだったのですが案外面白いプログラムが作れたのではないでしょうか。</p>
+
+
+
+<p>今回はひろゆきさんを選びましたが、他の有名人でも同じ様にそれっぽい文章が作れるので色々いじって遊んでみてください。</p>
+
+
+
+<p> </p>
+
+
+
+<p>このブログではこんな感じでPython関係の記事も上げているのでよければ他の記事も見てみてもらえると嬉しいです！</p>
+
+
+<a class="linkto table" href="https://gakogako.com/python_technical_book/" target="_blank"><span class="tbcell tbimg"><img width="160" height="160" src="./koubun_files/python_book-160x160.png" class="attachment-thumb-160 size-thumb-160 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/10/python_book-160x160.png 160w, https://gakogako.com/wp-content/uploads/2021/10/python_book-150x150.png 150w" sizes="(max-width: 160px) 100vw, 160px"></span><span class="tbcell tbtext"><time class="pubdate sng-link-time dfont" itemprop="datePublished" datetime="2021-10-27">2021年10月27日</time>【必読】Pythonで仕事を取りたければ絶対読んでおきたいおすすめ技術書を紹介！</span></a>
+
+
+<p></p>
+
+
+<a class="linkto table" href="https://gakogako.com/python_django_helloworld/" target="_blank"><span class="tbcell tbimg"><img width="160" height="90" src="./koubun_files/python_django.png" class="attachment-thumb-160 size-thumb-160 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/05/python_django.png 1280w, https://gakogako.com/wp-content/uploads/2021/05/python_django-300x169.png 300w, https://gakogako.com/wp-content/uploads/2021/05/python_django-645x363.png 645w, https://gakogako.com/wp-content/uploads/2021/05/python_django-768x432.png 768w, https://gakogako.com/wp-content/uploads/2021/05/python_django-120x68.png 120w, https://gakogako.com/wp-content/uploads/2021/05/python_django-160x90.png 160w, https://gakogako.com/wp-content/uploads/2021/05/python_django-320x180.png 320w" sizes="(max-width: 160px) 100vw, 160px"></span><span class="tbcell tbtext"><time class="pubdate sng-link-time dfont" itemprop="datePublished" datetime="2021-05-22">2021年5月22日</time>【Python】Django3.2でHelloWorldまでを初学者向けに丁寧に解説していく！</span></a>
+
+
+<p> </p>
+
+
+<a class="linkto table" href="https://gakogako.com/python_xserver/" target="_blank"><span class="tbcell tbimg"><img width="160" height="160" src="./koubun_files/xserver-160x160.png" class="attachment-thumb-160 size-thumb-160 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/06/xserver-160x160.png 160w, https://gakogako.com/wp-content/uploads/2021/06/xserver-150x150.png 150w" sizes="(max-width: 160px) 100vw, 160px"></span><span class="tbcell tbtext"><time class="pubdate sng-link-time dfont" itemprop="datePublished" datetime="2021-06-05">2021年6月5日</time>Xserver(Linux)にPythonプログラムを常時実行させる方法を解説！</span></a>
+
+
+<p> </p>
+
+
+<a class="linkto table" href="https://gakogako.com/python_firestore/" target="_blank"><span class="tbcell tbimg"><img width="160" height="160" src="./koubun_files/python_firestore-160x160.png" class="attachment-thumb-160 size-thumb-160 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/06/python_firestore-160x160.png 160w, https://gakogako.com/wp-content/uploads/2021/06/python_firestore-150x150.png 150w" sizes="(max-width: 160px) 100vw, 160px"></span><span class="tbcell tbtext"><time class="pubdate sng-link-time dfont" itemprop="datePublished" datetime="2021-06-07">2021年6月7日</time>PythonプログラムとFirestoreを接続して気軽にデータベースを利用する方法を解説!</span></a>
+
+
+<p>おわり</p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+<div class="widget_text sponsored dfont"><div class="textwidget custom-html-widget"><script async="" src="./koubun_files/f(8).txt" crossorigin="anonymous" data-checked-head="true"></script>
+<ins class="adsbygoogle" style="display: block; text-align: center; height: 175px;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-8474156868822041" data-ad-slot="9283056202" data-adsbygoogle-status="done"><div id="aswift_5_host" style="border: none; height: 175px; width: 700px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div></section><footer class="article-footer">
+  <aside>
+    <div class="footer-contents">
+        <div class="sns-btn">
+    <span class="sns-btn__title dfont">SHARE</span>      <ul>
+        <!-- twitter -->
+        <li class="tw sns-btn__item">
+          <a href="https://twitter.com/share?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;text=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="Twitterでシェアする">
+            <i class="fab fa-twitter" aria-hidden="true"></i>            <span class="share_txt">ツイート</span>
+          </a>
+                  </li>
+        <!-- facebook -->
+        <li class="fb sns-btn__item">
+          <a href="https://www.facebook.com/share.php?u=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F" target="_blank" rel="nofollow noopener noreferrer" aria-label="Facebookでシェアする">
+            <i class="fab fa-facebook" aria-hidden="true"></i>            <span class="share_txt">シェア</span>
+          </a>
+                  </li>
+        <!-- はてなブックマーク -->
+        <li class="hatebu sns-btn__item">
+          <a href="http://b.hatena.ne.jp/add?mode=confirm&amp;url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;title=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="はてブでブックマークする">
+            <i class="fa fa-hatebu" aria-hidden="true"></i>
+            <span class="share_txt">はてブ</span>
+          </a>
+                  </li>
+        <!-- LINE -->
+        <li class="line sns-btn__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;text=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="LINEでシェアする">
+                          <i class="fab fa-line" aria-hidden="true"></i>
+                        <span class="share_txt share_txt_line dfont">LINE</span>
+          </a>
+        </li>
+        <!-- Pocket -->
+        <li class="pkt sns-btn__item">
+          <a href="http://getpocket.com/edit?url=https%3A%2F%2Fgakogako.com%2Fpython_hiroyuki%2F&amp;title=%E3%80%90Python%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E3%80%91%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%B2%E3%82%8D%E3%82%86%E3%81%8D%E3%81%A3%E3%81%BD%E3%81%84%E6%96%87%E7%AB%A0%E3%82%92%E7%94%9F%E6%88%90%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%EF%BD%9C%E5%BE%92%E7%84%B6%E3%81%AA%E3%82%8B%E3%81%BE%E3%81%BE%E3%81%AB%E6%8A%80%E8%A1%93" target="_blank" rel="nofollow noopener noreferrer" aria-label="Pocketに保存する">
+            <i class="fab fa-get-pocket" aria-hidden="true"></i>            <span class="share_txt">Pocket</span>
+          </a>
+                  </li>
+      </ul>
+  </div>
+              <div class="footer-meta dfont">
+                  <p class="footer-meta_title">CATEGORY :</p>
+          <ul class="post-categories">
+	<li><a href="https://gakogako.com/category/programming/python/" rel="category tag">Python</a></li>
+	<li><a href="https://gakogako.com/category/programming/" rel="category tag">プログラミング</a></li></ul>                          <div class="meta-tag">
+            <p class="footer-meta_title">TAGS :</p>
+            <ul><li><a href="https://gakogako.com/tag/mecab/" rel="tag">Mecab</a></li><li><a href="https://gakogako.com/tag/python/" rel="tag">Python</a></li><li><a href="https://gakogako.com/tag/%e3%81%b2%e3%82%8d%e3%82%86%e3%81%8d/" rel="tag">ひろゆき</a></li><li><a href="https://gakogako.com/tag/%e3%83%9e%e3%83%ab%e3%82%b3%e3%83%95%e9%80%a3%e9%8e%96/" rel="tag">マルコフ連鎖</a></li><li><a href="https://gakogako.com/tag/%e5%bd%a2%e6%85%8b%e7%b4%a0%e8%a7%a3%e6%9e%90/" rel="tag">形態素解析</a></li></ul>          </div>
+              </div>
+                        <div class="related-posts type_a slide"><ul>  <li>
+    <a href="https://gakogako.com/python_django_helloworld/">
+      <figure class="rlmg">
+        <img src="./koubun_files/python_django.png" width="520" height="300" alt="【Python】Django3.2でHelloWorldまでを初学者向けに丁寧に解説していく！">
+      </figure>
+      <div class="rep"><p>【Python】Django3.2でHelloWorldまでを初学者向けに丁寧に解説していく！</p></div>
+    </a>
+  </li>
+    <li>
+    <a href="https://gakogako.com/python_technical_book/">
+      <figure class="rlmg">
+        <img src="./koubun_files/python_book-520x300.png" width="520" height="300" alt="【必読】Pythonで仕事を取りたければ絶対読んでおきたいおすすめ技術書を紹介！">
+      </figure>
+      <div class="rep"><p>【必読】Pythonで仕事を取りたければ絶対読んでおきたいおすすめ技術書を紹介！</p></div>
+    </a>
+  </li>
+    <li>
+    <a href="https://gakogako.com/python_xserver/">
+      <figure class="rlmg">
+        <img src="./koubun_files/xserver-520x300.png" width="520" height="300" alt="Xserver(Linux)にPythonプログラムを常時実行させる方法を解説！">
+      </figure>
+      <div class="rep"><p>Xserver(Linux)にPythonプログラムを常時実行させる方法を解説！</p></div>
+    </a>
+  </li>
+    <li>
+    <a href="https://gakogako.com/neovim_python3/">
+      <figure class="rlmg">
+        <img src="./koubun_files/neovim_python-520x300.png" width="520" height="300" alt="NeoVimがPython3系を認識しない時の対処法">
+      </figure>
+      <div class="rep"><p>NeoVimがPython3系を認識しない時の対処法</p></div>
+    </a>
+  </li>
+    <li>
+    <a href="https://gakogako.com/python_install/">
+      <figure class="rlmg">
+        <img src="./koubun_files/python-520x300.png" width="520" height="300" alt="【初心者向け】Pythonを学習すると何ができるのかとインストール方法を解説">
+      </figure>
+      <div class="rep"><p>【初心者向け】Pythonを学習すると何ができるのかとインストール方法を解説</p></div>
+    </a>
+  </li>
+    <li>
+    <a href="https://gakogako.com/python_v/">
+      <figure class="rlmg">
+        <img src="./koubun_files/python_v-520x300.png" width="520" height="300" alt="Python3.xをインストールしたのに「python -V」で2.xから切り替わらない時の対処法">
+      </figure>
+      <div class="rep"><p>Python3.xをインストールしたのに「python -V」で2.xから切り替わらない時の対処法</p></div>
+    </a>
+  </li>
+  </ul></div>    </div>
+    	  <div class="author-info pastel-bc">
+	    <div class="author-info__inner">
+	      <div class="tb">
+	        <div class="tb-left">
+	        <div class="author_label">
+	          <span>この記事を書いた人</span>
+	        </div>
+          <div class="author_img"><img alt="" src="./koubun_files/2B645D22-ACA1-4F76-811A-30C259BABE75_1_105_c-2-100x100.jpeg" srcset="https://gakogako.com/wp-content/uploads/2021/01/2B645D22-ACA1-4F76-811A-30C259BABE75_1_105_c-2.jpeg 2x" class="avatar avatar-100 photo" height="100" width="100" loading="lazy"></div>
+	          <dl class="aut">
+              <dt>
+                <a class="dfont" href="https://gakogako.com/author/ga_ko/">
+                  <span>yuto</span>
+                </a>
+              </dt>
+              <dd></dd>
+	          </dl>
+	        </div>
+          <div class="tb-right">
+            <p>都内IT企業でWebエンジニアやってる20代の人。
+このブログでは主にプログラミングや技術関連、エンジニア向けに役立つ情報等をつれづれに書いていきます。
+最近Flutterが熱いです。</p>
+            <div class="follow_btn dfont">
+                              <a class="Twitter" href="https://twitter.com/yu_to_python" target="_blank" rel="nofollow noopener noreferrer">Twitter</a>
+                      </div>
+          </div>
+	      </div>
+	    </div>
+	  </div>
+	  </aside>
+</footer><div id="comments">
+      <h3 id="comments-title" class="h2 dfont"><span>2</span> COMMENTS</h3>
+
+    <section class="commentlist">
+          <div id="comment-36" class="comment even thread-even depth-1 cf">
+      <article class="cf">
+        <header class="comment-author vcard">
+                    <img alt="" src="./koubun_files/6e4b090f209f7a08843f73a5569a339c.png" srcset="https://secure.gravatar.com/avatar/6e4b090f209f7a08843f73a5569a339c?s=80&amp;d=mm&amp;r=g 2x" class="avatar avatar-40 photo" height="40" width="40" loading="lazy">          <cite class="fn">ぼんじん△　（たかあき）</cite>           <time datetime="2021-10-27"><a href="https://gakogako.com/python_hiroyuki/#comment-36" rel="nofollow">2021年10月27日</a></time>
+        </header>
+                <section class="comment_content cf">
+          <p>初こめです<br>
+面白いものを見させてもらいました<br>
+このコード死んでゆくおじいちゃんの言葉口癖を<br>
+研究して声を録音して生きてる婆さんの耳に『おじいさんが生きてる』<br>
+的なモノできないですかね<br>
+スピーカー繋いだラズベリーパイで<br>
+ビジネスになりませんかね？（＾＾）</p>
+        </section>
+        <a rel="nofollow" class="comment-reply-link" href="https://gakogako.com/python_hiroyuki/?replytocom=36#respond" data-commentid="36" data-postid="891" data-belowelement="comment-36" data-respondelement="respond" data-replyto="ぼんじん△　（たかあき） に返信" aria-label="ぼんじん△　（たかあき） に返信">返信する</a>      </article>
+      <div id="comment-37" class="comment byuser comment-author-ga_ko bypostauthor odd alt depth-2 cf">
+      <article class="cf">
+        <header class="comment-author vcard">
+                    <img alt="" src="./koubun_files/2B645D22-ACA1-4F76-811A-30C259BABE75_1_105_c-2-40x40.jpeg" srcset="https://gakogako.com/wp-content/uploads/2021/01/2B645D22-ACA1-4F76-811A-30C259BABE75_1_105_c-2-80x80.jpeg 2x" class="avatar avatar-40 photo" height="40" width="40" loading="lazy">          <cite class="fn">yuto</cite>           <time datetime="2021-10-27"><a href="https://gakogako.com/python_hiroyuki/#comment-37" rel="nofollow">2021年10月27日</a></time>
+        </header>
+                <section class="comment_content cf">
+          <p>コメントありがとうございます！<br>
+そこまで来るともうAI感すごいですね。<br>
+ちょうどラズベリーパイ買ってみようと思っていたので参考にさせてもらいます！</p>
+        </section>
+        <a rel="nofollow" class="comment-reply-link" href="https://gakogako.com/python_hiroyuki/?replytocom=37#respond" data-commentid="37" data-postid="891" data-belowelement="comment-37" data-respondelement="respond" data-replyto="yuto に返信" aria-label="yuto に返信">返信する</a>      </article>
+  </div><!-- #comment-## -->
+</div><!-- #comment-## -->
+    </section>
+
+            	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">コメントを残す <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://gakogako.com/python_hiroyuki/#respond" style="display:none;">コメントをキャンセル</a></small></h3><form action="https://gakogako.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate=""><p class="comment-notes"><span id="email-notes">メールアドレスが公開されることはありません。</span> <span class="required">*</span> が付いている欄は必須項目です</p><p class="comment-form-comment"><label for="comment">コメント</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">名前 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">メール <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">サイト</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">次回のコメントで使用するためブラウザーに自分の名前、メールアドレス、サイトを保存する。</label></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="コメントを送信"> <input type="hidden" name="comment_post_ID" value="891" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p></form>	</div><!-- #respond -->
+	</div><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":"https://gakogako.com/python_hiroyuki/","headline":"【Python初心者向け】形態素解析とマルコフ連鎖を使ってひろゆきっぽい文章を生成してみた","image":{"@type":"ImageObject","url":"https://gakogako.com/wp-content/uploads/2021/10/hiroyuki_2.png","width":1280,"height":720},"datePublished":"2021-10-12T07:00:00+0900","dateModified":"2021-12-23T20:03:09+0900","author":{"@type":"Person","name":"yuto","url":""},"publisher":{"@type":"Organization","name":"","logo":{"@type":"ImageObject","url":""}},"description":"この記事を読んでくれているIT意識が高いであろう人(?)は「ひろゆき」さんを知らない人はいないと思います。 「2ちゃんねる」や「ニコニコ動画」といった有名Webサービスを立ち上げて現在は数々のメディアに出演されているあの ... "}</script>            </article>
+            <div class="prnx_box cf">
+      <a href="https://gakogako.com/programming_music/" class="prnx pr">
+      <p><i class="fas fa-angle-left" aria-hidden="true"></i> 前の記事</p>
+      <div class="prnx_tb">
+                  <figure><img width="160" height="160" src="./koubun_files/music-160x160.png" class="attachment-thumb-160 size-thumb-160 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/10/music-160x160.png 160w, https://gakogako.com/wp-content/uploads/2021/10/music-150x150.png 150w" sizes="(max-width: 160px) 100vw, 160px"></figure>
+          
+        <span class="prev-next__text">【徹底考察】プログラミングをしながら音楽を聞くのはあり？なし？…</span>
+      </div>
+    </a>
+    
+    <a href="https://gakogako.com/vim_remember_command/" class="prnx nx">
+      <p>次の記事 <i class="fas fa-angle-right" aria-hidden="true"></i></p>
+      <div class="prnx_tb">
+        <span class="prev-next__text">【Vim】「思考のスピードで編集できる」コマンドの覚え方を現役…</span>
+                  <figure><img width="160" height="160" src="./koubun_files/vim_remember_command-160x160.png" class="attachment-thumb-160 size-thumb-160 wp-post-image" alt="" loading="lazy" srcset="https://gakogako.com/wp-content/uploads/2021/10/vim_remember_command-160x160.png 160w, https://gakogako.com/wp-content/uploads/2021/10/vim_remember_command-150x150.png 150w" sizes="(max-width: 160px) 100vw, 160px"></figure>
+              </div>
+    </a>
+  </div>
+                        </main>
+        <div id="sidebar1" class="sidebar m-all t-1of3 d-2of7 last-col cf" role="complementary">
+    <aside class="insidesp">
+              <div id="notfix" class="normal-sidebar" style="height: auto !important;">
+          <div id="search-2" class="widget widget_search"><form role="search" method="get" class="searchform" action="https://gakogako.com/">
+  <div>
+    <input type="search" class="searchform__input" name="s" value="" placeholder="検索">
+    <button type="submit" class="searchform__submit" aria-label="検索"><i class="fas fa-search" aria-hidden="true"></i></button>
+  </div>
+</form></div><div id="custom_html-7" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><script async="" src="./koubun_files/f(8).txt" crossorigin="anonymous" data-checked-head="true"></script>
+<!-- 徒然_サイドバー右上 -->
+<ins class="adsbygoogle" style="display: block; height: 280px;" data-ad-client="ca-pub-8474156868822041" data-ad-slot="6902227459" data-ad-format="auto" data-full-width-responsive="true" data-adsbygoogle-status="done" data-ad-status="filled"><div id="aswift_6_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 280px; width: 366px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block; overflow: visible;"><iframe id="aswift_6" name="aswift_6" style="left:0;position:absolute;top:0;border:0;width:366px;height:280px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="366" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./koubun_files/ads(1).html" data-google-container-id="a!7" data-google-query-id="CJun2ZKdnPsCFVSYwgody5QF2A" data-load-complete="true"></iframe></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div><div id="text-2" class="widget widget_text">			<div class="textwidget"><div class="profile" style="margin-bottom:　2.5em;">
+<div style="text-align: center;">
+<div>
+<div class="author_label">
+	    <span>このブログ書いてる人</span>
+	  </div>
+<div class="author_img">
+      <img alt="" src="./koubun_files/2B645D22-ACA1-4F76-811A-30C259BABE75_1_105_c-2-100x100.jpeg" srcset="https://gakogako.com/wp-content/uploads/2021/01/2B645D22-ACA1-4F76-811A-30C259BABE75_1_105_c-2.jpeg 2x" class="avatar avatar-100 photo" height="100" width="100" loading="lazy">
+    </div>
+<p></p></div>
+<p><strong>yu_to</strong></p>
+<p style="font-size: 0.7em;">Webエンジニア</p>
+</div>
+<div class="profile-content">
+  都内IT企業でWebエンジニアやってる20代の人。<br>
+  このブログでは主にプログラミングや技術関連、エンジニア向けに役立つ情報等をつれづれに書いていきます。<br>
+  公開しているアプリとかは<a href="https://gakogako.com/myapp/">こちら</a><p></p></div>
+</div>
+</div>
+		</div>  <div class="widget my_popular_posts">
+    <h4 class="widgettitle dfont has-fa-before">人気記事</h4>    <ul class="my-widget show_num">
+          <li>
+        <span class="rank dfont accent-bc">1</span>        <a href="https://gakogako.com/neovim-install/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/neovim2.png" alt="【Vim】今から始めるNeoVimのインストール方法とプラグイン管理のやり方！">
+            </figure>
+                    <div class="my-widget__text">
+            【Vim】今から始めるNeoVimのインストール方法とプラグイン管理のやり方！                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">2</span>        <a href="https://gakogako.com/flutter_sizedbox/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/sizedbox.png" alt="【Flutter】Widgetのサイズを変更できるSizedBoxの使い方【サンプルコードあり】">
+            </figure>
+                    <div class="my-widget__text">
+            【Flutter】Widgetのサイズを変更できるSizedBoxの使い方【サンプルコードあり】                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">3</span>        <a href="https://gakogako.com/flutter_android_release/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/flutter_android_release_3-160x160.png" alt="【2022年最新】Flutter製AndroidアプリをPlayストアにリリースするまでの手順を徹底解説！">
+            </figure>
+                    <div class="my-widget__text">
+            【2022年最新】Flutter製AndroidアプリをPlayストアにリリースするまでの手順を徹底解説！                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">4</span>        <a href="https://gakogako.com/flutter_provider/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/flutter_provider.png" alt="【Flutter】StatefulWidgetを使わずにProviderを使って効率的にWidgetの再描画をする">
+            </figure>
+                    <div class="my-widget__text">
+            【Flutter】StatefulWidgetを使わずにProviderを使って効率的にWidgetの再描画をする                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">5</span>        <a href="https://gakogako.com/flutter-target_of/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/undraw_flutter_dev_wvqj.png" alt="【Flutter】git cloneしてきたらTarget of URI doesn&#39;t exist: &#39;package:flutter/material.dart&#39;...でアプリが動かない時の対処法">
+            </figure>
+                    <div class="my-widget__text">
+            【Flutter】git cloneしてきたらTarget of URI doesn't exist: 'package:flutter/material.dart'...でアプリが動かない時の対処法                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">6</span>        <a href="https://gakogako.com/flutter_icon/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/icon.png" alt="【Flutter】Icon Widgetの使い方【サンプルコードあり】">
+            </figure>
+                    <div class="my-widget__text">
+            【Flutter】Icon Widgetの使い方【サンプルコードあり】                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">7</span>        <a href="https://gakogako.com/vscode-trigger/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/vscode-trigger-160x160.png" alt="【VScode】USキーボード勢はShift+Spaceで補完をトリガーしよう">
+            </figure>
+                    <div class="my-widget__text">
+            【VScode】USキーボード勢はShift+Spaceで補完をトリガーしよう                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">8</span>        <a href="https://gakogako.com/fluter_futurebuilder/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/noname-160x160.png" alt="【Flutter】FutureBuilderで非同期にWidgetを出し分ける方法を解説！">
+            </figure>
+                    <div class="my-widget__text">
+            【Flutter】FutureBuilderで非同期にWidgetを出し分ける方法を解説！                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">9</span>        <a href="https://gakogako.com/automatically_assigning_platform_ios/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/laptop-5906264_1280.png" alt="【Flutter】ビルドした際にAutomatically assigning platform `iOS` with version ...が出た時の対処法">
+            </figure>
+                    <div class="my-widget__text">
+            【Flutter】ビルドした際にAutomatically assigning platform `iOS` with version ...が出た時の対処法                      </div>
+        </a>
+      </li>
+            <li>
+        <span class="rank dfont accent-bc">10</span>        <a href="https://gakogako.com/python_xserver/">
+                      <figure class="my-widget__img">
+              <img width="160" height="160" src="./koubun_files/xserver-160x160.png" alt="Xserver(Linux)にPythonプログラムを常時実行させる方法を解説！">
+            </figure>
+                    <div class="my-widget__text">
+            Xserver(Linux)にPythonプログラムを常時実行させる方法を解説！                      </div>
+        </a>
+      </li>
+                </ul>
+  </div>
+  <div id="categories-2" class="widget widget_categories"><h4 class="widgettitle dfont has-fa-before">カテゴリー</h4>
+			<ul>
+					<li class="cat-item cat-item-98"><a href="https://gakogako.com/category/programming/api/">API</a>
+</li>
+	<li class="cat-item cat-item-83"><a href="https://gakogako.com/category/programming/dart/">Dart</a>
+</li>
+	<li class="cat-item cat-item-82"><a href="https://gakogako.com/category/programming/django/">Django</a>
+</li>
+	<li class="cat-item cat-item-87"><a href="https://gakogako.com/category/programming/docker/">Docker</a>
+</li>
+	<li class="cat-item cat-item-86"><a href="https://gakogako.com/category/programming/firebase/">Firebase</a>
+</li>
+	<li class="cat-item cat-item-81"><a href="https://gakogako.com/category/programming/flutter/">Flutter</a>
+</li>
+	<li class="cat-item cat-item-97"><a href="https://gakogako.com/category/programming/git/">Git</a>
+</li>
+	<li class="cat-item cat-item-114"><a href="https://gakogako.com/category/info/github/">GitHub</a>
+</li>
+	<li class="cat-item cat-item-95"><a href="https://gakogako.com/category/programming/html/">HTML</a>
+</li>
+	<li class="cat-item cat-item-88"><a href="https://gakogako.com/category/programming/linux/">Linux</a>
+</li>
+	<li class="cat-item cat-item-80"><a href="https://gakogako.com/category/programming/python/">Python</a>
+</li>
+	<li class="cat-item cat-item-102"><a href="https://gakogako.com/category/programming/typescript/">TypeScript</a>
+</li>
+	<li class="cat-item cat-item-84"><a href="https://gakogako.com/category/programming/vuejs/">Vue.js</a>
+</li>
+	<li class="cat-item cat-item-101"><a href="https://gakogako.com/category/info/">お役立ち情報</a>
+</li>
+	<li class="cat-item cat-item-90"><a href="https://gakogako.com/category/programming/app_dev/">アプリ開発シリーズ</a>
+</li>
+	<li class="cat-item cat-item-85"><a href="https://gakogako.com/category/programming/editor/">エディタ</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="https://gakogako.com/category/programming/">プログラミング</a>
+</li>
+	<li class="cat-item cat-item-113"><a href="https://gakogako.com/category/info/basic/">基本情報技術者</a>
+</li>
+			</ul>
+
+			</div><div id="tag_cloud-2" class="widget widget_tag_cloud"><h4 class="widgettitle dfont has-fa-before">タグ</h4><div class="tagcloud"><a href="https://gakogako.com/tag/compositionapi/" class="tag-cloud-link tag-link-53 tag-link-position-1" style="font-size: 8pt;" aria-label="CompositionAPI (1個の項目)">CompositionAPI<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/dart/" class="tag-cloud-link tag-link-32 tag-link-position-2" style="font-size: 16.099173553719pt;" aria-label="Dart (9個の項目)">Dart<span class="tag-link-count"> (9)</span></a>
+<a href="https://gakogako.com/tag/dein-vim/" class="tag-cloud-link tag-link-38 tag-link-position-3" style="font-size: 8pt;" aria-label="dein.vim (1個の項目)">dein.vim<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/django/" class="tag-cloud-link tag-link-25 tag-link-position-4" style="font-size: 12.628099173554pt;" aria-label="Django (4個の項目)">Django<span class="tag-link-count"> (4)</span></a>
+<a href="https://gakogako.com/tag/django-rest-framework/" class="tag-cloud-link tag-link-49 tag-link-position-5" style="font-size: 8pt;" aria-label="Django REST Framework (1個の項目)">Django REST Framework<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/docker/" class="tag-cloud-link tag-link-68 tag-link-position-6" style="font-size: 11.471074380165pt;" aria-label="Docker (3個の項目)">Docker<span class="tag-link-count"> (3)</span></a>
+<a href="https://gakogako.com/tag/firebase/" class="tag-cloud-link tag-link-26 tag-link-position-7" style="font-size: 13.553719008264pt;" aria-label="Firebase (5個の項目)">Firebase<span class="tag-link-count"> (5)</span></a>
+<a href="https://gakogako.com/tag/firestore/" class="tag-cloud-link tag-link-31 tag-link-position-8" style="font-size: 12.628099173554pt;" aria-label="Firestore (4個の項目)">Firestore<span class="tag-link-count"> (4)</span></a>
+<a href="https://gakogako.com/tag/flutter/" class="tag-cloud-link tag-link-23 tag-link-position-9" style="font-size: 22pt;" aria-label="Flutter (31個の項目)">Flutter<span class="tag-link-count"> (31)</span></a>
+<a href="https://gakogako.com/tag/git/" class="tag-cloud-link tag-link-39 tag-link-position-10" style="font-size: 10.082644628099pt;" aria-label="Git (2個の項目)">Git<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/hhkb/" class="tag-cloud-link tag-link-57 tag-link-position-11" style="font-size: 8pt;" aria-label="HHKB (1個の項目)">HHKB<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/html/" class="tag-cloud-link tag-link-96 tag-link-position-12" style="font-size: 10.082644628099pt;" aria-label="HTML (2個の項目)">HTML<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/ios/" class="tag-cloud-link tag-link-34 tag-link-position-13" style="font-size: 10.082644628099pt;" aria-label="iOS (2個の項目)">iOS<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/javascript/" class="tag-cloud-link tag-link-100 tag-link-position-14" style="font-size: 10.082644628099pt;" aria-label="JavaScript (2個の項目)">JavaScript<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/linux/" class="tag-cloud-link tag-link-47 tag-link-position-15" style="font-size: 8pt;" aria-label="Linux (1個の項目)">Linux<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/mecab/" class="tag-cloud-link tag-link-65 tag-link-position-16" style="font-size: 8pt;" aria-label="Mecab (1個の項目)">Mecab<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/neovim/" class="tag-cloud-link tag-link-37 tag-link-position-17" style="font-size: 11.471074380165pt;" aria-label="NeoVim (3個の項目)">NeoVim<span class="tag-link-count"> (3)</span></a>
+<a href="https://gakogako.com/tag/provider/" class="tag-cloud-link tag-link-44 tag-link-position-18" style="font-size: 8pt;" aria-label="Provider (1個の項目)">Provider<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/python/" class="tag-cloud-link tag-link-24 tag-link-position-19" style="font-size: 17.02479338843pt;" aria-label="Python (11個の項目)">Python<span class="tag-link-count"> (11)</span></a>
+<a href="https://gakogako.com/tag/sql/" class="tag-cloud-link tag-link-42 tag-link-position-20" style="font-size: 8pt;" aria-label="SQL (1個の項目)">SQL<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/vim/" class="tag-cloud-link tag-link-36 tag-link-position-21" style="font-size: 10.082644628099pt;" aria-label="Vim (2個の項目)">Vim<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/vim%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89/" class="tag-cloud-link tag-link-67 tag-link-position-22" style="font-size: 8pt;" aria-label="Vimコマンド (1個の項目)">Vimコマンド<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/vscode/" class="tag-cloud-link tag-link-40 tag-link-position-23" style="font-size: 8pt;" aria-label="VScode (1個の項目)">VScode<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/vue-js/" class="tag-cloud-link tag-link-51 tag-link-position-24" style="font-size: 10.082644628099pt;" aria-label="Vue.js (2個の項目)">Vue.js<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/vuecli/" class="tag-cloud-link tag-link-52 tag-link-position-25" style="font-size: 10.082644628099pt;" aria-label="VueCLI (2個の項目)">VueCLI<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/widget%e8%a7%a3%e8%aa%ac%e3%82%b7%e3%83%aa%e3%83%bc%e3%82%ba/" class="tag-cloud-link tag-link-128 tag-link-position-26" style="font-size: 12.628099173554pt;" aria-label="Widget解説シリーズ (4個の項目)">Widget解説シリーズ<span class="tag-link-count"> (4)</span></a>
+<a href="https://gakogako.com/tag/xcode/" class="tag-cloud-link tag-link-41 tag-link-position-27" style="font-size: 8pt;" aria-label="Xcode (1個の項目)">Xcode<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/xserver/" class="tag-cloud-link tag-link-48 tag-link-position-28" style="font-size: 8pt;" aria-label="Xserver (1個の項目)">Xserver<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e3%81%b2%e3%82%8d%e3%82%86%e3%81%8d/" class="tag-cloud-link tag-link-66 tag-link-position-29" style="font-size: 8pt;" aria-label="ひろゆき (1個の項目)">ひろゆき<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e3%82%a2%e3%83%97%e3%83%aa%e9%96%8b%e7%99%ba/" class="tag-cloud-link tag-link-45 tag-link-position-30" style="font-size: 10.082644628099pt;" aria-label="アプリ開発 (2個の項目)">アプリ開発<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/%e3%82%a8%e3%83%a9%e3%83%bc/" class="tag-cloud-link tag-link-35 tag-link-position-31" style="font-size: 13.553719008264pt;" aria-label="エラー (5個の項目)">エラー<span class="tag-link-count"> (5)</span></a>
+<a href="https://gakogako.com/tag/%e3%82%a8%e3%83%b3%e3%82%b8%e3%83%8b%e3%82%a2/" class="tag-cloud-link tag-link-75 tag-link-position-32" style="font-size: 12.628099173554pt;" aria-label="エンジニア (4個の項目)">エンジニア<span class="tag-link-count"> (4)</span></a>
+<a href="https://gakogako.com/tag/%e3%82%ac%e3%82%b8%e3%82%a7%e3%83%83%e3%83%88/" class="tag-cloud-link tag-link-58 tag-link-position-33" style="font-size: 10.082644628099pt;" aria-label="ガジェット (2個の項目)">ガジェット<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/%e3%82%ad%e3%83%bc%e3%83%9c%e3%83%bc%e3%83%89/" class="tag-cloud-link tag-link-56 tag-link-position-34" style="font-size: 10.082644628099pt;" aria-label="キーボード (2個の項目)">キーボード<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/%e3%82%af%e3%83%a9%e3%82%a6%e3%83%89%e3%82%bd%e3%83%bc%e3%82%b7%e3%83%b3%e3%82%b0/" class="tag-cloud-link tag-link-71 tag-link-position-35" style="font-size: 8pt;" aria-label="クラウドソーシング (1個の項目)">クラウドソーシング<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e3%82%b9%e3%82%af%e3%83%ac%e3%82%a4%e3%83%94%e3%83%b3%e3%82%b0/" class="tag-cloud-link tag-link-46 tag-link-position-36" style="font-size: 8pt;" aria-label="スクレイピング (1個の項目)">スクレイピング<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e3%83%97%e3%83%ad%e3%82%b0%e3%83%a9%e3%83%9f%e3%83%b3%e3%82%b0/" class="tag-cloud-link tag-link-60 tag-link-position-37" style="font-size: 8pt;" aria-label="プログラミング (1個の項目)">プログラミング<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e3%83%9e%e3%83%ab%e3%82%b3%e3%83%95%e9%80%a3%e9%8e%96/" class="tag-cloud-link tag-link-63 tag-link-position-38" style="font-size: 8pt;" aria-label="マルコフ連鎖 (1個の項目)">マルコフ連鎖<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e3%83%a9%e3%82%a4%e3%83%96%e3%83%a9%e3%83%aa/" class="tag-cloud-link tag-link-43 tag-link-position-39" style="font-size: 8pt;" aria-label="ライブラリ (1個の項目)">ライブラリ<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e5%88%9d%e5%bf%83%e8%80%85/" class="tag-cloud-link tag-link-69 tag-link-position-40" style="font-size: 8pt;" aria-label="初心者 (1個の項目)">初心者<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e5%89%af%e6%a5%ad/" class="tag-cloud-link tag-link-72 tag-link-position-41" style="font-size: 8pt;" aria-label="副業 (1個の項目)">副業<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e5%9f%ba%e6%9c%ac%e6%83%85%e5%a0%b1%e6%8a%80%e8%a1%93%e8%80%85/" class="tag-cloud-link tag-link-110 tag-link-position-42" style="font-size: 10.082644628099pt;" aria-label="基本情報技術者 (2個の項目)">基本情報技術者<span class="tag-link-count"> (2)</span></a>
+<a href="https://gakogako.com/tag/%e5%bd%a2%e6%85%8b%e7%b4%a0%e8%a7%a3%e6%9e%90/" class="tag-cloud-link tag-link-64 tag-link-position-43" style="font-size: 8pt;" aria-label="形態素解析 (1個の項目)">形態素解析<span class="tag-link-count"> (1)</span></a>
+<a href="https://gakogako.com/tag/%e6%8a%80%e8%a1%93%e6%9b%b8/" class="tag-cloud-link tag-link-70 tag-link-position-44" style="font-size: 11.471074380165pt;" aria-label="技術書 (3個の項目)">技術書<span class="tag-link-count"> (3)</span></a>
+<a href="https://gakogako.com/tag/%e9%9f%b3%e6%a5%bd/" class="tag-cloud-link tag-link-61 tag-link-position-45" style="font-size: 8pt;" aria-label="音楽 (1個の項目)">音楽<span class="tag-link-count"> (1)</span></a></div>
+</div><div id="archives-2" class="widget widget_archive"><h4 class="widgettitle dfont has-fa-before">アーカイブ</h4>		<label class="screen-reader-text" for="archives-dropdown-2">アーカイブ</label>
+		<select id="archives-dropdown-2" name="archive-dropdown">
+			
+			<option value="">月を選択</option>
+				<option value="https://gakogako.com/2022/10/"> 2022年10月 &nbsp;(1)</option>
+	<option value="https://gakogako.com/2022/09/"> 2022年9月 &nbsp;(3)</option>
+	<option value="https://gakogako.com/2022/08/"> 2022年8月 &nbsp;(2)</option>
+	<option value="https://gakogako.com/2022/07/"> 2022年7月 &nbsp;(1)</option>
+	<option value="https://gakogako.com/2022/06/"> 2022年6月 &nbsp;(1)</option>
+	<option value="https://gakogako.com/2022/05/"> 2022年5月 &nbsp;(1)</option>
+	<option value="https://gakogako.com/2022/04/"> 2022年4月 &nbsp;(2)</option>
+	<option value="https://gakogako.com/2022/03/"> 2022年3月 &nbsp;(3)</option>
+	<option value="https://gakogako.com/2022/02/"> 2022年2月 &nbsp;(3)</option>
+	<option value="https://gakogako.com/2022/01/"> 2022年1月 &nbsp;(3)</option>
+	<option value="https://gakogako.com/2021/12/"> 2021年12月 &nbsp;(3)</option>
+	<option value="https://gakogako.com/2021/11/"> 2021年11月 &nbsp;(5)</option>
+	<option value="https://gakogako.com/2021/10/"> 2021年10月 &nbsp;(6)</option>
+	<option value="https://gakogako.com/2021/09/"> 2021年9月 &nbsp;(2)</option>
+	<option value="https://gakogako.com/2021/08/"> 2021年8月 &nbsp;(1)</option>
+	<option value="https://gakogako.com/2021/07/"> 2021年7月 &nbsp;(1)</option>
+	<option value="https://gakogako.com/2021/06/"> 2021年6月 &nbsp;(4)</option>
+	<option value="https://gakogako.com/2021/05/"> 2021年5月 &nbsp;(5)</option>
+	<option value="https://gakogako.com/2021/02/"> 2021年2月 &nbsp;(7)</option>
+	<option value="https://gakogako.com/2021/01/"> 2021年1月 &nbsp;(10)</option>
+
+		</select>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+	var dropdown = document.getElementById( "archives-dropdown-2" );
+	function onSelectChange() {
+		if ( dropdown.options[ dropdown.selectedIndex ].value !== '' ) {
+			document.location.href = this.options[ this.selectedIndex ].value;
+		}
+	}
+	dropdown.onchange = onSelectChange;
+})();
+/* ]]> */
+</script>
+			</div>        </div>
+                    <div id="fixed_sidebar" class="fixed-sidebar">
+          <div id="custom_html-2" class="widget_text widget widget_custom_html"><div class="textwidget custom-html-widget"><script async="" src="./koubun_files/f(8).txt" crossorigin="anonymous" data-checked-head="true"></script>
+<!-- 徒然_目次下 -->
+<ins class="adsbygoogle" style="display: block; height: 280px;" data-ad-client="ca-pub-8474156868822041" data-ad-slot="7007675835" data-ad-format="auto" data-full-width-responsive="true" data-adsbygoogle-status="done"><div id="aswift_7_host" style="border: none; height: 280px; width: 366px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"></div></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div><div id="ezw_tco-2" class="widget ez-toc"><div class="ez-toc-widget-container ez-toc-v2_0_17 ez-toc-widget counter-hierarchy counter-decimal">
+
+					<h4 class="widgettitle dfont has-fa-before">
+					<span class="ez-toc-title-container">
+
+						<style type="text/css">
+							#ezw_tco-2 .ez-toc-widget-container ul.ez-toc-list li.active::before {
+								background-color: #ededed;
+							}
+						</style>
+
+						<span class="ez-toc-title">目次</span>
+
+						<span class="ez-toc-title-toggle">
+
+							
+						</span>
+
+					</span>
+
+					</h4>
+					<nav>
+<ul class="ez-toc-list ez-toc-list-level-1"><li class="ez-toc-page-1 ez-toc-heading-level-2 active"><a class="ez-toc-link ez-toc-heading-1" href="https://gakogako.com/python_hiroyuki/#%E3%81%9D%E3%82%82%E3%81%9D%E3%82%82%E5%BD%A2%E6%85%8B%E7%B4%A0%E8%A7%A3%E6%9E%90%E3%81%A8%E3%81%AF" title="そもそも形態素解析とは">そもそも形態素解析とは</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-2" href="https://gakogako.com/python_hiroyuki/#%E3%81%9D%E3%82%82%E3%81%9D%E3%82%82%E3%83%9E%E3%83%AB%E3%82%B3%E3%83%95%E9%80%A3%E9%8E%96%E3%81%A8%E3%81%AF" title="そもそもマルコフ連鎖とは">そもそもマルコフ連鎖とは</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-3" href="https://gakogako.com/python_hiroyuki/#%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB" title="ライブラリのインストール">ライブラリのインストール</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-4" href="https://gakogako.com/python_hiroyuki/#%E3%82%B3%E3%83%BC%E3%83%89%E5%85%A8%E6%96%87" title="コード全文">コード全文</a></li><li class="ez-toc-page-1 ez-toc-heading-level-2"><a class="ez-toc-link ez-toc-heading-5" href="https://gakogako.com/python_hiroyuki/#%E7%B5%82%E3%82%8F%E3%82%8A%E3%81%AB" title="終わりに">終わりに</a></li></ul></nav>
+</div>
+</div>        </div>
+          </aside>
+  </div>
+    </div>
+  </div>
+
+      <footer class="footer">
+                <div id="footer-menu">
+          <div>
+            <a class="footer-menu__btn dfont" href="https://gakogako.com/"><i class="fas fa-home" aria-hidden="true"></i> HOME</a>
+          </div>
+          <nav>
+            <div class="footer-links cf"><ul id="menu-%e3%83%95%e3%83%83%e3%82%bf%e3%83%bc" class="nav footer-nav cf"><li id="menu-item-871" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-871"><a href="https://gakogako.com/contact/">お問い合わせ</a></li>
+</ul></div>                      </nav>
+          <p class="copyright dfont">
+            © 2022            徒然なるままに技術            All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+    <script type="text/javascript" src="./koubun_files/comment-reply.min.js.ダウンロード" id="comment-reply-js"></script>
+<script type="text/javascript" src="./koubun_files/regenerator-runtime.min.js.ダウンロード" id="regenerator-runtime-js"></script>
+<script type="text/javascript" src="./koubun_files/wp-polyfill.min.js.ダウンロード" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="contact-form-7-js-extra">
+/* <![CDATA[ */
+var wpcf7 = {"api":{"root":"https:\/\/gakogako.com\/wp-json\/","namespace":"contact-form-7\/v1"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./koubun_files/index.js.ダウンロード" id="contact-form-7-js"></script>
+<script type="text/javascript" src="./koubun_files/clipboard.min.js.ダウンロード" id="clipboard-js"></script>
+<script type="text/javascript" src="./koubun_files/prism.js.ダウンロード" id="hcb-prism-js"></script>
+<script type="text/javascript" id="hcb-script-js-extra">
+/* <![CDATA[ */
+var hcbVars = {"showCopy":"on"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./koubun_files/hcb_script.js.ダウンロード" id="hcb-script-js"></script>
+<script type="text/javascript" src="./koubun_files/wp-embed.min.js.ダウンロード" id="wp-embed-js"></script>
+<script type="text/javascript" src="./koubun_files/highlight.min.js.ダウンロード" id="sng-highlight-js"></script>
+<script type="text/javascript" src="./koubun_files/jquery.smooth-scroll.min.js.ダウンロード" id="jquery-smooth-scroll-js"></script>
+<script type="text/javascript" src="./koubun_files/js.cookie.min.js.ダウンロード" id="js-cookie-js"></script>
+<script type="text/javascript" src="./koubun_files/jquery.sticky-kit.min.js.ダウンロード" id="jquery-sticky-kit-js"></script>
+<script type="text/javascript" id="ez-toc-js-js-extra">
+/* <![CDATA[ */
+var ezTOC = {"smooth_scroll":"1","scroll_offset":"30"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./koubun_files/front.min.js.ダウンロード" id="ez-toc-js-js"></script>
+<script src="./koubun_files/e-202245.js.ダウンロード" defer=""></script>
+<script>
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:10.2',blog:'187559881',post:'891',tz:'9',srv:'gakogako.com'} ]);
+	_stq.push([ 'clickTrackerInit', '187559881', '891' ]);
+</script>
+<script>jQuery(function(){jQuery('.wp-block-sgb-tab .post-tab').each(function(index){var tabAppendClass="js-tab-id-"+index;jQuery(this).addClass(tabAppendClass);var activeColor=jQuery(this).data("activeColor");var style=jQuery("<style>");style.html(".post-tab."+tabAppendClass+" > label.tab-active { background: "+activeColor+"}");jQuery(document.body).append(style)});jQuery('.post-tab > label').click(function(){jQuery(this).siblings().removeClass('tab-active');var tab=jQuery(this).closest('.wp-block-sgb-tab');var panels=tab.children('.post-tab__content');panels.removeClass('tab-active');var tabClass=jQuery(this).attr('class').split(" ")[0];jQuery(this).addClass('tab-active');panels.each(function(){if(jQuery(this).attr('class').indexOf(tabClass)!=-1){jQuery(this).addClass('tab-active').fadeIn()}else{jQuery(this).hide()}})})});</script><script>jQuery(function(){var isIE=/MSIE|Trident/.test(window.navigator.userAgent);if(!isIE)return;var fixed=jQuery('#fixed_sidebar');var beforeFix=jQuery('#notfix');var main=jQuery('#main');var beforeFixTop=beforeFix.offset().top;var fixTop=fixed.offset().top;var mainTop=main.offset().top;var w=jQuery(window);var adjust=function(){var fixHeight=fixed.outerHeight(true);var fixWidth=fixed.outerWidth(false);var beforeFixHeight=beforeFix.outerHeight(true);var mainHeight=main.outerHeight();var winHeight=w.height();var scrollTop=w.scrollTop();var fixIdleBottom=winHeight+(scrollTop-mainHeight-mainTop);if(fixTop+fixHeight>=mainTop+mainHeight)return;if(scrollTop+fixHeight>mainTop+mainHeight){fixed.removeClass('sidefixed');fixed.addClass('sideidled');fixed.css({'bottom':fixIdleBottom});return}if(scrollTop>=fixTop-25){fixed.addClass('sidefixed');fixed.css({'width':fixWidth,'bottom':'auto'});return}fixed.removeClass('sidefixed sideidled');fixTop=fixed.offset().top};w.on('scroll',adjust)});</script><script>jQuery(document).ready(function(){jQuery(window).scroll(function(){if(jQuery(this).scrollTop()>700){jQuery('.totop').fadeIn(300)}else{jQuery('.totop').fadeOut(300)}});jQuery('.totop').click(function(event){event.preventDefault();jQuery('html, body').animate({scrollTop:0},300)})});</script><script>jQuery(document).ready(function(){jQuery('pre.js-sng-highlight code').each(function(i,block){hljs.highlightBlock(block)})});</script><script>jQuery(function(){jQuery.post("https://gakogako.com/?rest_route=/sng/v1/page-count",{id:"891"})});</script>        <a href="https://gakogako.com/python_hiroyuki/#" class="totop" rel="nofollow" aria-label="トップに戻る" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>  
+
+<img src="./koubun_files/g.gif" alt="" width="6" height="5" id="wpstats"><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" tabindex="0" title="Advertisement" aria-label="Advertisement" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" src="./koubun_files/ads(2).html" data-google-container-id="a!1" data-load-complete="true"></iframe></div></ins><iframe src="./koubun_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe id="google_esf" name="google_esf" src="./koubun_files/zrt_lookup.html" style="display: none;"></iframe></html>

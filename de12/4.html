@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <link rel="stylesheet" href="./css/style.css">   
+
+    <title>小林-ゲーム作成</title>
+</head>
+
+<body>
+    <h1>あなたが求めているペットを生成するゲーム</h1>
+7班のテーマはアキネーターのような診断ゲームになり、<br>
+私は質問からペットを生成するゲームを作りました。<br>
+<br>
+・ソースコード<br>
+    <code>
+        <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#000;color:#FFF;">
+        <li>name=input(<font style="color:lightcoral;">"名前をつけてください。"</font>)</li>
+        <li>ookisa=int(input(<font style="color:lightcoral;">"大きさは？1-3(小さい⇔大きい)で答えてください。"</font>))</li>
+        <li>kawaisa=int(input(<font style="color:lightcoral;">"かわいさは？1-3(かわいい⇔かっこいい）で答えてください。"</font>))</li>
+        <li>seibetu=int(input(<font style="color:lightcoral;">"性別は？オス=１、メス=２で答えてください。"</font>))</li>
+        <li>seikaku=int(input(<font style="color:lightcoral;">"性格は？１＝甘えん坊、２＝勇敢、３＝臆病、４＝狂暴、５＝ツンデレ"</font>))</li>
+        <li>tokutyou=int(input(<font style="color:lightcoral;">"特徴は？１＝食いしん坊、２＝散歩好き、３＝眠たがり、４＝きれい好き、５＝哲学的"</font>))</li>
+        <li></li>
+        <li>import random</li>
+        <li>sk=(<font style="color:lightcoral;">"ハムスター"</font>,<font style="color:lightcoral;">"モモンガ"</font>,<font style="color:lightcoral;">"フェレット"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>sh=(<font style="color:lightcoral;">"インコ"</font>,<font style="color:lightcoral;">"カメ"</font>,<font style="color:lightcoral;">"フェレット"</font>,<font style="color:lightcoral;">"チワワ"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>sc=(<font style="color:lightcoral;">"カブトムシ"</font>,<font style="color:lightcoral;">"トカゲ"</font>,<font style="color:lightcoral;">"カマキリ"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>mk=(<font style="color:lightcoral;">"ウサギ"</font>,<font style="color:lightcoral;">"ネコ"</font>,<font style="color:lightcoral;">"プードル"</font>,<font style="color:lightcoral;">"コアラ"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>mh=(<font style="color:lightcoral;">"ブタ"</font>,<font style="color:lightcoral;">"サル"</font>,<font style="color:lightcoral;">"アルマジロ"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>mc=(<font style="color:lightcoral;">"ヘビ"</font>,<font style="color:lightcoral;">"ワニ"</font>,<font style="color:lightcoral;">"ワシ"</font>,<font style="color:lightcoral;">"イグアナ"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>lk=(<font style="color:lightcoral;">"シロクマ"</font>,<font style="color:lightcoral;">"アザラシ"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>lh=(<font style="color:lightcoral;">"ゾウ"</font>,<font style="color:lightcoral;">"キリン"</font>,<font style="color:lightcoral;">"カンガルー"</font>)</li>
+        <li></li>
+        <li>import random</li>
+        <li>lc=(<font style="color:lightcoral;">"サメ"</font>,<font style="color:lightcoral;">"ゴリラ"</font>,<font style="color:lightcoral;">"ライオン"</font>,<font style="color:lightcoral;">"チーター"</font>)</li>
+        <li></li>
+        <li>if ookisa==1 and kawaisa==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(sk),<font style="color:lightcoral;">"の"</font>)</li>
+        <li></li>
+        <li>elif ookisa==1 and kawaisa==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(sc),<font style="color:lightcoral;">"の"</font>)</li>
+        <li></li>
+        <li>elif ookisa==2 and kawaisa==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(mk),<font style="color:lightcoral;">"の"</font>)</li>
+        <li></li>
+        <li>elif ookisa==2 and kawaisa==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(mh),<font style="color:lightcoral;">"の"</font>)</li>
+        <li></li>
+        <li>elif ookisa==2 and kawaisa==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(mc),<font style="color:lightcoral;">"の"</font>)</li>
+        <li></li>
+        <li>elif ookisa==3 and kawaisa==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(lk),<font style="color:lightcoral;">"の"</font>)</li>
+        <li></li>
+        <li>elif ookisa==3 and kawaisa==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(lh),<font style="color:lightcoral;">"の"</font>) </li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        <li>elif ookisa==3 and kawaisa==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(random.choice(lc),<font style="color:lightcoral;">"の"</font>)</li>
+        <li></li>
+        <li></li>
+        <li>print(name)</li>
+        <li></li>
+        <li>if seibetu==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"くん"</font>)</li>
+        <li>elif seibetu==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"ちゃん"</font>)</li>
+        <li></li>
+        <li>if seikaku==1 and tokutyou==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ごはんがほしいな?」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==1 and tokutyou==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「おさんぽにつれてってほしいな?」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==1 and tokutyou==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ねんねしたいな?」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==1 and tokutyou==4:</li>
+        <li>&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「シャンプーしてほしいな?」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==1 and tokutyou==5:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「真の賢者は己の愚を知る者だよね?」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==2 and tokutyou==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ご飯を探しに行こう！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==2 and tokutyou==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ついてきて！外に行こう」"</font>)</li>
+        <li>&nbsp;</li>
+        <li>elif seikaku==2 and tokutyou==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「さあ、寝よう」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==2 and tokutyou==4:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「さあ、体を洗って！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==2 and tokutyou==5:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「内容のない思考は空虚であり、概念のない直観は盲目なんだよ。」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==3 and tokutyou==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ごはんがたべたいのだけど…」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==3 and tokutyou==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「すこしそとにいきたいな…」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==3 and tokutyou==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ねむりたい…」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==3 and tokutyou==4:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「おふろにいれてほしいのだけど…」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==3 and tokutyou==5:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「真の賢者は己の愚を知る者だとおもうよ…」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==4 and tokutyou==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ごはんをよこせ！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==4 and tokutyou==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「さんぽにつれていけ！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==4 and tokutyou==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「寝床を用意しろ！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==4 and tokutyou==4:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「掃除をしろ！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==4 and tokutyou==5:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「ねたみは魂の腐敗だぞ！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==5 and tokutyou==1:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「お腹すいてるわけじゃないんだからね」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==5 and tokutyou==2:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「別に歩きたくなんかないんだからね」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==5 and tokutyou==3:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「眠くなんてないんだから！」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==5 and tokutyou==4:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「べつにお風呂なんか入らなくてもいいもん」"</font>)</li>
+        <li></li>
+        <li>elif seikaku==5 and tokutyou==5:</li>
+        <li>&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:lightcoral;">"「たくさん持っている人が豊かなのではなく、たくさん与える人が豊かなんだからね」"</font>)</li>
+        <li></li>
+        <li></li>
+        </ol></code>
+
+<br>
+・実際に遊んでいる動画<br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Gvz-5k4Na5w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+ 
+</body>
+</html>

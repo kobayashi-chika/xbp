@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <link rel="stylesheet" href="./css/style58.css">   
+
+    <title>小林-第５回</title>
+</head>
+
+<body>
+    <h1>可能性の模索</h1><br>
+    <h2>自動ホームページ作成</h2><br>
+    <br>
+    7班の最初の「プログラミングでこんなことはできないか？」という話し合いでは以下があがりました。<br>
+    <br>
+    ①文章自動生成グループ<br>
+    ・文章の自動生成<br>
+    ・レポート・リアクションペーパーを勝手に書いてくれる<br>
+    ・レポートのアイデアを出してくれる<br>
+    ・メールの自動作成<br>
+    ・日記自動生成<br>
+    ・文章の校閲、文をフォーマルにしてくれる<br>
+    ・自動ブログ生成<br>
+    ・引用のお手伝い<br>
+    ・スペルを勝手に直してくれる<br>
+    ・相槌生成（会話）<br>
+    <br>
+    ②音声系グループ<br>
+    ・音声でノートまとめてくれる<br>
+    ・勝手に授業を聞いて勝手にノートまとめてくれる<br>
+    <br>
+    ③絵・画像グループ<br>
+    ・文字を入力すると絵を描いてくれる<br>
+    ・自動でいい感じの色の背景にしてくれる<br>
+    ・写真を自動で引っ張ってきてくれる<br>
+    <br>
+    ④その他<br>
+    ・お金の管理<br>
+    ・洋服を自動で選んでくれる<br>
+    ・一番商品の価格が安いものを選んでくれる<br>
+    ・指定したサイトの新し区アップロードされたファイルを自動で保存<br>
+    ・サイトの更新を通知してくれる<br>
+    <br>
+    上記の項目からいくつかを組み合わせ、<br>
+    <h3>音声入力→自動要約→丁寧な文章に変換→その文章を使い自動でウェブ作成（自動できれいな配色）</h3><br>
+    ということをやってくれるコードを作ることにしました。<br>
+    <br>
+    <a href="https://www.tech-teacher.jp/blog/python_voicerecognition/">音声入力</a>、
+    <a href="https://gakogako.com/python_hiroyuki/">文章の言い回しの変換</a>、
+    <a href="https://reasonable.work/colors/">ランダムでおすすめの配色</a>
+    ができるコードを見つけることができましたが、<br>
+    ダウンロード量が多すぎることや、コードを全く理解できなかったことから、実行できませんでした。<br>
+    <br>
+    そのため、自動で配色しホームページを作成するコードを作ることになりました。<br>
+    メンバーそれぞれで、RGB1-255を乱数生成したり、カラーコードを乱数生成したり、ランダムに配色されるサイトのコードからヒントを探したりしました。<br>
+    <br>
+    私はリストからランダムに要素を選択するコードを使って、以下のコードができました。
+    <br>
+    <code>
+        <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#116;color:#FF7;">
+        <li style="background-color:#116;">import  random #（）内からランダム、print(random.choice())で表示</li>
+        <li style="background-color:#118;">light=("#FFFFFF","#FFFAFA","#F0F8FF","#F5FFFA")</li>
+        <li style="background-color:#116;">#白、白桃、白青、白緑</li>
+        <li style="background-color:#118;"></li>
+        <li style="background-color:#116;">import random</li>
+        <li style="background-color:#118;">vivid=("#FF4500","#7B68EE","#DC143C")</li>
+        <li style="background-color:#116;">#オレンジ、薄紫、赤</li>
+        <li style="background-color:#118;"></li>
+        <li style="background-color:#116;">import random</li>
+        <li style="background-color:#118;">dark=("#000000","","#2f4f4f","#191970")</li>
+        <li style="background-color:#116;">#黒、暗緑、暗紺</li>
+        <li style="background-color:#118;"></li>
+        <li style="background-color:#116;">print(random.choice(light))</li>
+        <li style="background-color:#118;">l=random.choice(light)</li>
+        <li style="background-color:#116;"></li>
+        <li style="background-color:#118;">print(random.choice(vivid))</li>
+        <li style="background-color:#116;">v=random.choice(vivid)</li>
+        <li style="background-color:#118;"></li>
+        <li style="background-color:#116;">print(random.choice(dark))</li>
+        <li style="background-color:#118;">d=random.choice(dark)</li>
+        <li style="background-color:#116;"></li>
+        <li style="background-color:#118;">f = open('C:\\Users\\a\\mygit\\xbp\\de12\\python\\randomweb.html', 'w') #HTMLファイルを開く f.writeでhtmlに埋め込み</li>
+        <li style="background-color:#116;">f.write('\n')</li>
+        <li style="background-color:#118;"></li>
+        <li style="background-color:#116;">f.write('&lt;!DOCTYPE html&gt;')</li>
+        <li style="background-color:#118;">f.write('\n') #改行</li>
+        <li style="background-color:#116;">f.write('&lt;html lang="jp"&gt;')</li>
+        <li style="background-color:#118;">f.write('\n')</li>
+        <li style="background-color:#116;">f.write('&lt;head&gt;')</li>
+        <li style="background-color:#118;">f.write('\n')</li>
+        <li style="background-color:#116;">f.write('&lt;title&gt;"タイトル"&lt;/title&gt;')</li>
+        <li style="background-color:#118;">f.write('\n')</li>
+        <li style="background-color:#116;">f.write('&lt;/head&gt;')</li>
+        <li style="background-color:#118;">f.write('\n')</li>
+        <li style="background-color:#116;"></li>
+        <li style="background-color:#118;">f.write('&lt;body bgcolor="' +d+'" text="#cccccc"&gt;') #ランダムリストの中から背景色を貼り付け</li>
+        <li style="background-color:#116;">f.write('\n')</li>
+        <li style="background-color:#118;">f.write('&lt;div style="border: ' +v+' solid 1px; border-left:  ' +v+' solid 10px; padding: 20px; background:  ' +l+'; font-size: 100%;"&gt;"タイトル"&lt;/div&gt;')#ランダムリストの中から枠の色、枠内の色を貼り付け</li>
+        <li style="background-color:#116;">f.write('\n')</li>
+        <li style="background-color:#118;">f.write('本文')</li>
+        <li style="background-color:#116;">f.write('\n')</li>
+        <li style="background-color:#118;">f.write('&lt;/body&gt;')</li>
+        <li style="background-color:#116;">f.write('\n')</li>
+        <li style="background-color:#118;">f.write('&lt;html&gt;')</li>
+        <li style="background-color:#116;">f.close</li>
+        <li style="background-color:#118;"></li>
+        </ol></code>
+        <br>
+    完全ランダムの配色のコードは見つかりましたが、同系色が選ばれたり、彩度の高い補色が選ばれたりなどが簡単に起きてしまうため、<br>
+    暗い色、明るい色、彩度の高い色でリストを分けて作ることで、どの組み合わせになってもミスが起こりにくいようにすることができました。<br>
+    しかし、pythonからhtmlに変換する段階で文字化けが起きてしまいました。<br>
+    ↓完成したものです。<br>
+    <br>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/OIUoMLoDPeQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+    <img src="./images/randam.png" width="60%"><br>
+
+
+
+</body>
+</html>
